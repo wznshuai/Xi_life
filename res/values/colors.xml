@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="grey">#f0f0f0</color>
+	<color name="white">#ffffff</color>
+	<color name="purple">#EA4C89</color>
+	<color name="orange">#ff9900</color>
+	
+	<!-- common text color -->
+	<color name="text_white_title">#ffffff</color>
+	<color name="text_white_title_enable">#7f7f7f</color>
+	<color name="text_black_title">#222122</color>
+	<color name="text_black_content">#707070</color>
+	<color name="text_black_subtitle">#707070</color>
+	<color name="text_black_mark">#707070</color>
+	<color name="text_black_hint">#d5d5d5</color>
+	<color name="text_black_input">#555555</color>
+
+
+	<!-- dialog -->
+	<color name="loading_dialog_background">#8f000000</color>
+	
+	<color name="dialog_title">#C32361</color>
+	<color name="dialog_background">#242424</color>
+	<color name="dialog_content">#F2F2F2</color>
+	<color name="dialog_line">#C32361</color>
+	<color name="dialog_button_line">#393939</color>
+	<color name="dialog_list_driver">#393939</color>
+	<color name="dialog_button_background_pressed">#ea4c89</color>
+
+	<color name="face_border">#d9d9d9</color>
+	
+	
+	<!-- common button color -->
+	<color name="btn_black_pressed">#8f000000</color>
+	<color name="btn_red_normal">#ea4c89</color>
+	<color name="btn_red_pressed">#7f3131</color>
+	<color name="btn_grey_normal">#787274</color>
+	<color name="btn_grey_pressed">#484446</color>
+	<color name="btn_purple_normal">#ea4c89</color>
+	<color name="btn_purple_pressed">#983159</color>
+	<color name="btn_yellow_normal">#ffb312</color>
+	<color name="btn_yellow_pressed">#a1710b</color>
+	
+	<color name="login_separator">#787274</color>	
+	
+	<color name="grid_item_bg_pressed">#dcdada</color>
+	<color name="image_grey_frame1">#99000000</color>
+	<color name="image_grey_frame">#E5000000</color>
+	
+	<color name="circle_bg">#e64a3f42</color>
+	<color name="del_text_pressed">#752644</color>
+	<color name="gallery_num_color">#e57ca5</color>
+	
+	
+	<color name="login_text_color">#999999</color>
+	
+	<!-- common -->
+	<color name="common_bg">#025dfa</color>
+	<color name="common_btn_bg_blue_normal">#003366</color>
+	<color name="common_btn_bg_blue_pressed">#009999</color>
+	<color name="common_check_normal">#666666</color>
+	<color name="common_check_checked">#ff0099</color>
+	<!-- Top bar -->
+	<color name="top_center_txt">#333333</color>
+	
+	
+	<color name="usercenter_bottom_textcolor">#626262</color>
+</resources>

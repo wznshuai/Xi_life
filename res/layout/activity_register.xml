@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@string/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/common_topbar" />
+
+    <RelativeLayout
+        android:id="@string/real_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/main_bg" >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:paddingTop="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/grey_bg"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/act_register_phonenum"
+                    style="@style/Common_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/register_phone_hit"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone" />
+
+                <EditText
+                    android:id="@+id/act_register_pwd"
+                    style="@style/Common_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/pwd_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/act_register_pwd2"
+                    style="@style/Common_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/pwd_new_again_hint"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp" >
+
+                    <EditText
+                        android:id="@+id/act_register_verifycode"
+                        style="@style/Common_EditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/sms_verifycode_hint"
+                        android:imeOptions="actionDone"
+                        android:inputType="number" />
+                    
+                    <TextView 
+                        android:layout_marginLeft="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/get_sms_verifycode"
+                        android:textColor="#ffffff"
+                        android:background="@drawable/orange_bg"/>
+                </LinearLayout>
+                
+                <CheckBox 
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/read_me"
+                    android:textSize="12sp"
+                    style="@style/Common_CheckBox.Pink"/>
+                
+                <Button 
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Common_Button.Blue"
+                    android:text="@string/submit"/>
+            </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

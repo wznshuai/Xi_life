@@ -1,0 +1,91 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:listViewStyle">@style/MyListView</item>
+    </style>
+
+    <style name="Transparent" parent="@android:style/Theme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@+android:style/Animation.Translucent</item>
+    </style>
+
+    
+    <style name="Common_EditText" parent="android:Widget.EditText">
+        <item name="android:textColor">@color/text_black_input</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColorHint">@color/text_black_hint</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:background">@drawable/common_edit_bg_pink</item>
+    </style>
+
+    <style name="Common_Button" parent="@android:style/Widget.Button">
+        <item name="android:textSize">15sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="Common_Button.Blue" parent="Common_Button">
+        <item name="android:background">@drawable/btn_common_blue_selector</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="MyListView" parent="@android:style/Widget.ListView">
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:listSelector">@android:color/transparent</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">1px</item>
+        <item name="android:fadingEdge">none</item>
+    </style>
+
+    <style name="Common_CheckBox.Pink" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_pink_selector</item>
+        <item name="android:textColor">@color/login_text_color</item>
+    </style>
+    
+    <style name="Common_CheckBox.Setting" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_setting_selector</item>
+    </style>
+
+    <style name="UserCenter_PayTab_Text" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/common_check_text_selector</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="UserCenter_bottom_txt" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/usercenter_bottom_textcolor</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/grey_bg</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+    
+    <style name="RadioButton.Order" parent="@android:style/Widget.Button.Toggle">
+         <item name="android:button">@null</item>
+         <item name="android:textColor">@color/common_check_text_selector</item>
+         <item name="android:background">@null</item>
+         <item name="android:textSize">15sp</item>
+     </style>
+
+</resources>

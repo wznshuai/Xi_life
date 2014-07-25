@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@string/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/common_topbar" />
+
+    <RelativeLayout
+        android:id="@string/real_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:background="@drawable/main_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_integral_bg"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <com.zhongjie.view.RoundedImageView
+                    android:id="@+id/act_userinfo_head"
+                    android:layout_width="@dimen/usercenter_head_width"
+                    android:layout_height="@dimen/usercenter_head_height"
+                    android:src="@drawable/ic_default_head"
+                    app:corner_radius="50dp"
+                    app:pressdown_shade="true"
+                    app:round_background="true" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="南京达人"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:gravity="right"
+                            android:singleLine="true"
+                            android:text="2栋5012室"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:gravity="left"
+                            android:singleLine="true"
+                            android:text="积分 ： 878"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <ImageView 
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ff0099"/>
+            <RelativeLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eeeeee">
+                <TextView 
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/act_integral_integral"
+                    android:layout_marginLeft="@dimen/integral_common_leftMargin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="积分   878"/>
+                <ImageView 
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#cccccc"
+                    android:layout_below="@+id/act_integral_integral"/>
+                <ImageView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:background="#ff0099"
+                    android:layout_alignLeft="@+id/act_integral_integral"
+                    android:layout_alignRight="@+id/act_integral_integral"
+                    android:layout_below="@+id/act_integral_integral"/>
+            </RelativeLayout>
+            <RelativeLayout 
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView 
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#cccccc"
+                    android:layout_marginLeft="@dimen/integral_line_leftMargin"/>
+                <ListView 
+                    android:id="@+id/act_integral_listview"
+                    style="@style/MyListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:dividerHeight="5dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>
