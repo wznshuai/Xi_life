@@ -16,4 +16,6 @@
 	<dimen name="integral_item_topMargin">5dp</dimen><!-- integral_item_circular_width / 2 -->
 	<dimen name="repairs_photo">120dp</dimen>
 	<dimen name="order_photo">60dp</dimen>
+	<dimen name="anytimebuy_item_height">180dp</dimen>
+	<dimen name="commodity_item_img">80dp</dimen>
 </resources>

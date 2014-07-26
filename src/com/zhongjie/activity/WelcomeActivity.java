@@ -15,7 +15,6 @@ public class WelcomeActivity extends BaseActivity{
 
 	@Override
 	protected void initViews() {
-		System.out.println("aaaaaaaa");
 	}
 	
 }

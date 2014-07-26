@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@string/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/common_topbar" />
+
+    <RelativeLayout
+        android:id="@string/real_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/main_bg" >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/act_commodity_details_viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fadingEdge="none"
+                        android:overScrollMode="never" />
+
+                    <com.zhongjie.view.viewpagerindicator.CirclePageIndicator
+                        android:id="@+id/setting_userGuide_indicator_dot"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        app:circle_radius="3dp"
+                        app:extraSpacing="10dp"
+                        app:fillColor="#b8b8b8"
+                        app:pageColor="#393838"
+                        app:strokeWidth="0dp" 
+                        android:layout_alignBottom="@+id/act_commodity_details_viewpager"
+                        android:layout_marginBottom="10dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -39,6 +39,10 @@ public class BaseFragment extends Fragment{
 		
 	}
 	
+	protected void findViews(){}
+	
+	protected void initViews(){}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

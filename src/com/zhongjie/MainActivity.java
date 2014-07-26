@@ -15,6 +15,7 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
 import com.zhongjie.activity.BaseActivity;
+import com.zhongjie.fragment.FragmentAnyTimeBuy;
 import com.zhongjie.fragment.FragmentUserCenter;
 
 public class MainActivity extends BaseActivity implements OnTabChangeListener{
@@ -99,7 +100,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		FragmentTransaction ft = mFm.beginTransaction();
 		Fragment f = null;
 		if(tabId.equals(TAB_1)){
-			f = FragmentStackSupport.newInstance(1);
+			f = FragmentAnyTimeBuy.newInstance();
 		}else if(tabId.equals(TAB_2)){
 			f = FragmentStackSupport.newInstance(2);
 		}else if(tabId.equals(TAB_3)){
