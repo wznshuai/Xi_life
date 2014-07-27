@@ -16,6 +16,7 @@ public abstract class BaseSecondActivity extends BaseActivity{
 	@Override
 	public void setContentView(int layoutResID) {
 		View srov = getLayoutInflater().inflate(R.layout.slide_left_out_view, null);
+		srov.setId(R.string.slide_view);
 		View mainView = getLayoutInflater().inflate(layoutResID, null);
 //		mainView.setBackgroundColor(Color.BLACK);
 //		mainView.findViewById(R.string.real_content).setBackgroundResource(R.drawable.main_bg);

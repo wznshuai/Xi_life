@@ -66,6 +66,16 @@
     <style name="Common_CheckBox.Setting" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox_setting_selector</item>
     </style>
+    
+    <style name="Common_CheckBox.Commodity_details" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/checkbox_commodity_details_selector</item>
+        <item name="android:textColor">@color/checkbox_text_color_commodity_details_selector</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
 
     <style name="UserCenter_PayTab_Text" parent="@android:style/Widget.TextView">
         <item name="android:textSize">15sp</item>

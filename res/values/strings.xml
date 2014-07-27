@@ -30,6 +30,7 @@
     <!-- ids -->
     <string name="main_content" type="id" />
     <string name="real_content" type="id"/>
+    <string name="slide_view" type="id"/>
     
     <!-- 临时数据 -->
     <string name="temp1">订单金额  : <font color='#ff0099'>￥3600.00</font></string>

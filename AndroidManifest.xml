@@ -36,6 +36,7 @@
         <activity android:name="com.zhongjie.activity.user.MyRepairsActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
         <activity android:name="com.zhongjie.activity.user.MyOrderActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
         <activity android:name="com.zhongjie.activity.anytimebuy.CommodityListActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
+  		<activity android:name="com.zhongjie.activity.anytimebuy.CommodityDetailsActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.zhongjie.activity.anytimebuy;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -11,8 +12,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
@@ -24,6 +28,8 @@ public class CommodityListActivity extends BaseSecondActivity {
 	private volatile boolean isShowing = false;
 	private WindowManager mWm;
 	private View mFloatView;
+	private TextView mBuyCountView;
+	private int mBuyCount = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,16 @@ public class CommodityListActivity extends BaseSecondActivity {
 		mTopCenterImg.setVisibility(View.VISIBLE);
 		mListView.setAdapter(new MyCommodityAdapter());
 		createFloatView(this);
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				System.out.println("?????????????????????");
+				startActivity(new Intent(CommodityListActivity.this, CommodityDetailsActivity.class));
+			}
+			
+		});
 	}
 
 	private void createFloatView(final Activity act) {
@@ -59,6 +75,7 @@ public class CommodityListActivity extends BaseSecondActivity {
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 		mFloatView = LayoutInflater.from(act).inflate(
 				R.layout.float_view_shoppingcar, null);
+		mBuyCountView = (TextView)mFloatView.findViewById(R.id.float_view_shoppingcar_buyCount);
 		lp.packageName = act.getPackageName();
 		lp.width = Utils.dp2px(getApplicationContext(), 60);
 		lp.height = Utils.dp2px(getApplicationContext(), 60);
@@ -111,12 +128,34 @@ public class CommodityListActivity extends BaseSecondActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			if (null == convertView)
+			ViewHolder vh;
+			if (null == convertView){
 				convertView = getLayoutInflater().inflate(
 						R.layout.listview_item_commodity, null);
+				vh = new ViewHolder();
+				vh.addInShoppingCar = convertView.findViewById(R.id.list_item_commodity_add_in_shoppingcar);
+				convertView.setTag(vh);
+			}else{
+				vh = (ViewHolder)convertView.getTag();
+			}
+			
+			vh.addInShoppingCar.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					if(null != mBuyCountView){
+						mBuyCountView.setText(" " + mBuyCount++ + " ");
+					}
+				}
+			});
 			return convertView;
 		}
+		
+		class ViewHolder{
+			View addInShoppingCar;
+		}
 	}
+	
 	
 	@Override
 	public void finish() {
