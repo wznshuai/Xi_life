@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.view.View;
+import android.widget.TextView;
 
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.fragment.FragmentBigImg;
+import com.zhongjie.view.MyRatingbar;
 import com.zhongjie.view.MyViewPager;
 import com.zhongjie.view.SlideRightOutView;
 import com.zhongjie.view.viewpagerindicator.CirclePageIndicator;
@@ -18,6 +20,8 @@ public class CommodityDetailsActivity extends BaseSecondActivity{
 	
 	private MyViewPager mPager;
 	private CirclePageIndicator mIndicator;
+	private MyRatingbar mRatingbar;
+	private TextView mCommentCount, mGoodPercent;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,9 @@ public class CommodityDetailsActivity extends BaseSecondActivity{
 	protected void findViews() {
 		mPager = (MyViewPager)findViewById(R.id.act_commodity_details_viewpager);
 		mIndicator = (CirclePageIndicator)findViewById(R.id.act_commodity_indicator_dot);
+		mRatingbar = (MyRatingbar)findViewById(R.id.act_commodity_details_ratingbar);
+		mCommentCount = (TextView)findViewById(R.id.act_commodity_details_countComment);
+		mGoodPercent = (TextView)findViewById(R.id.act_commodity_details_hpl);
 	}
 
 	@Override
@@ -45,6 +52,9 @@ public class CommodityDetailsActivity extends BaseSecondActivity{
 		mPager.setSrov((SlideRightOutView)findViewById(R.string.slide_view));
 		mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 		mIndicator.setViewPager(mPager);
+		mRatingbar.setSrov((SlideRightOutView)findViewById(R.string.slide_view));
+		mCommentCount.setText(Html.fromHtml("<font color='#ff0099'>110</font>人  评价"));
+		mGoodPercent.setText(Html.fromHtml("<font color='#ff0099'>99%</font> 好评"));
 	}
 	
 	class MyPagerAdapter extends FragmentStatePagerAdapter{

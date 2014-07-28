@@ -26,6 +26,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/white"
                 android:orientation="vertical" >
 
                 <RelativeLayout
@@ -42,120 +43,205 @@
                         android:id="@+id/act_commodity_indicator_dot"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/act_commodity_details_viewpager"
+                        android:layout_marginBottom="10dp"
                         android:padding="10dp"
                         app:circle_radius="3dp"
                         app:extraSpacing="10dp"
                         app:fillColor="#b8b8b8"
                         app:pageColor="#393838"
-                        app:strokeWidth="0dp" 
-                        android:layout_alignBottom="@+id/act_commodity_details_viewpager"
-                        android:layout_marginBottom="10dp"/>
+                        app:strokeWidth="0dp" />
                 </RelativeLayout>
-                <ImageView 
+
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="#ffffff"/>
-                <LinearLayout 
+                    android:background="#ffffff" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="#aa8866"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp">
-                    <LinearLayout 
+                    android:paddingTop="10dp" >
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="bottom">
-                        <TextView 
+                        android:gravity="bottom"
+                        android:orientation="horizontal" >
+
+                        <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="饭团·豆沙馅"
                             android:textColor="#ffffff"
-                            android:textSize="18sp"/>
-                        <TextView 
+                            android:textSize="18sp" />
+
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="#ffffff"
                             android:background="#66523d"
                             android:padding="1dp"
-                            android:text="重量 : 125G"/>
+                            android:text="重量 : 125G"
+                            android:textColor="#ffffff" />
                     </LinearLayout>
-                    <TextView 
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:text="精选优质大米，香浓可口"
+                        android:textColor="#ffffff" />
+
+                    <RadioGroup
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#ffffff"
-                        android:text="精选优质大米，香浓可口"/>
-                    <RadioGroup 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="5dp">
-                    	<RadioButton 
-                    	    style="@style/Common_CheckBox.Commodity_details"
-                    	    android:layout_width="wrap_content"
-                    	    android:layout_height="wrap_content"
-                    	    android:text="海苔"/>
-                    	<RadioButton
-                    	    style="@style/Common_CheckBox.Commodity_details"
-                    	    android:layout_width="wrap_content"
-                    	    android:layout_height="wrap_content"
-                    	    android:text="海苔"
-                    	    android:layout_marginLeft="5dp"/>
-                    	<RadioButton 
-                    	    style="@style/Common_CheckBox.Commodity_details"
-                    	    android:layout_width="wrap_content"
-                    	    android:layout_height="wrap_content"
-                    	    android:text="海苔"
-                    	    android:layout_marginLeft="5dp"/>
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal" >
+
+                        <RadioButton
+                            style="@style/Common_CheckBox.Commodity_details"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="海苔" />
+
+                        <RadioButton
+                            style="@style/Common_CheckBox.Commodity_details"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="海苔" />
+
+                        <RadioButton
+                            style="@style/Common_CheckBox.Commodity_details"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="海苔" />
                     </RadioGroup>
-                    <LinearLayout 
-                        android:layout_marginTop="10dp"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-                        <TextView 
-                            android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="￥2.40"
-                            android:textColor="#ffff00"
-                            android:textSize="16sp"/>
-                        <RelativeLayout 
-                            android:layout_marginLeft="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent">
-                            <TextView 
-                                android:id="@+id/act_commodity_oldPrice"
+                            android:layout_weight="1"
+                            android:orientation="horizontal" >
+
+                            <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="￥6.00"/>
-                            <LinearLayout 
+                                android:text="￥2.40"
+                                android:textColor="#ffff00"
+                                android:textSize="16sp" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp" >
+
+                                <TextView
+                                    android:id="@+id/act_commodity_oldPrice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingLeft="1dp"
+                                    android:paddingRight="1dp"
+                                    android:text="￥6.00"
+                                    android:textSize="10sp" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/act_commodity_oldPrice"
+                                    android:layout_alignLeft="@+id/act_commodity_oldPrice"
+                                    android:layout_alignRight="@+id/act_commodity_oldPrice"
+                                    android:layout_alignTop="@+id/act_commodity_oldPrice"
+                                    android:gravity="center_vertical" >
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:src="#ffff00" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignLeft="@+id/act_commodity_oldPrice"
-                                android:layout_alignRight="@+id/act_commodity_oldPrice"
-                                android:layout_alignTop="@+id/act_commodity_oldPrice"
-                                android:layout_alignBottom="@+id/act_commodity_oldPrice"
-                                android:gravity="center_vertical">
-                             	<ImageView 
-                             	    android:layout_width="match_parent"
-                             	    android:layout_height="1dp"
-                             	    android:src="#ffff00"/>
-                             </LinearLayout>
-                        </RelativeLayout>
-                        <TextView 
+                                android:background="@drawable/pink_bg"
+                                android:padding="1dp"
+                                android:text="APP专享"
+                                android:textColor="@android:color/white" />
+                        </LinearLayout>
+
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/pink_bg"
-                            android:padding="1dp"
-                            android:text="APP专享"/>
+                            android:src="@drawable/ic_jian" />
+
+                        <EditText
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="center"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:singleLine="true"
+                            android:text="1" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_jia" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_grey_bg"
+                            android:drawableLeft="@drawable/ic_add_in_shoppingcar"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="5dp"
+                            android:text="加入购物车"
+                            android:textColor="#666666" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_blue_bg"
+                            android:drawablePadding="5dp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:text="立即购买"
+                            android:textColor="@android:color/white" />
                     </LinearLayout>
                 </LinearLayout>
+				<include android:layout_width="match_parent" android:layout_height="wrap_content" 
+				    layout="@layout/include_comment" android:layout_marginTop="15dp"
+				    android:layout_marginBottom="15dp"/>               
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

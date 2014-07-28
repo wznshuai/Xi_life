@@ -98,5 +98,11 @@
          <item name="android:background">@null</item>
          <item name="android:textSize">15sp</item>
      </style>
+     
+    <style name="MyRadtingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_star_layerlist</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:maxHeight">20dp</item>
+    </style>
 
 </resources>
