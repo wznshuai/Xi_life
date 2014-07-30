@@ -239,9 +239,8 @@
                             android:textColor="@android:color/white" />
                     </LinearLayout>
                 </LinearLayout>
-				<include android:layout_width="match_parent" android:layout_height="wrap_content" 
-				    layout="@layout/include_comment" android:layout_marginTop="15dp"
-				    android:layout_marginBottom="15dp"/>               
+				<include android:id="@+id/act_commodity_details_goComment" android:layout_width="match_parent" android:layout_height="wrap_content" 
+				    layout="@layout/include_comment" android:layout_margin="15dp"/>               
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

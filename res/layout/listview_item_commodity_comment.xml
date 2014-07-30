@@ -1,7 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal" >
+
+        <com.zhongjie.view.RoundedImageView
+            android:id="@+id/act_userinfo_head"
+            android:layout_width="@dimen/order_photo"
+            android:layout_height="@dimen/order_photo"
+            android:src="@drawable/ic_default_head"
+            app:corner_radius="50dp"
+            app:pressdown_shade="true"
+            app:round_background="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="bottom" >
+
+                <TextView
+                    android:id="@+id/list_item_commodity_comment_nickname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="南京大萝卜"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+                
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2014.3.12"
+                    android:textColor="#999999"/>
+            </LinearLayout>
+
+            <RatingBar
+                android:id="@+id/list_item_commodity_comment_ratingbar"
+                style="@style/MyRadtingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:layout_marginTop="10dp"
+                android:isIndicator="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="味道好吃，不错。味道好吃，不错。味道好吃，不错。味道好吃，不错。味道好吃，不错。
+		        味道好吃，不错。味道好吃，不错。味道好吃，不错。味道好吃，不错。味道好吃，不错。
+		        味道好吃，不错。味道好吃，不错。味道好吃，不错。味道好吃，不错。"
+                android:textColor="#333333" />
+
+            <LinearLayout
+                android:id="@+id/list_item_commodity_comment_photoArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/tempId3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#aabbcc" />
+
+    <ImageView
+        android:id="@+id/tempId4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#ffffff" />
 
 </LinearLayout>

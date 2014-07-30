@@ -99,10 +99,16 @@
          <item name="android:textSize">15sp</item>
      </style>
      
-    <style name="MyRadtingBar" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/rating_star_layerlist</item>
+    <style name="MyRadtingBar.Small" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_star_layerlist_small</item>
         <item name="android:minHeight">20dp</item>
         <item name="android:maxHeight">20dp</item>
+    </style>
+    
+    <style name="MyRadtingBar.Big" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_star_layerlist_big</item>
+        <item name="android:minHeight">30dp</item>
+        <item name="android:maxHeight">30dp</item>
     </style>
 
 </resources>

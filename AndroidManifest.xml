@@ -38,6 +38,7 @@
         <activity android:name="com.zhongjie.activity.anytimebuy.CommodityListActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
   		<activity android:name="com.zhongjie.activity.anytimebuy.CommodityDetailsActivity" android:screenOrientation="portrait"
   		     android:theme="@style/Transparent" android:windowSoftInputMode="stateAlwaysHidden"/>
+  		<activity android:name="com.zhongjie.activity.anytimebuy.CommodityCommentActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
     </application>
 
 </manifest>

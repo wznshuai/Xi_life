@@ -13,11 +13,12 @@
 
     <com.zhongjie.view.MyRatingbar
         android:id="@+id/act_commodity_details_ratingbar"
-        style="@style/MyRadtingBar"
+        style="@style/MyRadtingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="11dp"
         android:layout_marginLeft="5dp"
         android:background="@null"
+        android:isIndicator="true"
         android:numStars="5" />
 
     <LinearLayout
