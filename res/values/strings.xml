@@ -34,4 +34,10 @@
     
     <!-- 临时数据 -->
     <string name="temp1">订单金额  : <font color='#ff0099'>￥3600.00</font></string>
+    
+    <string name="prompt_loading">加载中</string>
+    <string name="prompt_nologin">未登录！</string>
+    <string name="prompt_empty">无数据！</string>
+    <string name="prompt_retry">获取失败,请重试！</string>
+    <string name="prompt_error">很抱歉，无法获取数据!</string>
 </resources>

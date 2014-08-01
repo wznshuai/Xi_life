@@ -18,8 +18,11 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.zhongjie.MainActivity;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
+import com.zhongjie.global.Session;
+import com.zhongjie.util.Constants;
 import com.zhongjie.util.Utils;
 
 public class CommodityListActivity extends BaseSecondActivity {
@@ -60,7 +63,6 @@ public class CommodityListActivity extends BaseSecondActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				System.out.println("?????????????????????");
 				startActivity(new Intent(CommodityListActivity.this, CommodityDetailsActivity.class));
 			}
 			
@@ -91,6 +93,11 @@ public class CommodityListActivity extends BaseSecondActivity {
 
 			@Override
 			public void onClick(View v) {
+				Intent intent = new Intent(CommodityListActivity.this, MainActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.putExtra(Constants.MAINACTIVITY_TAB_KEY, MainActivity.TAB_3);
+				startActivity(intent);
+				finish();
 			}
 		});
 		mWm.addView(mFloatView, lp);
@@ -116,13 +123,11 @@ public class CommodityListActivity extends BaseSecondActivity {
 
 		@Override
 		public Object getItem(int position) {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 
@@ -144,7 +149,8 @@ public class CommodityListActivity extends BaseSecondActivity {
 				@Override
 				public void onClick(View arg0) {
 					if(null != mBuyCountView){
-						mBuyCountView.setText(" " + mBuyCount++ + " ");
+						mBuyCountView.setText(" " + ++mBuyCount + " ");
+						Session.getSession().put(Constants.SHOPPING_CAR_KEY, mBuyCount);
 					}
 				}
 			});

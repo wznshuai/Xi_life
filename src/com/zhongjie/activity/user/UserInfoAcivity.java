@@ -50,9 +50,8 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 				.showImageOnFail(R.drawable.ic_default_head).build());
 		mTopCenterTxt.setText("个人资料");
 		mTopCenterTxt.setVisibility(View.VISIBLE);
-		mTopRightView.setVisibility(View.VISIBLE);;
 		mTopRightTxt.setText("修改");
-		mTopRightView.setOnClickListener(this);
+		mTopRightTxt.setVisibility(View.VISIBLE);
 		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
 		mTopLeftImg.setVisibility(View.VISIBLE);
 	}
@@ -82,7 +81,7 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.topbar_rightView:
+		case R.id.topbar_rightTxt:
 			if(mTopRightTxt.getText().equals("修改")){
 				mTopRightTxt.setText("取消");
 				changeEditStatus(true);

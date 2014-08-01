@@ -40,7 +40,7 @@
             android:gravity="center"
             android:orientation="horizontal" 
             android:layout_alignParentBottom="true"
-            android:background="@drawable/tab_bg_xml">"
+            android:background="@drawable/tab_bg_xml">
 
             <Button
                 android:layout_width="0dp"
@@ -54,6 +54,7 @@
                 android:textColor="#666666" />
 
             <Button
+                android:id="@+id/act_commodity_comment_buy"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"

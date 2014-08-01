@@ -1,6 +1,7 @@
 package com.zhongjie;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,19 +17,24 @@ import android.widget.TextView;
 
 import com.zhongjie.activity.BaseActivity;
 import com.zhongjie.fragment.FragmentAnyTimeBuy;
+import com.zhongjie.fragment.FragmentShoppingcar;
 import com.zhongjie.fragment.FragmentUserCenter;
+import com.zhongjie.util.Constants;
+import com.zhongjie.view.CommonDialog;
+import com.zhongjie.view.CommonDialog.OnButtonClickListener;
 
 public class MainActivity extends BaseActivity implements OnTabChangeListener{
 	
-	private final static String TAB_1 = "TAB_1";
-	private final static String TAB_2 = "TAB_2";
-	private final static String TAB_CENTER = "TAB_CENTER";
-	private final static String TAB_3 = "TAB_3";
-	private final static String TAB_4 = "TAB_4";
+	public final static String TAB_1 = "TAB_1";
+	public final static String TAB_2 = "TAB_2";
+	public final static String TAB_CENTER = "TAB_CENTER";
+	public final static String TAB_3 = "TAB_3";
+	public final static String TAB_4 = "TAB_4";
 	
 	private TabHost mTabHost;
 	private FragmentManager mFm;
 	private String last_show_TAB = TAB_1; 
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,24 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		mTabHost.getTabWidget().getChildAt(2).setEnabled(false);
 		mTabHost.setOnTabChangedListener(this);
 		setCurrentFragment(TAB_1);
+	}
+	
+	public void setTopCenterLogo(int id){
+		mTopCenterImg.setImageResource(id);
+		mTopCenterImg.setVisibility(View.VISIBLE);
+	}
+	
+	public void setTopRightImg(int id){
+		mTopRightTxt.setBackgroundResource(id);
+		mTopRightTxt.setVisibility(View.VISIBLE);
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		if(null != intent.getStringExtra(Constants.MAINACTIVITY_TAB_KEY)){
+			setCurrentTabByTag(intent.getStringExtra(Constants.MAINACTIVITY_TAB_KEY));
+		}
 	}
 
 	
@@ -95,8 +119,12 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		if (mFm.getBackStackEntryCount() > 1)
 			mFm.popBackStack(mFm.getBackStackEntryAt(0).getId(), 0);
 	}
+	
+	public void setCurrentTabByTag(String tag){
+		mTabHost.setCurrentTabByTag(tag);
+	}
 
-	public void setCurrentFragment(String tabId){
+	private void setCurrentFragment(String tabId){
 		FragmentTransaction ft = mFm.beginTransaction();
 		Fragment f = null;
 		if(tabId.equals(TAB_1)){
@@ -104,7 +132,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		}else if(tabId.equals(TAB_2)){
 			f = FragmentStackSupport.newInstance(2);
 		}else if(tabId.equals(TAB_3)){
-			f = FragmentStackSupport.newInstance(3);
+			f = FragmentShoppingcar.newInstance();
 		}else if(tabId.equals(TAB_4)){
 			f = FragmentUserCenter.newInstance();
 		}
@@ -135,5 +163,25 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 //			}
 		}
 		setCurrentFragment(tabId);
+	}
+	
+	@Override
+	public void onBackPressed() {
+		CommonDialog cd = CommonDialog.creatDialog(this);
+		cd.setMessage("确定要退出嘻生活?");
+		cd.setLeftButtonInfo("取消", new OnButtonClickListener() {
+			
+			@Override
+			public void onClick(CommonDialog cd, View view) {
+				cd.dismiss();
+			}
+		});
+		cd.setRightButtonInfo("确定", new OnButtonClickListener() {
+			
+			@Override
+			public void onClick(CommonDialog cd, View view) {
+				((MyApplication)getApplication()).exitApp();
+			}
+		});
 	}
 }

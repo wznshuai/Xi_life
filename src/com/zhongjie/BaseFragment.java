@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -55,6 +56,7 @@ public class BaseFragment extends Fragment{
 	}
 	
 	
+	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -89,7 +91,9 @@ public class BaseFragment extends Fragment{
 		System.out.println(getClass().getSimpleName() + "  onPause");
 	}
 	
-	
+	public MainActivity getActivityMine(){
+		return (MainActivity)getActivity();
+	}
 	
 	
 	public void back(){

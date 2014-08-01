@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+	<RadioButton 
+	    android:id="@+id/list_item_select_zt_radiobtn"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:button="@drawable/radionbtn_select_zt_selector"
+	    android:focusable="false"
+	    android:clickable="false"
+	    android:checked="false"/>
+	<LinearLayout 
+	    android:layout_marginLeft="10dp"
+	    android:layout_width="0dp"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:orientation="vertical"
+	    android:gravity="clip_vertical">
+	    <TextView 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="地址 : 南天门58号"
+	        android:textColor="#666666"/>
+	    <TextView 
+	        android:layout_marginTop="10dp"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="联系电话 : 18666886868"
+	        android:textColor="#666666"/>
+	</LinearLayout>
+</LinearLayout>

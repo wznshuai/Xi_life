@@ -22,7 +22,7 @@
 	<color name="dialog_title">#C32361</color>
 	<color name="dialog_background">#242424</color>
 	<color name="dialog_content">#F2F2F2</color>
-	<color name="dialog_line">#C32361</color>
+	<color name="dialog_line">#aabbcc</color>
 	<color name="dialog_button_line">#393939</color>
 	<color name="dialog_list_driver">#393939</color>
 	<color name="dialog_button_background_pressed">#ea4c89</color>
@@ -60,6 +60,7 @@
 	<color name="common_btn_bg_blue_pressed">#009999</color>
 	<color name="common_check_normal">#666666</color>
 	<color name="common_check_checked">#ff0099</color>
+	<color name="common_dialog_line">#00c6ff</color>
 	<!-- Top bar -->
 	<color name="top_center_txt">#333333</color>
 	

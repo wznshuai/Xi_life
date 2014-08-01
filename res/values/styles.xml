@@ -37,6 +37,14 @@
         <item name="android:gravity">top|left</item>
         <item name="android:background">@drawable/common_edit_bg_pink</item>
     </style>
+    
+     <style name="Common_EditText.white_bg" parent="android:Widget.EditText">
+        <item name="android:textColor">@color/text_black_input</item>
+        <item name="android:textColorHint">@color/text_black_hint</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:background">@drawable/white_bg</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
     <style name="Common_Button" parent="@android:style/Widget.Button">
         <item name="android:textSize">15sp</item>
@@ -61,6 +69,10 @@
     <style name="Common_CheckBox.Pink" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox_pink_selector</item>
         <item name="android:textColor">@color/login_text_color</item>
+    </style>
+    
+     <style name="Common_CheckBox.Pink.Big" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_pink_big_selector</item>
     </style>
     
     <style name="Common_CheckBox.Setting" parent="@android:style/Widget.CompoundButton.CheckBox">
@@ -109,6 +121,47 @@
         <item name="android:progressDrawable">@drawable/rating_star_layerlist_big</item>
         <item name="android:minHeight">30dp</item>
         <item name="android:maxHeight">30dp</item>
+    </style>
+    
+    <style name="shareDialog" parent="@android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    
+    <!-- dialog -->
+    <style name="Dialog_Title">
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/dialog_title</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Dialog_Content">
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/dialog_content</item>
+    </style>
+    <style name="Dialog_Button">
+        <item name="android:background">@null</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="Theme.TransparentDialog" parent="@android:style/Theme.Dialog">
+		<item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:gravity">center</item>
+		<item name="android:backgroundDimAmount">0.6</item>
+		<item name="android:colorBackgroundCacheHint">@null</item>
     </style>
 
 </resources>

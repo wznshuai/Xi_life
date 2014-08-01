@@ -1,5 +1,6 @@
 package com.zhongjie;
 
+import java.io.File;
 import java.security.KeyStore;
 
 import org.apache.http.HttpVersion;
@@ -19,16 +20,20 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 
+import android.app.Application;
+import android.content.Context;
+import android.os.Environment;
+import android.os.Process;
+import android.util.Log;
+
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.zhongjie.global.Session;
+import com.zhongjie.util.Constants;
 import com.zhongjie.util.SSLSocketFactoryEx;
-
-import android.app.Application;
-import android.content.Context;
-import android.util.Log;
 
 public class MyApplication extends Application{
 
@@ -42,6 +47,7 @@ public class MyApplication extends Application{
 		 super.onCreate();
 		 createHttpClient();
 		 initImageLoader(this);
+		 createDirs();
 	 }
 
 
@@ -67,6 +73,25 @@ public class MyApplication extends Application{
 				shutdownHttpClient();
 			}
 		}).start();
+	}
+	
+	private void createDirs() {
+
+		if (android.os.Environment.getExternalStorageState().equals(
+				android.os.Environment.MEDIA_MOUNTED)) {
+			File sdcard = Environment.getExternalStorageDirectory();
+			if (sdcard.exists()) {
+				File baseDirectory = new File(Constants.APP_DIR);
+				if (!baseDirectory.exists())
+					baseDirectory.mkdirs();
+				System.out.println("baseDirectory : " + baseDirectory.getPath());
+			} else {
+				Log.e(this.getClass().getName(), "sdcard not use!");
+			}
+		} else {
+			// File flash = new File("/flash");
+			// File flash = getFilesDir();
+		}
 	}
 
 	private final int timeout = 10 * 1000;
@@ -142,5 +167,12 @@ public class MyApplication extends Application{
 		}
 
 		return httpClient;
+	}
+	
+	public void exitApp() {
+		Session.getSession().cleanUpSession();
+		shutdownHttpClient();
+	    Process.killProcess(Process.myPid());
+	    System.exit(0);
 	}
 }

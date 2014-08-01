@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/fra_shoppingcar_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical" 
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_shoppingcar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="购物车空空如也，不如去逛逛吧！"
+            android:textColor="#ff0099" />
+
+        <TextView
+            android:id="@+id/fra_shoppingcar_goAnytimeBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/red_bg"
+            android:paddingBottom="3dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="3dp"
+            android:text="去  随  收  购  逛  逛"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/fra_shoppingcar_realcontent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/fra_shoppingcar_listview"
+            style="@style/MyListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:dividerHeight="8dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="20dp" 
+            android:layout_above="@+id/fra_shoppingcar_bottom"/>
+        <LinearLayout 
+            android:id="@+id/fra_shoppingcar_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:background="@drawable/paytime_bg_xml"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_checked_pink"/>
+            <TextView 
+                android:layout_marginLeft="10dp"
+                android:textColor="#666666"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总计 : "/>
+            <TextView 
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="￥66.66"
+                android:textSize="18sp"
+                android:textColor="#ff0099"
+                android:gravity="left"/>
+            <TextView 
+                android:id="@+id/fra_shoppingcar_goFillOrder"
+                android:textColor="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="结算(6)"
+                android:padding="3dp"
+                android:background="@drawable/orange_bg"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

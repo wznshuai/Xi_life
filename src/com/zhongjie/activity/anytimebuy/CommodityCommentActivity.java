@@ -2,9 +2,11 @@ package com.zhongjie.activity.anytimebuy;
 
 import java.util.Random;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.BaseAdapter;
@@ -19,14 +21,13 @@ import android.widget.TextView;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.util.Utils;
-import com.zhongjie.view.FixedGridLayout;
 
-public class CommodityCommentActivity extends BaseSecondActivity{
+public class CommodityCommentActivity extends BaseSecondActivity implements OnClickListener{
 	
 	private ListView mListView;
 	private TextView mCommentCount, mGoodPercent;
-	private View mPhotoArea;
 	private int photoAreaWidth;
+	private View buyBtn;
 
 	@Override
 	protected void initData() {
@@ -36,6 +37,7 @@ public class CommodityCommentActivity extends BaseSecondActivity{
 	@Override
 	protected void findViews() {
 		mListView = (ListView)findViewById(R.id.act_commodity_comment_listview);
+		buyBtn = findViewById(R.id.act_commodity_comment_buy);
 	}
 
 	@Override
@@ -65,7 +67,7 @@ public class CommodityCommentActivity extends BaseSecondActivity{
 		mCommentCount.setText(Html.fromHtml("<font color='#ff0099'>110</font>人  评价"));
 		mGoodPercent.setText(Html.fromHtml("<font color='#ff0099'>99%</font> 好评"));
 		
-		
+		buyBtn.setOnClickListener(this);
 	}
 	
 	@Override
@@ -186,5 +188,17 @@ public class CommodityCommentActivity extends BaseSecondActivity{
 			LinearLayout photoArea;
 		}
 		
+	}
+	
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.act_commodity_comment_buy:
+			startActivity(new Intent(CommodityCommentActivity.this, SendCommentActivity.class));
+			break;
+
+		default:
+			break;
+		}
 	}
 }

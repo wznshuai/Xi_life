@@ -15,7 +15,6 @@ public abstract class BaseActivity extends FragmentActivity{
 	
 	protected TextView mTopRightTxt, mTopCenterTxt;
 	protected ImageView mTopLeftImg, mTopCenterImg;
-	protected View mTopRightView;
 	
 	abstract protected void initData();
 	abstract protected void findViews();
@@ -24,10 +23,29 @@ public abstract class BaseActivity extends FragmentActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		System.out.println(getClass().getSimpleName() + "  onCreate");
 		initTopViews();
 		initData();
 		findViews();
 		initViews();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		System.out.println(getClass().getSimpleName() + "  onResume");
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		System.out.println(getClass().getSimpleName() + "  onPause");
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		System.out.println(getClass().getSimpleName() + "  onDestroy");
 	}
 	
 	protected void initTopViews(){
@@ -35,7 +53,6 @@ public abstract class BaseActivity extends FragmentActivity{
 		mTopCenterTxt = (TextView)findViewById(R.id.topbar_centerTxt);
 		mTopLeftImg = (ImageView)findViewById(R.id.topbar_leftImg);
 		mTopCenterImg = (ImageView)findViewById(R.id.topbar_centerImg);
-		mTopRightView = findViewById(R.id.topbar_rightView);
 		mTopLeftImg.setOnClickListener(new OnClickListener() {
 			
 			@Override

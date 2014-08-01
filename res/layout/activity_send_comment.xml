@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app1="http://schemas.android.com/apk/res/com.zhongjie"
     android:id="@string/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,10 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:paddingBottom="10dp"
+            android:paddingTop="@dimen/padding_top"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="20dp" >
+            android:paddingRight="10dp" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,6 +95,7 @@
                             android:textColor="#666666" />
 
                         <com.zhongjie.view.MyRatingbar
+                            android:id="@+id/act_send_comment_ratingbar"
                             style="@style/MyRadtingBar.Big"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
@@ -114,15 +115,14 @@
                         android:textColorHighlight="#cccccc"
                         android:textSize="13sp" />
 
-                    <LinearLayout
-                        android:layout_marginTop="10dp"
+                    <com.zhongjie.view.MyGridView
+                        android:id="@+id/act_send_comment_geidview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical" >
-               			<com.zhongjie.view.FixedGridLayout 
-               			    android:layout_width="match_parent"
-               			    android:layout_height="wrap_content"/>
-                    </LinearLayout>
+                        android:horizontalSpacing="5dp"
+                        android:verticalSpacing="5dp"
+                        android:numColumns="4" 
+                        android:layout_marginBottom="20dp"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
