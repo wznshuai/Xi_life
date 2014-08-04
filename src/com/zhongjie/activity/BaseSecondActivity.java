@@ -27,7 +27,15 @@ public abstract class BaseSecondActivity extends BaseActivity{
 		((ViewGroup)mSlide).addView(mainView, 
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		setContentView(mSlide);
+		
 //		super.setContentView(layoutResID);
+	}
+	
+	@Override
+	protected void initTopViews() {
+		super.initTopViews();
+		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
+		mTopLeftImg.setVisibility(View.VISIBLE);
 	}
 	
 	protected void goHomeActivity(){

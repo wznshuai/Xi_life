@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
+import com.zhongjie.activity.shoppingcar.FillOrderActivity;
 import com.zhongjie.util.Utils;
 
 public class CommodityCommentActivity extends BaseSecondActivity implements OnClickListener{
@@ -194,7 +195,7 @@ public class CommodityCommentActivity extends BaseSecondActivity implements OnCl
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.act_commodity_comment_buy:
-			startActivity(new Intent(CommodityCommentActivity.this, SendCommentActivity.class));
+			startActivity(new Intent(CommodityCommentActivity.this, FillOrderActivity.class));
 			break;
 
 		default:

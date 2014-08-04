@@ -133,7 +133,6 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
                             <TextView 
-                                android:id="@+id/tempId5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="收  货  人: "
@@ -155,7 +154,6 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
                             <TextView 
-                                android:id="@+id/tempId5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="手  机  号: "
@@ -245,7 +243,6 @@
                 </LinearLayout>
                 
                 <LinearLayout 
-                    android:id="@+id/act_fill_order_selectType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -260,7 +257,6 @@
                         android:textColor="#000000"/>
                     <EditText 
                         android:layout_marginLeft="5dp"
-                        android:id="@+id/act_fill_order_dispatching_type"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -297,7 +293,7 @@
                 android:textSize="20sp"/>
             
             <Button
-                android:id="@+id/act_commodity_comment_buy"
+                android:id="@+id/act_fill_order_submit_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"

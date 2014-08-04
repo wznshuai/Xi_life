@@ -27,6 +27,8 @@
     <string name="register">注册</string>
     
     <string name="read_me">我已阅读并接受《嘻生活服务协议》</string>
+    
+    
     <!-- ids -->
     <string name="main_content" type="id" />
     <string name="real_content" type="id"/>

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -15,6 +16,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.zhongjie.BaseFragment;
 import com.zhongjie.R;
 import com.zhongjie.activity.user.IntegralActivity;
+import com.zhongjie.activity.user.LoginActivity;
 import com.zhongjie.activity.user.MyOrderActivity;
 import com.zhongjie.activity.user.MyRepairsActivity;
 import com.zhongjie.activity.user.SettingActivity;
@@ -27,6 +29,8 @@ public class FragmentUserCenter extends BaseFragment{
 	private ImageView mHeadImg;
 	private View mEditView, goIntegralView, goSettingView, goMyRepairsView, goMyOrderView;
 	private static final int REQUEST_CODE = 0x001; 
+	
+	private TextView mTopRightView;
 	
 	public static FragmentUserCenter newInstance(){
 		if(null == mInstance)
@@ -48,6 +52,7 @@ public class FragmentUserCenter extends BaseFragment{
 	}
 	
 	public void findViews(){
+		mTopRightView = (TextView)findViewById(R.id.topbar_rightTxt);
 		mHeadImg = (ImageView)findViewById(R.id.fra_usercenter_head);
 		mEditView = findViewById(R.id.fra_usercenter_edit);
 		goIntegralView = findViewById(R.id.fra_usercenter_goIntegral);
@@ -56,7 +61,29 @@ public class FragmentUserCenter extends BaseFragment{
 		goMyOrderView = findViewById(R.id.fra_usercenter_goMyOrder);
 	}
 	
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+		if(!hidden){
+			mTopRightView.setText("去登录");
+			mTopRightView.setVisibility(View.VISIBLE);
+		}else{
+			mTopRightView.setVisibility(View.GONE);
+		}
+	}
+	
 	public void initViews(){
+		mTopRightView.setText("去登录");
+		mTopRightView.setVisibility(View.VISIBLE);
+		
+		mTopRightView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getActivity(), LoginActivity.class));
+			}
+		});
+		
 		options = new DisplayImageOptions.Builder()
 		.cacheInMemory(true)
 		.cacheOnDisc(true)
@@ -111,6 +138,8 @@ public class FragmentUserCenter extends BaseFragment{
 				startActivity(intent);
 			}
 		});
+		
+		
 	}
 	
 	@Override

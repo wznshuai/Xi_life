@@ -1,5 +1,6 @@
 package com.zhongjie.activity.shoppingcar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -24,10 +25,10 @@ import com.zhongjie.util.Utils;
 import com.zhongjie.view.CommonDialog;
 import com.zhongjie.view.PromptView;
 
-public class FillOrderActivity extends BaseSecondActivity{
+public class FillOrderActivity extends BaseSecondActivity implements OnClickListener{
 	
 	private LinearLayout mCommodityArea;
-	private View mPullView, mSelectTypeView, mZTArea, mPSArea;
+	private View mPullView, mSelectTypeView, mZTArea, mPSArea, mSubmit;
 	private ImageView mHandleView;
 	private TextView mHandleTxt, mDispatchingType;
 	private PromptView mPromptView;
@@ -56,6 +57,7 @@ public class FillOrderActivity extends BaseSecondActivity{
 		mPSArea = findViewById(R.id.act_fill_order_dispatching_ps);
 		mPromptView = (PromptView)findViewById(R.id.promptView);
 		mListView = (ListView)findViewById(R.id.act_fill_order_listview);
+		mSubmit = findViewById(R.id.act_fill_order_submit_order);
 	}
 
 	@Override
@@ -131,6 +133,7 @@ public class FillOrderActivity extends BaseSecondActivity{
 				});
 			}
 		});
+		mSubmit.setOnClickListener(this);
 	}
 	
 	
@@ -198,4 +201,19 @@ public class FillOrderActivity extends BaseSecondActivity{
 		mZTArea.setVisibility(View.VISIBLE);
 		mPSArea.setVisibility(View.GONE);
 	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.act_fill_order_submit_order:
+			Intent intent = new Intent(FillOrderActivity.this, SubmitOrderSuccess.class);
+			startActivity(intent);
+			break;
+
+		default:
+			break;
+		}
+	}
+	
+	
 }
