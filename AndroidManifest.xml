@@ -46,6 +46,10 @@
   		    android:theme="@style/Transparent" android:windowSoftInputMode="stateAlwaysHidden"/>
   		<activity android:name="com.zhongjie.activity.shoppingcar.SubmitOrderSuccess" android:screenOrientation="portrait" 
   		    android:theme="@style/Transparent" android:windowSoftInputMode="stateAlwaysHidden"/>
+  		<activity android:name="com.zhongjie.activity.managerservice.RepairsActivity" android:screenOrientation="portrait" 
+  		    android:theme="@style/Transparent" android:windowSoftInputMode="stateAlwaysHidden"/>
+    	<activity android:name="com.zhongjie.activity.managerservice.RepairsSuccess" android:screenOrientation="portrait" 
+  		    android:theme="@style/Transparent" android:windowSoftInputMode="stateAlwaysHidden"/>
     </application>
 
 </manifest>

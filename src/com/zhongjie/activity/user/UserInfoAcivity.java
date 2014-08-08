@@ -52,6 +52,7 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 		mTopCenterTxt.setVisibility(View.VISIBLE);
 		mTopRightTxt.setText("修改");
 		mTopRightTxt.setVisibility(View.VISIBLE);
+		mTopRightTxt.setOnClickListener(this);
 		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
 		mTopLeftImg.setVisibility(View.VISIBLE);
 	}

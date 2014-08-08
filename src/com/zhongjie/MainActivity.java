@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.zhongjie.activity.BaseActivity;
 import com.zhongjie.fragment.FragmentAnyTimeBuy;
+import com.zhongjie.fragment.FragmentManagerService;
 import com.zhongjie.fragment.FragmentShoppingcar;
 import com.zhongjie.fragment.FragmentUserCenter;
 import com.zhongjie.util.Constants;
@@ -130,7 +131,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		if(tabId.equals(TAB_1)){
 			f = FragmentAnyTimeBuy.newInstance();
 		}else if(tabId.equals(TAB_2)){
-			f = FragmentStackSupport.newInstance(2);
+			f = FragmentManagerService.newInstance();
 		}else if(tabId.equals(TAB_3)){
 			f = FragmentShoppingcar.newInstance();
 		}else if(tabId.equals(TAB_4)){

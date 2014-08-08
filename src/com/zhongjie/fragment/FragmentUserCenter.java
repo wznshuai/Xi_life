@@ -52,7 +52,7 @@ public class FragmentUserCenter extends BaseFragment{
 	}
 	
 	public void findViews(){
-		mTopRightView = (TextView)findViewById(R.id.topbar_rightTxt);
+		mTopRightView = (TextView)getActivity().findViewById(R.id.topbar_rightTxt);
 		mHeadImg = (ImageView)findViewById(R.id.fra_usercenter_head);
 		mEditView = findViewById(R.id.fra_usercenter_edit);
 		goIntegralView = findViewById(R.id.fra_usercenter_goIntegral);

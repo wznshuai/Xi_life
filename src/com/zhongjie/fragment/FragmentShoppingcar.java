@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,7 +31,7 @@ public class FragmentShoppingcar extends BaseFragment {
 	private Session mSession;
 	private int mCount;
 	private View mEmptyView, mRealContent, mBottomView;
-	private TextView mTopRightView;
+	private ImageView mTopRightImg;
 	private Map<Integer, Boolean> mCheckdMap;
 
 	public static FragmentShoppingcar newInstance() {
@@ -61,8 +62,8 @@ public class FragmentShoppingcar extends BaseFragment {
 			initViews();
 		} else {
 			getActivityMine().setTopCenterLogo(R.drawable.ic_top_logo);
-			mTopRightView.setBackgroundResource(0);
-			mTopRightView.setVisibility(View.GONE);
+			mTopRightImg.setImageResource(0);
+			mTopRightImg.setVisibility(View.GONE);
 		}
 	}
 
@@ -75,8 +76,8 @@ public class FragmentShoppingcar extends BaseFragment {
 	@Override
 	protected void findViews() {
 		super.findViews();
-		mTopRightView = (TextView) getActivity().findViewById(
-				R.id.topbar_rightTxt);
+		mTopRightImg = (ImageView) getActivity().findViewById(
+				R.id.topbar_rightImg);
 		mEmptyView = findViewById(R.id.fra_shoppingcar_empty);
 		mListView = (ListView) findViewById(R.id.fra_shoppingcar_listview);
 		mRealContent = findViewById(R.id.fra_shoppingcar_realcontent);
@@ -88,7 +89,7 @@ public class FragmentShoppingcar extends BaseFragment {
 		super.initViews();
 		mCheckdMap = new HashMap<Integer, Boolean>();
 		getActivityMine().setTopCenterLogo(R.drawable.ic_logo_shoppingcar);
-		mTopRightView.setBackgroundResource(R.drawable.ic_trash_big);
+		mTopRightImg.setImageResource(R.drawable.ic_trash_big);
 		mCount = mSession.getInt(Constants.SHOPPING_CAR_KEY);
 		if (mCount > 0) {
 			mEmptyView.setVisibility(View.GONE);
@@ -166,12 +167,12 @@ public class FragmentShoppingcar extends BaseFragment {
 						if (check.isChecked()) {
 							mCheckdMap.put((Integer) check.getTag(),
 									check.isChecked());
-							mTopRightView.setVisibility(View.VISIBLE);
+							mTopRightImg.setVisibility(View.VISIBLE);
 							mBottomView.setVisibility(View.VISIBLE);
 						} else {
 							mCheckdMap.remove((Integer) check.getTag());
 							if (mCheckdMap.size() < 1) {
-								mTopRightView.setVisibility(View.GONE);
+								mTopRightImg.setVisibility(View.GONE);
 								mBottomView.setVisibility(View.GONE);
 							}
 						}

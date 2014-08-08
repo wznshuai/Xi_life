@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <com.zhongjie.view.MyViewPager
+            android:id="@+id/fra_manager_service_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none" />
+
+        <com.zhongjie.view.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/fra_manager_service_indicator_dot"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/fra_manager_service_viewpager"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            app:circle_radius="3dp"
+            app:extraSpacing="10dp"
+            app:fillColor="#b8b8b8"
+            app:pageColor="#393838"
+            app:strokeWidth="0dp" />
+    </RelativeLayout>
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:layout_marginBottom="15dp"
+	    android:layout_marginLeft="20dp"
+	    android:layout_marginRight="20dp"
+	    android:layout_marginTop="5dp"
+	    android:gravity="center">
+	    <LinearLayout 
+	        android:id="@+id/fra_manager_service_repairs"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:gravity="center"
+	        android:layout_weight="1">
+	        <ImageView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/ic_logo_repairs"/>
+	        <TextView 
+	            android:layout_marginTop="10dp"
+	            android:layout_marginBottom="10dp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="报修"
+	            android:textColor="@android:color/black"/>
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="#666666"
+	            android:text="便民服务\n预约上门"/>
+	    </LinearLayout>
+	    
+	     <LinearLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:gravity="center"
+	        android:layout_weight="1">
+	        <ImageView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/ic_logo_dryclean"/>
+	        <TextView 
+	            android:layout_marginTop="10dp"
+	            android:layout_marginBottom="10dp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="干洗"
+	            android:textColor="@android:color/black"/>
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="#666666"
+	            android:text="洗得靓丽\n穿得健康"/>
+	    </LinearLayout>
+	    
+	      <LinearLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:gravity="center"
+	        android:layout_weight="1">
+	        <ImageView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/ic_logo_payment"/>
+	        <TextView 
+	            android:layout_marginTop="10dp"
+	            android:layout_marginBottom="10dp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="缴费"
+	            android:textColor="@android:color/black"/>
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="#666666"
+	            android:text="在线缴费\n方便快捷"/>
+	    </LinearLayout>
+	</LinearLayout>
+</LinearLayout>
