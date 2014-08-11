@@ -1,16 +1,22 @@
 package com.zhongjie.activity.user;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
+import com.zhongjie.model.UserJson;
+import com.zhongjie.model.UserModelManager;
+import com.zhongjie.util.CommonRequest;
 
 public class UserInfoAcivity extends BaseSecondActivity implements OnClickListener{
 	
@@ -18,6 +24,8 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 	private View mHeadEdit, mConfirmView;
 	private TextView mNickname, mAddress1, mAddress2;
 	private EditText mNicknameEdit, mAddress1Edit, mAddress2Edit;
+	private CommonRequest mRequest;
+	private UserModelManager mUserManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +35,8 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 	
 	@Override
 	protected void initData() {
-		
+		mRequest = new CommonRequest(getApplicationContext());
+		mUserManager = UserModelManager.getInstance();
 	}
 
 	@Override
@@ -76,6 +85,38 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 			mAddress2.setVisibility(View.VISIBLE);
 			mAddress2Edit.setVisibility(View.GONE);
 			mConfirmView.setVisibility(View.GONE);
+		}
+	}
+	
+	class QueryUserInfoTask extends AsyncTask<String, Void, UserJson>{
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+		
+		@Override
+		protected UserJson doInBackground(String... params) {
+			UserJson uj = null;
+			String json = mRequest.queryUserInfo(mUserManager.getmUser().sessId);
+			if(!TextUtils.isEmpty(json)){
+				uj = JSON.parseObject(json, UserJson.class);
+			}
+			return uj;
+		}
+		
+		@Override
+		protected void onPostExecute(UserJson result) {
+			super.onPostExecute(result);
+			if(!canGOON())
+				return;
+			if(null != result){
+				if(0 == result.code){
+					initUserInfo(result.data);
+				}else{
+					showToast(result.errMsg);
+				}
+			}
 		}
 	}
 

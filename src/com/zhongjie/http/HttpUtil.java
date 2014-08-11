@@ -22,9 +22,9 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.zhongjie.MyApplication;
+import com.zhongjie.util.Logger;
 
 /**
  * 
@@ -57,19 +57,20 @@ public class HttpUtil {
 		try {
 			HttpClient client = myApplication.getHttpClient(); // 获取HttpClient实例
 			if (client == null) {
-				Log.d(TAG, "获取 client为null");
+				Logger.d(TAG, "获取 client为null");
 				return result;
 			}
 			if (params != null && params.size() != 0)
 				url = url + encryptGetParams(params);
-			Log.d(TAG, url);
+			Logger.d(TAG, url);
 			HttpGet get = putGetHeadParams(url);
 			HttpResponse response = client.execute(get);
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				result = EntityUtils.toString(response.getEntity());
+				Logger.d(TAG, result);
 			}
 		} catch (Exception e) {
-			Log.e(TAG, "in executeGet error", e);
+			Logger.e(TAG, "in executeGet error", e);
 		}
 		return result;
 	}
@@ -173,7 +174,7 @@ public class HttpUtil {
 			sb.append(nvp.getName() + "=" + nvp.getValue());
 			sb.append("&");
 		}
-		Log.d(TAG, "RemoteRequester:doPost : " + url + sb);
+		Logger.d(TAG, "RemoteRequester:doPost : " + url + sb);
 	}
 
 	public String executePost(String url) {
@@ -197,10 +198,11 @@ public class HttpUtil {
 					httpPost, localContext);
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				result = EntityUtils.toString(response.getEntity());
+				Logger.d(TAG, result);
 			}
 		} catch (Exception e) {
 
-			Log.e(TAG, "int executePost" ,e);
+			Logger.e(TAG, "int executePost" ,e);
 		}
 		return result;
 	}

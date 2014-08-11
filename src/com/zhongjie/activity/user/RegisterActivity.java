@@ -1,5 +1,8 @@
 package com.zhongjie.activity.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,16 +19,15 @@ import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.model.BaseJson;
 import com.zhongjie.model.UserJson;
-import com.zhongjie.model.UserModel;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.CommonRequest;
-import com.zhongjie.util.Validate;
+import com.zhongjie.util.Validator;
 
 public class RegisterActivity extends BaseSecondActivity implements OnClickListener{
 	
 	private TextView mSendSms;
 	private CommonRequest mRequest;
-	private EditText mPhoneEdit, mPasswordEdit;
+	private EditText mPhoneEdit, mPasswordEdit, mPasswordEdit2;
 	private static final int SMS_WAIT_TIME = 30;
 	private static final int SMS_TIME = 0, SMS_AGAIN_OK = 1;//handler 发送字段
 	private static final String SEND_AGAIN = "重新发送";
@@ -64,6 +66,7 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 
 	@Override
 	protected void findViews() {
+		mPasswordEdit2 = (EditText)findViewById(R.id.act_register_pwd2);
 		mPasswordEdit = (EditText)findViewById(R.id.act_register_pwd);
 		mSubmit = findViewById(R.id.act_register_submit);
 		mSendSms = (TextView)findViewById(R.id.act_register_sendSMS);
@@ -83,7 +86,7 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 	
 	private void sendSMS(){
 		String num = mPhoneEdit.getText().toString();
-		if(Validate.validatePhoneNumber()){
+		if(Validator.validatePhone(mPhoneEdit, getString(R.string.user_phonenum_verify))){
 			mSendSms.setEnabled(false);
 			new Thread(){
 				int count = SMS_WAIT_TIME;
@@ -113,7 +116,39 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 	}
 	
 	private boolean doValidate(){
-		return true;
+		boolean flag = true;
+		String pwd = mPasswordEdit.getText().toString();
+		String pwd2 = mPasswordEdit2.getText().toString();
+		List<EditText> list = new ArrayList<EditText>();
+		
+		
+		if(!Validator.validatePhone(mPhoneEdit, getString(R.string.user_phonenum_verify))){
+			list.add(mPhoneEdit);
+			flag = false;
+		}
+		
+		
+		if(!Validator.validatePassword(mPasswordEdit, getString(R.string.user_pwd_verify))){
+			list.add(mPasswordEdit);
+			flag = false;
+		}
+		
+		if(!pwd2.equals(pwd)){
+			mPasswordEdit2.setError("两次输入密码不一致");
+			list.add(mPasswordEdit2);
+			flag = false;
+		}
+		
+		if(!flag){
+			if(null != list && list.size() > 0){
+				list.get(0).requestFocus();
+			}
+		}
+		
+		list.clear();
+		list = null;
+		
+		return flag;
 	}
 	
 	private void doRegister(){

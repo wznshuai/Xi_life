@@ -28,6 +28,16 @@
     
     <string name="read_me">我已阅读并接受《嘻生活服务协议》</string>
     
+    <string name="user_phonenum_notnull">手机号不能为空</string>
+    <string name="user_phonenum_verify">手机号格式不正确</string>
+	<string name="user_pwd_notnull">密码不能为空</string>
+	<string name="user_pwd_verify">密码长度在6~14位之间的非空字符</string>
+	
+	<string name="common_loading">加载中</string>
+	
+	<string name="nickname_null">请完善您的个人资料</string>
+	<string name="adress_null">地址暂未设</string>
+    
     
     <!-- ids -->
     <string name="main_content" type="id" />

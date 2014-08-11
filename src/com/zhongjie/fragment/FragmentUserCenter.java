@@ -59,7 +59,6 @@ public class FragmentUserCenter extends BaseFragment{
 		initData();
 		findViews();
 		initViews();
-		loadUserInfo();
 	}
 	
 	@Override
@@ -82,22 +81,14 @@ public class FragmentUserCenter extends BaseFragment{
 		goMyOrderView = findViewById(R.id.fra_usercenter_goMyOrder);
 	}
 	
-	
 	@Override
-	public void onHiddenChanged(boolean hidden) {
-		super.onHiddenChanged(hidden);
-		if(!hidden){
-			mTopRightView.setText("去登录");
-			mTopRightView.setVisibility(View.VISIBLE);
-			loadUserInfo();
-		}else{
-			mTopRightView.setVisibility(View.GONE);
-		}
+	public void onResume() {
+		super.onResume();
+		loadUserInfo();
 	}
 	
+	
 	public void initViews(){
-		mTopRightView.setText("去登录");
-		mTopRightView.setVisibility(View.VISIBLE);
 		
 		mTopRightView.setOnClickListener(new OnClickListener() {
 			
@@ -171,8 +162,13 @@ public class FragmentUserCenter extends BaseFragment{
 	
 	private void initUserInfo(UserModel um){
 		if(null != um){
-			mNickname.setText(um.nickName);
-			mAddress.setText(um.unit + "栋" + um.romm);
+			mNickname.setText(TextUtils.isEmpty(um.nickName) ? getString(R.string.nickname_null) : um.nickName);
+			if(um.unit == null && um.romm == null){
+				mAddress.setText(getString(R.string.adress_null));
+			}else{
+				mAddress.setText(um.unit + "栋" + um.romm);
+			}
+			mIntergal.setText("积分 ：" + um.integral);
 			ImageLoader.getInstance().displayImage(um.image, mHeadImg, options);
 		}
 	}

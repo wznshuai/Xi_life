@@ -16,10 +16,12 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
 import com.zhongjie.activity.BaseActivity;
+import com.zhongjie.activity.user.LoginActivity;
 import com.zhongjie.fragment.FragmentAnyTimeBuy;
 import com.zhongjie.fragment.FragmentManagerService;
 import com.zhongjie.fragment.FragmentShoppingcar;
 import com.zhongjie.fragment.FragmentUserCenter;
+import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.Constants;
 import com.zhongjie.view.CommonDialog;
 import com.zhongjie.view.CommonDialog.OnButtonClickListener;
@@ -139,13 +141,18 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		}
 		if(f.isAdded()){
 			ft.show(f);
+			f.onResume();
 		}else{
 			ft.add(R.id.container, f, tabId);
 		}
+		
+		
 		if(!TextUtils.isEmpty(last_show_TAB) && !tabId.equals(last_show_TAB)){
 			f = mFm.findFragmentByTag(last_show_TAB);
-			if(null != f)
+			if(null != f){
 				ft.hide(f);
+				f.onPause();
+			}
 		}
 		ft.commit();
 		last_show_TAB = tabId;
@@ -156,12 +163,12 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		if(last_show_TAB.equals(tabId) || tabId.equals(TAB_CENTER))
 			return;
 		if(tabId.equals(TAB_4)){
-//			if(!UserModelManager.getInstance().isLogin()){
-//				mTabHost.setCurrentTabByTag(last_show_TAB);
-//				Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//				startActivity(intent);
-//				return;
-//			}
+			if(!UserModelManager.getInstance().isLogin()){
+				mTabHost.setCurrentTabByTag(last_show_TAB);
+				Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+				startActivity(intent);
+				return;
+			}
 		}
 		setCurrentFragment(tabId);
 	}

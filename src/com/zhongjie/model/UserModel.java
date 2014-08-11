@@ -6,4 +6,5 @@ public class UserModel{
 	public String image;//头像
 	public String romm;//房间
 	public String sessId;//用户唯一码
+	public int integral;//积分
 }

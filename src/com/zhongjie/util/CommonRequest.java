@@ -38,10 +38,21 @@ public class CommonRequest {
 		data.put("mobile", mobile);
 		return mHttpUtil.executePost(ApiConstants.URL_SEND_SMS, data);
 	}
-	
+	/**
+	 * 获取用户资料
+	 * @param sessId
+	 * @return
+	 */
 	public String queryUserInfo(String sessId){
 		HashMap<String, String> data = new HashMap<String, String>();
 		data.put("sessId", sessId);
-		return mHttpUtil.executePost(ApiConstants.URL_SEND_SMS, data);
+		return mHttpUtil.executePost(ApiConstants.URL_USER_INFO, data);
+	}
+	
+	public String doLogin(String mobile, String pwd){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("mobile", mobile);
+		data.put("password", pwd);
+		return mHttpUtil.executePost(ApiConstants.URL_USER_LOGIN, data);
 	}
 }

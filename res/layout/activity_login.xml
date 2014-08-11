@@ -126,7 +126,7 @@
                     android:orientation="vertical" >
 
                     <Button
-                        android:id="@+id/fra_button_login"
+                        android:id="@+id/act_login_login"
                         style="@style/Common_Button.Blue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

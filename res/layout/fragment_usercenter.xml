@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:text="南京达人"
+                android:text="@string/nickname_null"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -65,7 +65,7 @@
                     android:ellipsize="end"
                     android:gravity="right"
                     android:singleLine="true"
-                    android:text="2栋5012"
+                    android:text="@string/adress_null"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -78,7 +78,7 @@
                     android:ellipsize="end"
                     android:gravity="left"
                     android:singleLine="true"
-                    android:text="积分 ： 878"
+                    android:text="积分 ： 0"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
             </LinearLayout>
