@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zhongjie.R;
 
@@ -69,5 +70,17 @@ public abstract class BaseActivity extends FragmentActivity{
 		.addView(getLayoutInflater().inflate(R.layout.topview_flower, null),
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		super.setContentView(mainView);
+	}
+	
+	protected void showToast(String msg){
+		Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+	}
+	
+	protected void showToast(int resId){
+		Toast.makeText(getApplicationContext(), resId, Toast.LENGTH_SHORT).show();
+	}
+	
+	protected boolean canGOON(){
+		return !isFinishing() && null != this;
 	}
 }

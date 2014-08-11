@@ -28,7 +28,6 @@ import com.zhongjie.MyApplication;
 
 /**
  * 
- * @author roc
  * 
  *         說明：所有http请求都应该通过这个类，包含加密算法，后端如有必要可以进行验证：key的值，
  *         具体算法详见encryptPostParams方法

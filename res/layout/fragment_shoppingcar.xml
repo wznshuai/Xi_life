@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:text="结算(6)"
                 android:padding="3dp"
-                android:background="@drawable/orange_bg"/>
+                android:background="@drawable/orange_bg_selector"/>
         </LinearLayout>
     </RelativeLayout>
 

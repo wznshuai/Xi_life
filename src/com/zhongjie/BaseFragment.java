@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -142,6 +143,14 @@ public class BaseFragment extends Fragment{
 	public void onDestroy() {
 		super.onDestroy();
 		System.out.println(getClass().getSimpleName() + "  onDestroy");
+	}
+	
+	protected void showToast(String msg){
+		Toast.makeText(getActivity().getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+	}
+	
+	protected void showToast(int resId){
+		Toast.makeText(getActivity().getApplicationContext(), resId, Toast.LENGTH_SHORT).show();
 	}
 	
 	

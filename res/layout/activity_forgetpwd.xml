@@ -56,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/orange_bg"
+                    android:background="@drawable/orange_bg_selector"
                     android:paddingBottom="5dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"

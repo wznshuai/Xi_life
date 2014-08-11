@@ -7,6 +7,9 @@ import android.view.ViewGroup.LayoutParams;
 
 import com.zhongjie.MainActivity;
 import com.zhongjie.R;
+import com.zhongjie.activity.anytimebuy.CommodityListActivity;
+import com.zhongjie.activity.user.RegisterActivity;
+import com.zhongjie.util.Constants;
 
 
 
@@ -41,9 +44,18 @@ public abstract class BaseSecondActivity extends BaseActivity{
 	protected void goHomeActivity(){
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
+		finish();
 	}
+	
+	protected void goHomeActivity(String whichTab){
+		Intent intent = new Intent(this, MainActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra(Constants.MAINACTIVITY_TAB_KEY, whichTab);
+		startActivity(intent);
+		finish();
+	}
+	
 	
 	@Override
 	protected void onDestroy() {

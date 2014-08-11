@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:text="去评价"
             android:textColor="#ffffff"
-            android:background="@drawable/orange_bg"
+            android:background="@drawable/orange_bg_selector"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="3dp"

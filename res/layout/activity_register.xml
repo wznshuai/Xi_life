@@ -74,6 +74,7 @@
                         android:inputType="number" />
                     
                     <TextView 
+                        android:id="@+id/act_register_sendSMS"
                         android:layout_marginLeft="10dp"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
@@ -83,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/get_sms_verifycode"
                         android:textColor="#ffffff"
-                        android:background="@drawable/orange_bg"/>
+                        android:background="@drawable/orange_bg_selector"/>
                 </LinearLayout>
                 
                 <CheckBox 
@@ -96,6 +97,7 @@
                     style="@style/Common_CheckBox.Pink"/>
                 
                 <Button 
+                    android:id="@+id/act_register_submit"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
                     android:layout_marginTop="20dp"
