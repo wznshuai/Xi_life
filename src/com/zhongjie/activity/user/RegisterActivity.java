@@ -21,6 +21,8 @@ import com.zhongjie.model.BaseJson;
 import com.zhongjie.model.UserJson;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.CommonRequest;
+import com.zhongjie.util.Constants;
+import com.zhongjie.util.SharedPreferencesUtil;
 import com.zhongjie.util.Validator;
 
 public class RegisterActivity extends BaseSecondActivity implements OnClickListener{
@@ -218,8 +220,8 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 				if(result.code != 0)
 					showToast(result.errMsg);
 				else{
-					UserModelManager umm = UserModelManager.getInstance();
-					umm.setmUser(result.data);
+					UserModelManager.getInstance().setmUser(result.data);
+					SharedPreferencesUtil.getInstance(getApplicationContext()).saveString(Constants.USER_SESSID, result.data.sessId);
 					goHomeActivity(MainActivity.TAB_4);
 				}
 			}

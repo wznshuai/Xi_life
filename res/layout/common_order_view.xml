@@ -5,11 +5,11 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical" >
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
 
         <ImageView
             android:layout_width="@dimen/order_photo"
@@ -22,12 +22,28 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:orientation="vertical" >
+
             <TextView
+                android:id="@+id/common_order_view_commodityName"
+                android:layout_alignBottom="@+id/common_order_view_goComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="饭团·豆沙馅"
                 android:textColor="#333333" />
+
+            <TextView
+                android:id="@+id/common_order_view_goComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/orange_bg_selector"
+                android:paddingBottom="3dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="3dp"
+                android:text="去评价"
+                android:layout_alignParentRight="true"
+                android:textColor="#ffffff" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,25 +56,23 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="left"
                     android:text="240.00 ￥"
-                    android:textColor="#ff0099" 
-                    android:gravity="left"/>
-                <TextView 
+                    android:textColor="#ff0099" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#666666"
-                    android:text="数量 : 12"/>
+                    android:text="数量 : 12"
+                    android:textColor="#666666" />
             </LinearLayout>
         </RelativeLayout>
-        <ImageView 
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_right"/>
     </LinearLayout>
-	<View 
-	    android:layout_marginTop="5dp"
-	    android:layout_width="match_parent"
-	    android:layout_height="2dp"
-	    android:background="@drawable/dashes_line"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/dashes_line" />
+
 </LinearLayout>

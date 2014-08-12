@@ -17,7 +17,9 @@ import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.model.UserJson;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.CommonRequest;
+import com.zhongjie.util.Constants;
 import com.zhongjie.util.Logger;
+import com.zhongjie.util.SharedPreferencesUtil;
 import com.zhongjie.util.Validator;
 import com.zhongjie.view.CommonLoadingDialog;
 
@@ -91,6 +93,7 @@ public class LoginActivity extends BaseSecondActivity implements OnClickListener
 			if(null != result){
 				if(result.code == 0){
 					UserModelManager.getInstance().setmUser(result.data);
+					SharedPreferencesUtil.getInstance(getApplicationContext()).saveString(Constants.USER_SESSID, result.data.sessId);
 					finish();
 				}else{
 					showToast(result.errMsg);

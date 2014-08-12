@@ -1,5 +1,6 @@
 package com.zhongjie.util;
 
+import java.io.File;
 import java.util.HashMap;
 
 import android.content.Context;
@@ -48,11 +49,52 @@ public class CommonRequest {
 		data.put("sessId", sessId);
 		return mHttpUtil.executePost(ApiConstants.URL_USER_INFO, data);
 	}
-	
+	/**
+	 * 登录
+	 * @param mobile
+	 * @param pwd
+	 * @return
+	 */
 	public String doLogin(String mobile, String pwd){
 		HashMap<String, String> data = new HashMap<String, String>();
 		data.put("mobile", mobile);
 		data.put("password", pwd);
 		return mHttpUtil.executePost(ApiConstants.URL_USER_LOGIN, data);
+	}
+	/**
+	 * 修改用户资料
+	 * @param sessId
+	 * @param nickName
+	 * @param image
+	 * @param unit
+	 * @param romm
+	 * @return
+	 */
+	public String modifyUserInfo(String sessId, String nickName, String image, String unit, String romm){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("sessId", sessId);
+		data.put("nickName", nickName);
+		data.put("image", image);
+		data.put("unit", unit);
+		data.put("room", romm);
+		return mHttpUtil.executePost(ApiConstants.URL_USER_MODIFY_INFO, data);
+	}
+	
+	/**
+	 * 上传图片
+	 * @param imageFile
+	 * @return
+	 */
+	public String uploadImage(File... imageFile){
+		HashMap<String, String> data = new HashMap<String, String>();
+		return mHttpUtil.executePost(ApiConstants.URL_USER_UPLOADIMAGE, data, "file", imageFile);
+	}
+	/**
+	 * 随手够商品目录
+	 * @param imageFile
+	 * @return
+	 */
+	public String queryEshopCatelog(){
+		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_CATELOG);
 	}
 }

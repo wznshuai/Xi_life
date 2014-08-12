@@ -49,7 +49,6 @@ public class CommonLoadingDialog extends Dialog {
 		dialog.initViews();
 		dialog.getWindow().getAttributes().gravity = Gravity.CENTER;
 		
-		dialog.setCancelable(true);
 		dialog.setCanceledOnTouchOutside(false);
 		return dialog;
 	}

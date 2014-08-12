@@ -1,7 +1,9 @@
 package com.zhongjie.http;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +17,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HTTP;
@@ -144,18 +150,7 @@ public class HttpUtil {
 			throws UnsupportedEncodingException {
 
 		List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
-		// if (AppConstants.isAddCookie) {
-		if (params.containsKey("uid")) {
-			params.remove("uid");
-		}
-		if (params.containsKey("token")) {
-			params.remove("token");
-		}
-		// } else {
 		params.put("device", "android");
-		// params.put("version", myApplication.getVersion());
-		// params.put("deviceId", myApplication.getDeviceId());
-		// }
 		Iterator<String> it = params.keySet().iterator();
 		while (it.hasNext()) {
 			String key = it.next();
@@ -179,6 +174,71 @@ public class HttpUtil {
 
 	public String executePost(String url) {
 		return executePost(url, new HashMap<String, String>());
+	}
+	
+	/**
+	 * 
+	 * @param url
+	 * @param params
+	 * @param key
+	 *            传 file时的键名
+	 * @param files
+	 *            要上传的文件
+	 * @return
+	 */
+	public String executePost(String url, HashMap<String, String> params,
+			String key, File... files) {
+		String result = null;
+		HttpPost httpPost = putPostHeadParams(url);
+		HttpContext localContext = new BasicHttpContext();
+		try {
+			MultipartEntity entity = new MultipartEntity(
+					HttpMultipartMode.BROWSER_COMPATIBLE);
+
+			encryptPostParams(entity, params);
+			if (files != null) {
+				for (File myfile : files) {
+					if (myfile != null) {
+						entity.addPart(key, new FileBody(myfile, "image/jpeg"));
+					}
+				}
+			}
+			httpPost.setEntity(entity);
+
+			HttpResponse response = myApplication.getHttpClient().execute(
+					httpPost, localContext);
+
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+				result = EntityUtils.toString(response.getEntity());
+			} 
+
+		} catch (Exception e) {
+			Logger.e(TAG , "RemoteRequester:doPost : " , e);
+		}
+		return result;
+	}
+	
+	private void encryptPostParams(MultipartEntity entity,
+			HashMap<String, String> params) throws NoSuchAlgorithmException,
+			UnsupportedEncodingException {
+		ArrayList<String> alist = new ArrayList<String>();
+
+		// 公共参数
+		params.put("device", "android");
+
+		Iterator<String> it = params.keySet().iterator();
+		while (it.hasNext()) {
+			String key = it.next();
+			String value = params.get(key);
+			if (value == null || value.trim().equals("")) {
+				it.remove();
+				params.remove(key);
+			} else {
+				alist.add(value);
+				entity.addPart(key,
+						new StringBody(value, Charset.forName(HTTP.UTF_8)));
+			}
+		}
 	}
 
 

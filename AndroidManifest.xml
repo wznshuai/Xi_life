@@ -7,49 +7,104 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
+        android:name="com.zhongjie.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="com.zhongjie.MyApplication" >
+        android:theme="@style/AppTheme" >
         <activity
-            android:name="com.zhongjie.MainActivity"
+            android:name="com.zhongjie.activity.WelcomeActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" 
-            android:theme="@style/AppTheme">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.zhongjie.activity.user.LoginActivity" android:screenOrientation="portrait"
-            android:theme="@style/Transparent"/>
-        <activity android:name="com.zhongjie.activity.user.RegisterActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
-        <activity android:name="com.zhongjie.activity.user.ForgetpwdActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
-        <activity android:name="com.zhongjie.activity.user.UserInfoAcivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
-        <activity android:name="com.zhongjie.activity.user.IntegralActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
-        <activity android:name="com.zhongjie.activity.user.SettingActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
-        <activity android:name="com.zhongjie.activity.user.MyRepairsActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
-        <activity android:name="com.zhongjie.activity.user.MyOrderActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
-        <activity android:name="com.zhongjie.activity.anytimebuy.CommodityListActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
-  		<activity android:name="com.zhongjie.activity.anytimebuy.CommodityDetailsActivity" android:screenOrientation="portrait"
-  		     android:theme="@style/Transparent" android:windowSoftInputMode="stateAlwaysHidden"/>
-  		<activity android:name="com.zhongjie.activity.anytimebuy.CommodityCommentActivity" android:screenOrientation="portrait" android:theme="@style/Transparent"/>
-  		<activity android:name="com.zhongjie.activity.anytimebuy.SendCommentActivity" android:screenOrientation="portrait" 
-  		    android:theme="@style/Transparent" android:windowSoftInputMode="stateAlwaysHidden"/>
-  		<activity android:name="com.zhongjie.activity.shoppingcar.FillOrderActivity" android:screenOrientation="portrait" 
-  		    android:theme="@style/Transparent" android:windowSoftInputMode="stateAlwaysHidden"/>
-  		<activity android:name="com.zhongjie.activity.shoppingcar.SubmitOrderSuccess" android:screenOrientation="portrait" 
-  		    android:theme="@style/Transparent" android:windowSoftInputMode="stateAlwaysHidden"/>
-  		<activity android:name="com.zhongjie.activity.managerservice.RepairsActivity" android:screenOrientation="portrait" 
-  		    android:theme="@style/Transparent" android:windowSoftInputMode="stateAlwaysHidden"/>
-    	<activity android:name="com.zhongjie.activity.managerservice.RepairsSuccess" android:screenOrientation="portrait" 
-  		    android:theme="@style/Transparent" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name="com.zhongjie.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.zhongjie.activity.user.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name="com.zhongjie.activity.user.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name="com.zhongjie.activity.user.ForgetpwdActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name="com.zhongjie.activity.user.UserInfoAcivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name="com.zhongjie.activity.user.IntegralActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name="com.zhongjie.activity.user.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name="com.zhongjie.activity.user.MyRepairsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name="com.zhongjie.activity.user.MyOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name="com.zhongjie.activity.anytimebuy.CommodityListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name="com.zhongjie.activity.anytimebuy.CommodityDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.zhongjie.activity.anytimebuy.CommodityCommentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name="com.zhongjie.activity.anytimebuy.SendCommentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.zhongjie.activity.shoppingcar.FillOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.zhongjie.activity.shoppingcar.SubmitOrderSuccess"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.zhongjie.activity.managerservice.RepairsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.zhongjie.activity.managerservice.RepairsSuccess"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
 </manifest>

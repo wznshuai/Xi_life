@@ -11,4 +11,6 @@ public class Constants {
 	public static final String SHOPPING_CAR_KEY = "SHOPPING_CAR_KEY";
 	
 	public static final String MAINACTIVITY_TAB_KEY = "MAINACTIVITY_TAB_KEY";
+	
+	public static final String USER_SESSID = "USER_SESSID";
 }

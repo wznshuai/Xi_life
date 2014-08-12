@@ -10,4 +10,10 @@ public class ApiConstants {
 	public static final String URL_USER_LOGIN = BASE_HOST + "user/login";
 	//用户资料
 	public static final String URL_USER_INFO = BASE_HOST + "user/info";
+	//修改资料
+	public static final String URL_USER_MODIFY_INFO = BASE_HOST + "user/modifyUserInfo";
+	//上传头像
+	public static final String URL_USER_UPLOADIMAGE = BASE_HOST + "user/imageUpload";
+	//随收购目录
+	public static final String URL_ESHOP_CATELOG = BASE_HOST + "eshop/queryCatalog";
 }

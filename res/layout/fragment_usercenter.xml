@@ -168,6 +168,18 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_dryclean_histroy"
+            android:drawableRight="@drawable/ic_arrow_right"
+            android:text="干洗记录" />
+
+        <TextView
+            android:id="@+id/fra_usercenter_goMyrepairs"
+            style="@style/UserCenter_bottom_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/ic_manager_service"
             android:drawableRight="@drawable/ic_arrow_right"
             android:text="我的报修" />
@@ -195,6 +207,16 @@
             android:drawableLeft="@drawable/ic_setting"
             android:drawableRight="@drawable/ic_arrow_right"
             android:text="我的设置" />
+
+        <Button
+            android:id="@+id/fra_usercenter_logout"
+            style="@style/Common_Button.Blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/user_logout" />
     </LinearLayout>
 
 </ScrollView>

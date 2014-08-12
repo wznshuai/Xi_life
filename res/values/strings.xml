@@ -23,6 +23,7 @@
     <string name="login">登      录</string>
     <string name="submit">提       交</string>
     <string name="user_login">用户登录</string>
+    <string name="user_logout">注销登录</string>
     <string name="btn_confirm">确     定</string>
     <string name="register">注册</string>
     

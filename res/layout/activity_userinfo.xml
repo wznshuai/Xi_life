@@ -100,7 +100,7 @@
                         android:id="@+id/act_userinfo_nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="南京大萝卜"
+                        android:text="@string/nickname_null"
                         android:textColor="@android:color/black" 
                         android:inputType="text"
                         android:imeOptions="actionNext"/>
@@ -110,7 +110,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/white_bg"
-                        android:hint="南京大萝卜"
                         android:padding="5dp"
                         android:visibility="gone" />
                 </RelativeLayout>
@@ -145,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="12345678901"
+                    android:text=""
                     android:textColor="@android:color/black" />
             </LinearLayout>
 
@@ -182,7 +181,7 @@
                         android:id="@+id/act_userinfo_address1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="23" 
+                        android:text="0" 
                         android:textColor="@android:color/black"/>
 
                     <EditText
@@ -192,7 +191,6 @@
                         android:minWidth="50dp"
                         android:layout_marginRight="5dp"
                         android:background="@drawable/white_bg"
-                        android:hint="23"
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:padding="5dp"
@@ -213,7 +211,7 @@
                         android:id="@+id/act_userinfo_address2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2301" 
+                        android:text="0" 
                         android:textColor="@android:color/black"/>
 
                     <EditText
@@ -224,7 +222,6 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:background="@drawable/white_bg"
-                        android:hint="2301"
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:padding="5dp"
@@ -258,6 +255,7 @@
                     android:layout_marginBottom="10dp"
                     android:background="#ffffff" />
                 <Button 
+                    android:id="@+id/act_userinfo_submit"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
                     android:layout_marginTop="20dp"

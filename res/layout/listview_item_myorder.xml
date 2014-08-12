@@ -39,17 +39,11 @@
         android:background="#ffffff" />
 
     <LinearLayout
+        android:id="@+id/list_item_myorder_commodity_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="vertical" >
-		<include android:layout_width="match_parent" android:layout_height="wrap_content"
-		    layout="@layout/common_order_view"/>
-		<include android:layout_width="match_parent" android:layout_height="wrap_content"
-		    layout="@layout/common_order_view"/>
-		<include android:layout_width="match_parent" android:layout_height="wrap_content"
-		    layout="@layout/common_order_view"/>
-    </LinearLayout>
+        android:orientation="vertical" />
 
     <LinearLayout 
         android:orientation="horizontal"
@@ -65,7 +59,7 @@
             android:id="@+id/list_item_myorder_doNeed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="去评价"
+            android:text="去付款"
             android:textColor="#ffffff"
             android:background="@drawable/orange_bg_selector"
             android:paddingLeft="10dp"

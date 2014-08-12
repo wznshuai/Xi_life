@@ -1,8 +1,11 @@
 package com.zhongjie.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.zhongjie.BaseFragment;
+import com.zhongjie.MainActivity;
 import com.zhongjie.R;
 import com.zhongjie.activity.user.IntegralActivity;
 import com.zhongjie.activity.user.LoginActivity;
@@ -28,13 +32,16 @@ import com.zhongjie.model.UserJson;
 import com.zhongjie.model.UserModel;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.CommonRequest;
+import com.zhongjie.util.Constants;
+import com.zhongjie.util.SharedPreferencesUtil;
+import com.zhongjie.view.CommonLoadingDialog;
 
 public class FragmentUserCenter extends BaseFragment{
 	
 	private static FragmentUserCenter mInstance;
 	
 	private ImageView mHeadImg;
-	private View mEditView, goIntegralView, goSettingView, goMyRepairsView, goMyOrderView;
+	private View mEditView, goIntegralView, goSettingView, goMyRepairsView, goMyOrderView, mLogoutView;
 	private static final int REQUEST_CODE = 0x001; 
 	
 	private TextView mTopRightView, mAddress, mIntergal, mNickname;
@@ -79,11 +86,13 @@ public class FragmentUserCenter extends BaseFragment{
 		goSettingView = findViewById(R.id.fra_usercenter_goSetting);
 		goMyRepairsView = findViewById(R.id.fra_usercenter_goMyrepairs);
 		goMyOrderView = findViewById(R.id.fra_usercenter_goMyOrder);
+		mLogoutView = findViewById(R.id.fra_usercenter_logout);
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
+		initUserInfo(mUserManager.getmUser());
 		loadUserInfo();
 	}
 	
@@ -152,6 +161,26 @@ public class FragmentUserCenter extends BaseFragment{
 				startActivity(intent);
 			}
 		});
+		
+		mLogoutView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				logout();
+				((MainActivity)getActivity()).setCurrentTabByTag(MainActivity.TAB_1);
+				Intent intent = new Intent(getActivity(), LoginActivity.class);
+				startActivity(intent);
+			}
+		});
+	}
+	
+	private void logout(){
+		SharedPreferencesUtil.getInstance(getActivity().getApplicationContext()).removeByKey(Constants.USER_SESSID);
+		mUserManager.setmUser(null);
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.remove(mInstance);
+		ft.commit();
+		mInstance = null;
 	}
 	
 	private void loadUserInfo(){
@@ -175,9 +204,19 @@ public class FragmentUserCenter extends BaseFragment{
 	
 	class QueryUserInfoTask extends AsyncTask<String, Void, UserJson>{
 
+		CommonLoadingDialog cld;
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			cld = CommonLoadingDialog.create(getActivity());
+			cld.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					cancel(true);
+				}
+			});
+			cld.show();
 		}
 		
 		@Override
@@ -195,6 +234,10 @@ public class FragmentUserCenter extends BaseFragment{
 			super.onPostExecute(result);
 			if(!canGoon())
 				return;
+			if(null != cld){
+				cld.cancel();
+				cld = null;
+			}
 			if(null != result){
 				if(0 == result.code){
 					initUserInfo(result.data);
