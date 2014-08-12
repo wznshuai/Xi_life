@@ -73,10 +73,10 @@
 	     nickName<String>:昵称
 	     image<String>:头像
 	     unit<String>:单元
-	     romm<String>:房间
+	     room<String>:房间
 	     integral<String>:积分
 	   示例：
-	     查询到用户资料：{"errMsg":"","data":{"unit":"2","nickName":"John","image":"http://image1","romm":"502","integral":405},"code":"0"}
+	     查询到用户资料：{"errMsg":"","data":{"unit":"2","nickName":"John","image":"http://image1","room":"502","integral":405},"code":"0"}
 	     用户不存在：{"errMsg":"","data":{},"code":"0"}
 	     异常：{"data":{},"code":"-1","errMsg":"获取个人中心异常"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
@@ -93,9 +93,9 @@
 	     phone<String>:手机号
 	     image<String>:头像
 	     unit<String>:单元
-	     romm<String>:房间
+	     room<String>:房间
 	   示例：
-	     查询到用户资料：{"errMsg":"","data":{"unit":"2","phone":"18933619711","nickName":"John","image":"http://image1","romm":"502"},"code":"0"}
+	     查询到用户资料：{"errMsg":"","data":{"unit":"2","phone":"18933619711","nickName":"John","image":"http://image1","room":"502"},"code":"0"}
 	     用户不存在：{"errMsg":"","data":{},"code":"0"}
 	     异常：{"errMsg":"获取个人资料异常","data":{},"code":"-1"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
@@ -116,9 +116,9 @@
 	     phone<String>:手机号
 	     image<String>:头像
 	     unit<String>:单元
-	     romm<String>:房间
+	     room<String>:房间
 	   示例：
-	     成功：{"errMsg":"","data":{"unit":null,"phone":"1234567891","nickName":"John","image":null,"romm":null},"code":"0"}
+	     成功：{"errMsg":"","data":{"unit":null,"phone":"1234567891","nickName":"John","image":null,"room":null},"code":"0"}
 	     用户不存在：{"errMsg":"","data":{},"code":"0"}
 	     异常：{"data":{},"code":"-1","errMsg":"修改个人资料异常"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
