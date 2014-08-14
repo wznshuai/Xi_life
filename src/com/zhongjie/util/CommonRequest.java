@@ -95,6 +95,20 @@ public class CommonRequest {
 	 * @return
 	 */
 	public String queryEshopCatelog(){
-		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_CATELOG);
+		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_CATALOG);
+	}
+	/**
+	 * 查询商品列表
+	 * @param catagoryId 商品分类ID
+	 * @param start 开始页数
+	 * @param step 每页长度
+	 * @return
+	 */
+	public String queryCommodityList(int catagoryId, int start, int step){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("catagoryId", catagoryId + "");
+		data.put("start", start + "");
+		data.put("step", step + "");
+		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_COMMODITYLIST, data);
 	}
 }

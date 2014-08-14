@@ -7,6 +7,7 @@
     android:padding="8dp" >
 
     <ImageView
+        android:id="@+id/list_item_commodity_img"
         android:layout_width="@dimen/commodity_item_img"
         android:layout_height="@dimen/commodity_item_img"
         android:src="@drawable/ic_default_head" />
@@ -16,29 +17,28 @@
 	    android:layout_height="match_parent"
 	    android:orientation="vertical">
 	    <TextView 
-	        android:text="饭团·豆沙馅"
+	        android:id="@+id/list_item_commodity_name"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:textColor="#333333"/>
 	    <TextView 
+	        android:id="@+id/list_item_commodity_description"
 	        android:textColor="#666666"
 	        android:layout_marginTop="3dp"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="精选优质大米，香浓可口"/>
+	        android:layout_height="wrap_content"/>
 	    <RelativeLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent">
 	        <TextView 
+	            android:id="@+id/list_item_commodity_weight"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_marginBottom="2dp"
 	            android:layout_above="@+id/list_item_commodity_money"
-	            android:text="重量 : 250g"
 	            android:textColor="#976600"/>
 	        <TextView 
 	            android:id="@+id/list_item_commodity_money"
-	            android:text="￥2.40"
 	            android:textColor="#ff0099"
 	            android:layout_alignParentBottom="true"
 	           	android:layout_width="wrap_content"

@@ -7,8 +7,6 @@ import android.view.ViewGroup.LayoutParams;
 
 import com.zhongjie.MainActivity;
 import com.zhongjie.R;
-import com.zhongjie.activity.anytimebuy.CommodityListActivity;
-import com.zhongjie.activity.user.RegisterActivity;
 import com.zhongjie.util.Constants;
 
 

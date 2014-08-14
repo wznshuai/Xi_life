@@ -20,8 +20,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.BaseFragment;
 import com.zhongjie.R;
 import com.zhongjie.activity.anytimebuy.CommodityListActivity;
-import com.zhongjie.model.EshopCatelogListJson;
-import com.zhongjie.model.EshopCatelogModel;
+import com.zhongjie.model.EshopCatalogListJson;
+import com.zhongjie.model.EshopCatalogModel;
 import com.zhongjie.util.CommonRequest;
 import com.zhongjie.view.PromptView;
 
@@ -32,7 +32,7 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 	private ListView mListView;
 	private CommonRequest mRequest;
 	private PromptView mPromptView;
-	private List<EshopCatelogModel> mEshopCatelogList;
+	private List<EshopCatalogModel> mEshopCatelogList;
 	
 	public static FragmentAnyTimeBuy newInstance(){
 		if(null == mInstance)
@@ -76,7 +76,12 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				startActivity(new Intent(getActivity(), CommodityListActivity.class));
+				EshopCatalogModel ecm = mEshopCatelogList.get(position);
+				if(null != ecm){
+					Intent intent = new Intent(getActivity(), CommodityListActivity.class);
+					intent.putExtra("catalogId", ecm.catalogId);
+					startActivity(intent);
+				}
 			}
 			
 		});
@@ -92,7 +97,7 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 		}
 
 		@Override
-		public EshopCatelogModel getItem(int position) {
+		public EshopCatalogModel getItem(int position) {
 			return null == mEshopCatelogList ? null : mEshopCatelogList.get(position);
 		}
 
@@ -106,14 +111,14 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 			if(null == convertView){
 				convertView = LayoutInflater.from(getActivity()).inflate(R.layout.listview_item_anytimebuy, null);
 			}
-			EshopCatelogModel eShop = getItem(position);
+			EshopCatalogModel eShop = getItem(position);
 			ImageView img = (ImageView)convertView.findViewById(R.id.list_item_anytimebuy_img);
 			ImageLoader.getInstance().displayImage(eShop.catalogImage, img);
 			return convertView;
 		}
 	}
 	
-	class QueryEshopCatelog extends AsyncTask<String, Void, EshopCatelogListJson>{
+	class QueryEshopCatelog extends AsyncTask<String, Void, EshopCatalogListJson>{
 
 		@Override
 		protected void onPreExecute() {
@@ -122,17 +127,17 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 		}
 		
 		@Override
-		protected EshopCatelogListJson doInBackground(String... params) {
-			EshopCatelogListJson eclj = null;
+		protected EshopCatalogListJson doInBackground(String... params) {
+			EshopCatalogListJson eclj = null;
 			String json = mRequest.queryEshopCatelog();
 			if(!TextUtils.isEmpty(json)){
-				eclj = JSON.parseObject(json, EshopCatelogListJson.class);
+				eclj = JSON.parseObject(json, EshopCatalogListJson.class);
 			}
 			return eclj;
 		}
 		
 		@Override
-		protected void onPostExecute(EshopCatelogListJson result) {
+		protected void onPostExecute(EshopCatalogListJson result) {
 			super.onPostExecute(result);
 			if(!canGoon())
 				return;

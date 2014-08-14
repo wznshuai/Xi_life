@@ -15,5 +15,7 @@ public class ApiConstants {
 	//上传头像
 	public static final String URL_USER_UPLOADIMAGE = BASE_HOST + "user/imageUpload";
 	//随收购目录
-	public static final String URL_ESHOP_CATELOG = BASE_HOST + "eshop/queryCatalog";
+	public static final String URL_ESHOP_CATALOG = BASE_HOST + "eshop/queryCatalog";
+	//查询商品列表
+	public static final String URL_ESHOP_COMMODITYLIST = BASE_HOST + "eshop/queryList";
 }

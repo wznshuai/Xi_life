@@ -1,10 +1,14 @@
 package com.zhongjie.activity.anytimebuy;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,27 +16,41 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.zhongjie.MainActivity;
 import com.zhongjie.R;
-import com.zhongjie.activity.BaseSecondActivity;
+import com.zhongjie.activity.BaseListActivity;
 import com.zhongjie.global.Session;
+import com.zhongjie.model.CommodityListJson;
+import com.zhongjie.model.CommodityModel;
+import com.zhongjie.util.CommonRequest;
 import com.zhongjie.util.Constants;
+import com.zhongjie.util.ShopCartManager;
 import com.zhongjie.util.Utils;
+import com.zhongjie.view.PromptView;
 
-public class CommodityListActivity extends BaseSecondActivity {
+public class CommodityListActivity extends BaseListActivity {
 
-	private ListView mListView;
 	private volatile boolean isShowing = false;
 	private WindowManager mWm;
 	private View mFloatView;
 	private TextView mBuyCountView;
 	private int mBuyCount = 0;
+	private int mCatalogId;
+	private List<CommodityModel> mCommodityList; 
+	private ShopCartManager mCartManager;
+	private PromptView mPromptView;
+	private CommonRequest mRequest;
+	
+	private int start = 0, step = 20, maxCount;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +60,20 @@ public class CommodityListActivity extends BaseSecondActivity {
 
 	@Override
 	protected void initData() {
-
+		mCatalogId = getIntent().getIntExtra("catalogId", -1);
+		mCartManager = ShopCartManager.newInstance();
+		mRequest = new CommonRequest(getApplicationContext());
 	}
 
 	@Override
 	protected void findViews() {
 		mListView = (ListView) findViewById(R.id.act_commodity_list);
+		mPromptView = (PromptView)findViewById(R.id.promptView);
 	}
-
+	
 	@Override
 	protected void initViews() {
+		super.initViews();
 		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
 		mTopLeftImg.setVisibility(View.VISIBLE);
 		mTopCenterImg.setImageResource(R.drawable.ic_logo_ssg);
@@ -66,6 +88,28 @@ public class CommodityListActivity extends BaseSecondActivity {
 				startActivity(new Intent(CommodityListActivity.this, CommodityDetailsActivity.class));
 			}
 			
+		});
+		mListView.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				if(scrollState == OnScrollListener.SCROLL_STATE_IDLE){
+					if(view.getLastVisiblePosition() - mListView.getHeaderViewsCount() == view.getAdapter().getCount() - 1){
+						int maxPage = maxCount%step == 0 ? maxCount/step : maxCount/step + 1;
+						if(start + 1 < maxPage){
+							start++;
+							new QueryCommodityList().execute();
+							showFooterView(FooterView.MORE);
+						}
+					}
+				}
+			}
+			
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				
+			}
 		});
 	}
 
@@ -118,12 +162,12 @@ public class CommodityListActivity extends BaseSecondActivity {
 
 		@Override
 		public int getCount() {
-			return 10;
+			return null == mCommodityList ? 0 : mCommodityList.size();
 		}
 
 		@Override
-		public Object getItem(int position) {
-			return null;
+		public CommodityModel getItem(int position) {
+			return null == mCommodityList ? null : mCommodityList.get(position);
 		}
 
 		@Override
@@ -136,29 +180,96 @@ public class CommodityListActivity extends BaseSecondActivity {
 			ViewHolder vh;
 			if (null == convertView){
 				convertView = getLayoutInflater().inflate(
-						R.layout.listview_item_commodity, null);
+						R.layout.listview_item_commodity, parent, false);
 				vh = new ViewHolder();
 				vh.addInShoppingCar = convertView.findViewById(R.id.list_item_commodity_add_in_shoppingcar);
+				vh.commodityDescription = (TextView)convertView.findViewById(R.id.list_item_commodity_description);
+				vh.commodityName = (TextView)convertView.findViewById(R.id.list_item_commodity_name);
+				vh.commodityPrice = (TextView)convertView.findViewById(R.id.list_item_commodity_money);
+				vh.commodityWeight = (TextView)convertView.findViewById(R.id.list_item_commodity_weight);
 				convertView.setTag(vh);
 			}else{
 				vh = (ViewHolder)convertView.getTag();
 			}
 			
-			vh.addInShoppingCar.setOnClickListener(new OnClickListener() {
+			CommodityModel mCommodity = getItem(position);
+			vh.addInShoppingCar.setTag(position);
+			if(null != mCommodity){
+				vh.commodityDescription.setText(mCommodity.info);
+				vh.commodityName.setText(mCommodity.name);
+				vh.commodityPrice.setText(mCommodity.price);
+				vh.commodityWeight.setText(mCommodity.weight);
 				
-				@Override
-				public void onClick(View arg0) {
-					if(null != mBuyCountView){
-						mBuyCountView.setText(" " + ++mBuyCount + " ");
-						Session.getSession().put(Constants.SHOPPING_CAR_KEY, mBuyCount);
+				vh.addInShoppingCar.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View arg0) {
+						if(null != mBuyCountView){
+							int pos = (Integer)arg0.getTag();
+							CommodityModel cm = getItem(pos);
+							if(null != cm){
+								mBuyCountView.setText(" " + ++mBuyCount + " ");
+								Session.getSession().put(Constants.SHOP_CART_KEY, mBuyCount);
+								mCartManager.addInShopCart(cm);
+							}
+						}
 					}
-				}
-			});
+				});
+			}
+			
 			return convertView;
 		}
 		
 		class ViewHolder{
+			TextView commodityName, commodityWeight, commodityPrice, commodityDescription;	
 			View addInShoppingCar;
+		}
+	}
+	
+	class QueryCommodityList extends AsyncTask<String, Void, CommodityListJson>{
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			if(start == 0)
+				mPromptView.showLoading();
+		}
+		
+		@Override
+		protected CommodityListJson doInBackground(String... params) {
+			CommodityListJson eclj = null;
+			String json = mRequest.queryCommodityList(mCatalogId, start, step);
+			if(!TextUtils.isEmpty(json)){
+				eclj = JSON.parseObject(json, CommodityListJson.class);
+			}
+			return eclj;
+		}
+		
+		@Override
+		protected void onPostExecute(CommodityListJson result) {
+			super.onPostExecute(result);
+			if(!canGOON())
+				return;
+			if(start == 0)
+				mPromptView.showContent();
+			else
+				showFooterView(FooterView.HIDE_ALL);
+			if(null != result){
+				if(0 == result.code){
+					if(null != result.data && result.data.commodityItemCount > 0){
+						maxCount = result.data.commodityItemCount;
+						mCommodityList = result.data.commodityItem;
+						mListView.setAdapter(new MyCommodityAdapter());
+					}else{
+						mPromptView.showEmpty();
+					}
+				}else{
+					showToast(result.errMsg);
+					mPromptView.showError();
+				}
+			}else{
+				mPromptView.showError();
+			}
 		}
 	}
 	

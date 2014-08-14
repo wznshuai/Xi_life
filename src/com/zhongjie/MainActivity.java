@@ -19,7 +19,7 @@ import com.zhongjie.activity.BaseActivity;
 import com.zhongjie.activity.user.LoginActivity;
 import com.zhongjie.fragment.FragmentAnyTimeBuy;
 import com.zhongjie.fragment.FragmentManagerService;
-import com.zhongjie.fragment.FragmentShoppingcar;
+import com.zhongjie.fragment.FragmentShopCart;
 import com.zhongjie.fragment.FragmentUserCenter;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.Constants;
@@ -46,10 +46,10 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		mTabHost.setup();
 		addTab(TAB_1, R.drawable.tab_1_selector, "随收购");
 		addTab(TAB_2, R.drawable.tab_2_selector, "管家服务");
-		addTab(TAB_CENTER, 0, "测试");
+		addTab(TAB_CENTER, 0, "");
 		addTab(TAB_3, R.drawable.tab_3_selector, "购物车");
 		addTab(TAB_4, R.drawable.tab_4_selector, "我的");
-		mTabHost.getTabWidget().getChildAt(2).setEnabled(false);
+//		mTabHost.getTabWidget().getChildAt(2).setEnabled(false);
 		mTabHost.setOnTabChangedListener(this);
 		setCurrentFragment(TAB_1);
 	}
@@ -135,9 +135,11 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		}else if(tabId.equals(TAB_2)){
 			f = FragmentManagerService.newInstance();
 		}else if(tabId.equals(TAB_3)){
-			f = FragmentShoppingcar.newInstance();
+			f = FragmentShopCart.newInstance();
 		}else if(tabId.equals(TAB_4)){
 			f = FragmentUserCenter.newInstance();
+		}else if(tabId.equals(TAB_CENTER)){
+			f = FragmentStackSupport.newInstance(2);
 		}
 		if(f.isAdded()){
 			ft.show(f);
@@ -160,7 +162,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 	
 	@Override
 	public void onTabChanged(String tabId) {
-		if(last_show_TAB.equals(tabId) || tabId.equals(TAB_CENTER))
+		if(last_show_TAB.equals(tabId))
 			return;
 		if(tabId.equals(TAB_4)){
 			if(!UserModelManager.getInstance().isLogin()){

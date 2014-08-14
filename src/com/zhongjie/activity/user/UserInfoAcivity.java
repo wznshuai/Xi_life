@@ -118,7 +118,7 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 			if(null != mUm){
 				mNicknameEdit.setHint((TextUtils.isEmpty(mUm.nickName) ? getString(R.string.nickname_null) : mUm.nickName));
 				mAddress1Edit.setHint(null == mUm.unit ? "0" : mUm.unit);
-				mAddress2Edit.setHint(null == mUm.romm ? "0" : mUm.romm);
+				mAddress2Edit.setHint(null == mUm.room ? "0" : mUm.room);
 			}
 		}else{
 			CURRENT_STATUS = STATUS_CANNOT_MODIFY;
@@ -138,7 +138,7 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 			mUm = um;
 			mNickname.setText(TextUtils.isEmpty(um.nickName) ? getString(R.string.nickname_null) : um.nickName);
 			mAddress1.setText(null == um.unit ? "0" : um.unit);
-			mAddress2.setText(null == um.romm ? "0" : um.romm);
+			mAddress2.setText(null == um.room ? "0" : um.room);
 			mPhone.setText(um.phone);
 		}
 	}

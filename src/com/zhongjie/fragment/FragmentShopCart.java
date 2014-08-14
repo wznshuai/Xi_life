@@ -24,8 +24,8 @@ import com.zhongjie.activity.shoppingcar.FillOrderActivity;
 import com.zhongjie.global.Session;
 import com.zhongjie.util.Constants;
 
-public class FragmentShoppingcar extends BaseFragment {
-	private static FragmentShoppingcar mInstance;
+public class FragmentShopCart extends BaseFragment {
+	private static FragmentShopCart mInstance;
 
 	private ListView mListView;
 	private Session mSession;
@@ -34,9 +34,9 @@ public class FragmentShoppingcar extends BaseFragment {
 	private ImageView mTopRightImg;
 	private Map<Integer, Boolean> mCheckdMap;
 
-	public static FragmentShoppingcar newInstance() {
+	public static FragmentShopCart newInstance() {
 		if (null == mInstance)
-			mInstance = new FragmentShoppingcar();
+			mInstance = new FragmentShopCart();
 		return mInstance;
 	}
 
@@ -90,7 +90,7 @@ public class FragmentShoppingcar extends BaseFragment {
 		mCheckdMap = new HashMap<Integer, Boolean>();
 		getActivityMine().setTopCenterLogo(R.drawable.ic_logo_shoppingcar);
 		mTopRightImg.setImageResource(R.drawable.ic_trash_big);
-		mCount = mSession.getInt(Constants.SHOPPING_CAR_KEY);
+		mCount = mSession.getInt(Constants.SHOP_CART_KEY);
 		if (mCount > 0) {
 			mEmptyView.setVisibility(View.GONE);
 			mListView.setAdapter(new MyShoppingAdapter());

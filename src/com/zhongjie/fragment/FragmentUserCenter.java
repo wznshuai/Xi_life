@@ -1,8 +1,8 @@
 package com.zhongjie.fragment;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -192,10 +192,10 @@ public class FragmentUserCenter extends BaseFragment{
 	private void initUserInfo(UserModel um){
 		if(null != um){
 			mNickname.setText(TextUtils.isEmpty(um.nickName) ? getString(R.string.nickname_null) : um.nickName);
-			if(um.unit == null && um.romm == null){
+			if(um.unit == null && um.room == null){
 				mAddress.setText(getString(R.string.adress_null));
 			}else{
-				mAddress.setText(um.unit + "栋" + um.romm);
+				mAddress.setText(um.unit + "栋" + um.room);
 			}
 			mIntergal.setText("积分 ：" + um.integral);
 			ImageLoader.getInstance().displayImage(um.image, mHeadImg, options);
