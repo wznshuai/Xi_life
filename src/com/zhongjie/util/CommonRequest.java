@@ -111,4 +111,14 @@ public class CommonRequest {
 		data.put("step", step + "");
 		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_COMMODITYLIST, data);
 	}
+	/**
+	 * 查询商品详情
+	 * @param commodityId
+	 * @return
+	 */
+	public String queryCommodityDetails(int commodityId){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("commodityId", commodityId + "");
+		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_COMMODITY_DETAILS, data);
+	}
 }

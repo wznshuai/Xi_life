@@ -3,6 +3,8 @@ package com.zhongjie.activity.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -63,6 +65,13 @@ public class LoginActivity extends BaseSecondActivity implements OnClickListener
 			super.onPreExecute();
 			cld = CommonLoadingDialog.create(LoginActivity.this);
 			cld.setCanceledOnTouchOutside(false);
+			cld.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					cancel(true);
+				}
+			});
 			cld.show();
 		}
 

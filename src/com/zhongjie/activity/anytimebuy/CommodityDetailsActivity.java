@@ -1,18 +1,32 @@
 package com.zhongjie.activity.anytimebuy;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.fragment.FragmentBigImg;
+import com.zhongjie.model.CommodityDetailsJson;
+import com.zhongjie.model.CommodityDetailsModel;
+import com.zhongjie.util.CommonRequest;
+import com.zhongjie.util.Logger;
+import com.zhongjie.util.Utils;
+import com.zhongjie.view.CommonLoadingDialog;
 import com.zhongjie.view.MyRatingbar;
 import com.zhongjie.view.MyViewPager;
 import com.zhongjie.view.SlideRightOutView;
@@ -23,8 +37,13 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 	private MyViewPager mPager;
 	private CirclePageIndicator mIndicator;
 	private MyRatingbar mRatingbar;
-	private TextView mCommentCount, mGoodPercent;
+	private TextView mCommentCount, mGoodPercent, 
+				mCommodityNameTxt, mCommodityWeight, mCommodityPrice, mCommodityOldPrice;
 	private View goCommentView;
+	private int mCommodityId;
+	private String mCommodityName;
+	private CommonRequest mRequest;
+	private CommodityDetailsModel mDetails;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +53,9 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 	
 	@Override
 	protected void initData() {
-		
+		mRequest = new CommonRequest(getApplicationContext());
+		mCommodityId = getIntent().getIntExtra("commodityId", -1);
+		mCommodityName = getIntent().getStringExtra("commodityName");
 	}
 
 	@Override
@@ -45,6 +66,10 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 		mCommentCount = (TextView)findViewById(R.id.act_commodity_details_countComment);
 		mGoodPercent = (TextView)findViewById(R.id.act_commodity_details_hpl);
 		goCommentView = findViewById(R.id.act_commodity_details_goComment);
+		mCommodityNameTxt = (TextView)findViewById(R.id.act_commodity_details_commodityName);
+		mCommodityWeight = (TextView)findViewById(R.id.act_commodity_details_weight);
+		mCommodityPrice = (TextView)findViewById(R.id.act_commodity_price);
+		mCommodityOldPrice = (TextView)findViewById(R.id.act_commodity_oldPrice);
 	}
 
 	@Override
@@ -53,15 +78,41 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 		mTopLeftImg.setVisibility(View.VISIBLE);
 		mTopCenterImg.setImageResource(R.drawable.ic_logo_ssg);
 		mTopCenterImg.setVisibility(View.VISIBLE);
-		mPager.setSrov((SlideRightOutView)findViewById(R.string.slide_view));
-		mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-		mIndicator.setViewPager(mPager);
 		mRatingbar.setSrov((SlideRightOutView)findViewById(R.string.slide_view));
 		mCommentCount.setText(Html.fromHtml("<font color='#ff0099'>110</font>人  评价"));
 		mGoodPercent.setText(Html.fromHtml("<font color='#ff0099'>99%</font> 好评"));
 		goCommentView.setOnClickListener(this);
 	}
 	
+	
+	private void initInfos(CommodityDetailsModel cdm){
+		if(null != cdm){
+			mDetails = cdm;
+			List<String> detailImgList = new ArrayList<String>();
+			if(!Utils.isEmpty(cdm.imageA)){
+				detailImgList.add(cdm.imageA);
+			}
+			if(!Utils.isEmpty(cdm.imageB)){
+				detailImgList.add(cdm.imageB);
+			}
+			if(!Utils.isEmpty(cdm.imageC)){
+				detailImgList.add(cdm.imageC);
+			}
+			
+			if(detailImgList.size() > 0){
+				mPager.setSrov((SlideRightOutView)findViewById(R.string.slide_view));
+				mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), detailImgList));
+				mIndicator.setViewPager(mPager);
+			}
+			
+			mCommodityNameTxt.setText(cdm.name);
+			mCommodityOldPrice.setText(cdm.oldPrice);
+			mCommodityPrice.setText(cdm.price);
+			mCommodityWeight.setText(cdm.weight);
+			
+			cdm = null;
+		}
+	}
 	
 	
 	@Override
@@ -79,19 +130,72 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 
 
 	class MyPagerAdapter extends FragmentStatePagerAdapter{
-
-		public MyPagerAdapter(FragmentManager fm) {
+		List<String> detailImgList;
+		public MyPagerAdapter(FragmentManager fm, List<String> detailImgList) {
 			super(fm);
+			this.detailImgList = detailImgList;
 		}
 
 		@Override
 		public Fragment getItem(int arg0) {
-			return new FragmentBigImg();
+			return new FragmentBigImg(detailImgList.get(arg0));
 		}
 
 		@Override
 		public int getCount() {
-			return 5;
+			return null == detailImgList ? 0 : detailImgList.size();
+		}
+	}
+	
+	class QueryCommodityDetails extends AsyncTask<String, Void, CommodityDetailsJson>{
+		CommonLoadingDialog cld;
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			cld = CommonLoadingDialog.create(CommodityDetailsActivity.this);
+			cld.setCanceledOnTouchOutside(false);
+			cld.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					cancel(true);
+				}
+			});
+			cld.show();
+		}
+
+		@Override
+		protected CommodityDetailsJson doInBackground(String... params) {
+			CommodityDetailsJson uj = null;
+			try {
+				String result = mRequest.queryCommodityDetails(mCommodityId);
+				if(!TextUtils.isEmpty(result)){
+					uj = JSON.parseObject(result, CommodityDetailsJson.class);
+				}
+			} catch (Exception e) {
+				Logger.e(getClass().getSimpleName(), "QueryCommodityDetails error", e);
+			}
+			return uj;
+		}
+		
+		@Override
+		protected void onPostExecute(CommodityDetailsJson result) {
+			super.onPostExecute(result);
+			if(!canGOON())
+				return;
+			if(null != cld){
+				cld.cancel();
+				cld = null;
+			}
+			if(null != result){
+				if(result.code == 0){
+					if(null != result.data){
+						initInfos(result.data);
+					}
+				}else{
+					showToast(result.errMsg);
+				}
+			}
 		}
 	}
 	

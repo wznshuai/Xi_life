@@ -85,7 +85,11 @@ public class CommodityListActivity extends BaseListActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				startActivity(new Intent(CommodityListActivity.this, CommodityDetailsActivity.class));
+				CommodityModel cm = (CommodityModel)arg0.getAdapter().getItem(arg2);
+				Intent intent = new Intent(CommodityListActivity.this, CommodityDetailsActivity.class);
+				intent.putExtra("commodityId", cm.commodityId);
+				intent.putExtra("commodityName", cm.name);
+				startActivity(new Intent());
 			}
 			
 		});
@@ -99,7 +103,6 @@ public class CommodityListActivity extends BaseListActivity {
 						if(start + 1 < maxPage){
 							start++;
 							new QueryCommodityList().execute();
-							showFooterView(FooterView.MORE);
 						}
 					}
 				}
@@ -233,6 +236,8 @@ public class CommodityListActivity extends BaseListActivity {
 			super.onPreExecute();
 			if(start == 0)
 				mPromptView.showLoading();
+			else
+				showFooterView(FooterView.MORE);
 		}
 		
 		@Override
