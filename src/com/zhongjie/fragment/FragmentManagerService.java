@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.zhongjie.BaseFragment;
 import com.zhongjie.R;
 import com.zhongjie.activity.managerservice.RepairsActivity;
+import com.zhongjie.activity.user.LoginActivity;
+import com.zhongjie.model.UserModelManager;
 import com.zhongjie.view.MyViewPager;
 import com.zhongjie.view.SlideRightOutView;
 import com.zhongjie.view.viewpagerindicator.CirclePageIndicator;
@@ -82,7 +84,11 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.fra_manager_service_repairs:
-			startActivity(new Intent(getActivity(), RepairsActivity.class));
+			if(UserModelManager.getInstance().isLogin()){
+				startActivity(new Intent(getActivity(), RepairsActivity.class));
+			}else{
+				startActivity(new Intent(getActivity(), LoginActivity.class));
+			}
 			break;
 
 		default:

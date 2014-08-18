@@ -23,6 +23,7 @@ import com.zhongjie.activity.anytimebuy.CommodityListActivity;
 import com.zhongjie.model.EshopCatalogListJson;
 import com.zhongjie.model.EshopCatalogModel;
 import com.zhongjie.util.CommonRequest;
+import com.zhongjie.util.Logger;
 import com.zhongjie.view.PromptView;
 
 public class FragmentAnyTimeBuy extends BaseFragment{
@@ -129,9 +130,13 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 		@Override
 		protected EshopCatalogListJson doInBackground(String... params) {
 			EshopCatalogListJson eclj = null;
-			String json = mRequest.queryEshopCatelog();
-			if(!TextUtils.isEmpty(json)){
-				eclj = JSON.parseObject(json, EshopCatalogListJson.class);
+			try {
+				String json = mRequest.queryEshopCatelog();
+				if(!TextUtils.isEmpty(json)){
+					eclj = JSON.parseObject(json, EshopCatalogListJson.class);
+				}
+			} catch (Exception e) {
+				Logger.e(tag, "QueryEshopCatelog error", e);
 			}
 			return eclj;
 		}

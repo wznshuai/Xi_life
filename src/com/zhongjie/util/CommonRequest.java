@@ -137,4 +137,14 @@ public class CommonRequest {
 		data.put("step", step + "");
 		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_USER_ORDER, data);
 	}
+	/**
+	 * 获取报修页面信息
+	 * @param sessId
+	 * @return
+	 */
+	public String repairShow(String sessId){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("sessId", sessId);
+		return mHttpUtil.executePost(ApiConstants.URL_REPAIR_SHOW, data);
+	}
 }

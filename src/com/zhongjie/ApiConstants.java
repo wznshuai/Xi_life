@@ -22,4 +22,6 @@ public class ApiConstants {
 	public static final String URL_ESHOP_COMMODITY_DETAILS = BASE_HOST + "eshop/query";
 	//用户订单
 	public static final String URL_ESHOP_USER_ORDER = BASE_HOST + "eshop/queryOrderByUser";
+	//报修页面
+	public static final String URL_REPAIR_SHOW = BASE_HOST + "repair/show";
 }
