@@ -12,6 +12,7 @@
         android:orientation="horizontal" >
 
         <ImageView
+            android:id="@+id/common_order_img"
             android:layout_width="@dimen/order_photo"
             android:layout_height="@dimen/order_photo"
             android:src="@drawable/ic_default_head" />
@@ -29,7 +30,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="饭团·豆沙馅"
                 android:textColor="#333333" />
 
             <TextView
@@ -53,17 +53,17 @@
                 android:orientation="horizontal" >
 
                 <TextView
+                    android:id="@+id/common_order_price"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="240.00 ￥"
                     android:textColor="#ff0099" />
 
                 <TextView
+                    android:id="@+id/common_order_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="数量 : 12"
                     android:textColor="#666666" />
             </LinearLayout>
         </RelativeLayout>

@@ -11,6 +11,7 @@ import com.zhongjie.R;
 public abstract class BaseListActivity extends BaseSecondActivity{
 	
 	public ListView mListView;
+	public int start = 0, step = 20, maxCount;
 	/** 加载中提示 */
 	public RelativeLayout mFooterViewLoading;
 	/** 列表底部信息类型 */
@@ -25,6 +26,7 @@ public abstract class BaseListActivity extends BaseSecondActivity{
 	
 	@Override
 	protected void initViews() {
+		mFooterViewLoading = (RelativeLayout)getLayoutInflater().inflate(R.layout.view_list_view_loading, mListView, false);
 		mListView.addFooterView(mFooterViewLoading);
 		showFooterView(FooterView.HIDE_ALL);
 	}

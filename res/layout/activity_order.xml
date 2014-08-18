@@ -24,6 +24,7 @@
             android:orientation="vertical" >
 
             <RadioGroup
+                android:id="@+id/act_order_radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -33,6 +34,7 @@
                 android:paddingTop="10dp" >
 
                 <RadioButton
+                    android:id="@+id/radioBtn1"
                     style="@style/RadioButton.Order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,6 +49,7 @@
                     android:src="@color/text_black_hint" />
 
                 <RadioButton
+                    android:id="@+id/radioBtn2"
                     style="@style/RadioButton.Order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,6 +64,7 @@
                     android:src="@color/text_black_hint" />
 
                 <RadioButton
+                    android:id="@+id/radioBtn3"
                     style="@style/RadioButton.Order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -75,6 +79,7 @@
                     android:src="@color/text_black_hint" />
 
                 <RadioButton
+                    android:id="@+id/radioBtn5"
                     style="@style/RadioButton.Order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,17 +87,25 @@
                     android:text="已取消" />
             </RadioGroup>
 
-            <ListView
-                android:id="@+id/act_order_listview"
-                style="@style/MyListView"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:clipToPadding="false"
-                android:dividerHeight="10dp"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp" />
+                android:layout_marginRight="10dp" >
+                <ListView
+                    android:id="@+id/act_order_listview"
+                    style="@style/MyListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:dividerHeight="10dp"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp" />
+                <com.zhongjie.view.PromptView 
+                    android:id="@+id/promptView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
 

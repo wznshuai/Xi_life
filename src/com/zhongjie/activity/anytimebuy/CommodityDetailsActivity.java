@@ -11,20 +11,24 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.fragment.FragmentBigImg;
-import com.zhongjie.model.CommodityDetailsJson;
-import com.zhongjie.model.CommodityDetailsModel;
+import com.zhongjie.model.CommodityJson;
+import com.zhongjie.model.CommodityModel;
 import com.zhongjie.util.CommonRequest;
 import com.zhongjie.util.Logger;
+import com.zhongjie.util.ShopCartManager;
 import com.zhongjie.util.Utils;
 import com.zhongjie.view.CommonLoadingDialog;
 import com.zhongjie.view.MyRatingbar;
@@ -39,11 +43,14 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 	private MyRatingbar mRatingbar;
 	private TextView mCommentCount, mGoodPercent, 
 				mCommodityNameTxt, mCommodityWeight, mCommodityPrice, mCommodityOldPrice;
-	private View goCommentView;
-	private int mCommodityId;
+	private View goCommentView, mIcJian, mIcJia;
+	private int mCommodityId, mCountInShopCart;
 	private String mCommodityName;
 	private CommonRequest mRequest;
-	private CommodityDetailsModel mDetails;
+	private CommodityModel mDetails;
+	private EditText mCountEdittext;
+	private ShopCartManager mCartManager;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +63,8 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 		mRequest = new CommonRequest(getApplicationContext());
 		mCommodityId = getIntent().getIntExtra("commodityId", -1);
 		mCommodityName = getIntent().getStringExtra("commodityName");
+		mCartManager = ShopCartManager.getInstance();
+		mCountInShopCart = mCartManager.getCommodityCount(mCommodityId);
 	}
 
 	@Override
@@ -70,6 +79,9 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 		mCommodityWeight = (TextView)findViewById(R.id.act_commodity_details_weight);
 		mCommodityPrice = (TextView)findViewById(R.id.act_commodity_price);
 		mCommodityOldPrice = (TextView)findViewById(R.id.act_commodity_oldPrice);
+		mCountEdittext = (EditText)findViewById(R.id.act_commodity_details_commodityCount);
+		mIcJia = findViewById(R.id.act_commodity_details_icJia);
+		mIcJian = findViewById(R.id.act_commodity_details_icJian);
 	}
 
 	@Override
@@ -78,14 +90,12 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 		mTopLeftImg.setVisibility(View.VISIBLE);
 		mTopCenterImg.setImageResource(R.drawable.ic_logo_ssg);
 		mTopCenterImg.setVisibility(View.VISIBLE);
-		mRatingbar.setSrov((SlideRightOutView)findViewById(R.string.slide_view));
-		mCommentCount.setText(Html.fromHtml("<font color='#ff0099'>110</font>人  评价"));
-		mGoodPercent.setText(Html.fromHtml("<font color='#ff0099'>99%</font> 好评"));
 		goCommentView.setOnClickListener(this);
+		mCountEdittext.setText(mCountInShopCart);
 	}
 	
 	
-	private void initInfos(CommodityDetailsModel cdm){
+	private void initInfos(CommodityModel cdm){
 		if(null != cdm){
 			mDetails = cdm;
 			List<String> detailImgList = new ArrayList<String>();
@@ -109,6 +119,10 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 			mCommodityOldPrice.setText(cdm.oldPrice);
 			mCommodityPrice.setText(cdm.price);
 			mCommodityWeight.setText(cdm.weight);
+			mCommentCount.setText(Html.fromHtml("<font color='#ff0099'>"+ cdm.evaluate +"</font>人  评价"));
+			mGoodPercent.setText(Html.fromHtml("<font color='#ff0099'>" + cdm.good + "%</font> 好评"));
+			mRatingbar.setRating(cdm.good);
+			
 			
 			cdm = null;
 		}
@@ -147,7 +161,7 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 		}
 	}
 	
-	class QueryCommodityDetails extends AsyncTask<String, Void, CommodityDetailsJson>{
+	class QueryCommodityDetails extends AsyncTask<String, Void, CommodityJson>{
 		CommonLoadingDialog cld;
 		@Override
 		protected void onPreExecute() {
@@ -165,12 +179,12 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 		}
 
 		@Override
-		protected CommodityDetailsJson doInBackground(String... params) {
-			CommodityDetailsJson uj = null;
+		protected CommodityJson doInBackground(String... params) {
+			CommodityJson uj = null;
 			try {
 				String result = mRequest.queryCommodityDetails(mCommodityId);
 				if(!TextUtils.isEmpty(result)){
-					uj = JSON.parseObject(result, CommodityDetailsJson.class);
+					uj = JSON.parseObject(result, CommodityJson.class);
 				}
 			} catch (Exception e) {
 				Logger.e(getClass().getSimpleName(), "QueryCommodityDetails error", e);
@@ -179,7 +193,7 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 		}
 		
 		@Override
-		protected void onPostExecute(CommodityDetailsJson result) {
+		protected void onPostExecute(CommodityJson result) {
 			super.onPostExecute(result);
 			if(!canGOON())
 				return;

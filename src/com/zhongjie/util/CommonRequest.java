@@ -104,9 +104,9 @@ public class CommonRequest {
 	 * @param step 每页长度
 	 * @return
 	 */
-	public String queryCommodityList(int catagoryId, int start, int step){
+	public String queryCommodityList(String catagoryId, int start, int step){
 		HashMap<String, String> data = new HashMap<String, String>();
-		data.put("catagoryId", catagoryId + "");
+		data.put("catagoryId", catagoryId);
 		data.put("start", start + "");
 		data.put("step", step + "");
 		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_COMMODITYLIST, data);
@@ -120,5 +120,21 @@ public class CommonRequest {
 		HashMap<String, String> data = new HashMap<String, String>();
 		data.put("commodityId", commodityId + "");
 		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_COMMODITY_DETAILS, data);
+	}
+	/**
+	 * 查询用户订单
+	 * @param sessId 用户唯一吗
+	 * @param status 订单状态 (00:待支付; 01:已支付; 90:已完成; 99:已取消)
+	 * @param start 开始页数
+	 * @param step 每页长度
+	 * @return
+	 */
+	public String queryUserOrder(String sessId, String status, int start, int step){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("sessId", sessId);
+		data.put("status", status);
+		data.put("start", start + "");
+		data.put("step", step + "");
+		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_USER_ORDER, data);
 	}
 }

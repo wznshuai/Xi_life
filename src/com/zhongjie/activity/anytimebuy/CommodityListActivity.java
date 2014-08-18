@@ -44,24 +44,23 @@ public class CommodityListActivity extends BaseListActivity {
 	private View mFloatView;
 	private TextView mBuyCountView;
 	private int mBuyCount = 0;
-	private int mCatalogId;
+	private String mCatalogId;
 	private List<CommodityModel> mCommodityList; 
 	private ShopCartManager mCartManager;
 	private PromptView mPromptView;
 	private CommonRequest mRequest;
 	
-	private int start = 0, step = 20, maxCount;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_commodity_list);
 		super.onCreate(savedInstanceState);
+		new QueryCommodityList().execute();
 	}
 
 	@Override
 	protected void initData() {
-		mCatalogId = getIntent().getIntExtra("catalogId", -1);
-		mCartManager = ShopCartManager.newInstance();
+		mCatalogId = getIntent().getStringExtra("catalogId");
+		mCartManager = ShopCartManager.getInstance();
 		mRequest = new CommonRequest(getApplicationContext());
 	}
 
