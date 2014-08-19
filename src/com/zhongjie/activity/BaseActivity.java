@@ -2,6 +2,7 @@ package com.zhongjie.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.GetChars;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -14,12 +15,15 @@ import com.zhongjie.R;
 
 public abstract class BaseActivity extends FragmentActivity{
 	
+	protected final String TAG = getClass().getSimpleName(); 
 	protected TextView mTopRightTxt, mTopCenterTxt;
 	protected ImageView mTopLeftImg, mTopCenterImg;
+	
 	
 	abstract protected void initData();
 	abstract protected void findViews();
 	abstract protected void initViews();
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -28,7 +28,9 @@
                     android:layout_height="@dimen/usercenter_head_height"
                     makeramen:corner_radius="50dp"
                     makeramen:pressdown_shade="true"
-                    makeramen:round_background="true" />
+                    makeramen:round_background="true" 
+                    android:src="@drawable/ic_default_head"
+                    android:scaleType="centerCrop"/>
 
                 <ImageView
                     android:id="@+id/fra_usercenter_edit"

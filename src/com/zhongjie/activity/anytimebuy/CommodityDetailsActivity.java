@@ -11,14 +11,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.fragment.FragmentBigImg;
@@ -41,28 +48,31 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 	private MyRatingbar mRatingbar;
 	private TextView mCommentCount, mGoodPercent, 
 				mCommodityNameTxt, mCommodityWeight, mCommodityPrice, mCommodityOldPrice;
-	private View goCommentView, mIcJian, mIcJia;
-	private int mCommodityId, mCountInShopCart;
+	private View goCommentView, mIcJianView, mIcJiaView, mAddInCartView, mBuyView;
 	private String mCommodityName;
 	private CommonRequest mRequest;
 	private CommodityModel mDetails;
 	private EditText mCountEdittext;
 	private ShopCartManager mCartManager;
+	private String mCommodityId;
+	private RadioGroup mTasteGroup;
+	private TextView mCommodityIntroduce;
+	private LinearLayout mCommodityIntroduceArea;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_commodity_details);
 		super.onCreate(savedInstanceState);
+		new QueryCommodityDetails().execute();
 	}
 	
 	@Override
 	protected void initData() {
 		mRequest = new CommonRequest(getApplicationContext());
-		mCommodityId = getIntent().getIntExtra("commodityId", -1);
+		mCommodityId = getIntent().getStringExtra("commodityId");
 		mCommodityName = getIntent().getStringExtra("commodityName");
 		mCartManager = ShopCartManager.getInstance();
-		mCountInShopCart = mCartManager.getCommodityCount(mCommodityId);
 	}
 
 	@Override
@@ -78,18 +88,49 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 		mCommodityPrice = (TextView)findViewById(R.id.act_commodity_price);
 		mCommodityOldPrice = (TextView)findViewById(R.id.act_commodity_oldPrice);
 		mCountEdittext = (EditText)findViewById(R.id.act_commodity_details_commodityCount);
-		mIcJia = findViewById(R.id.act_commodity_details_icJia);
-		mIcJian = findViewById(R.id.act_commodity_details_icJian);
+		mIcJiaView = findViewById(R.id.act_commodity_details_icJia);
+		mIcJianView = findViewById(R.id.act_commodity_details_icJian);
+		mAddInCartView = findViewById(R.id.act_commodity_details_addInCart);
+		mBuyView = findViewById(R.id.act_commodity_details_buy);
+		mTasteGroup = (RadioGroup)findViewById(R.id.act_commodity_details_taste);
+		mCommodityIntroduce = (TextView)findViewById(R.id.act_commodity_details_introduce);
+		mCommodityIntroduceArea = (LinearLayout)findViewById(R.id.act_commodity_details_introduce_area);
 	}
 
 	@Override
 	protected void initViews() {
+		mAddInCartView.setOnClickListener(this);
+		mBuyView.setOnClickListener(this);
 		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
 		mTopLeftImg.setVisibility(View.VISIBLE);
 		mTopCenterImg.setImageResource(R.drawable.ic_logo_ssg);
 		mTopCenterImg.setVisibility(View.VISIBLE);
 		goCommentView.setOnClickListener(this);
-		mCountEdittext.setText(mCountInShopCart);
+		mIcJianView.setOnClickListener(this);
+		mIcJiaView.setOnClickListener(this);
+		mCountEdittext.setText(1 + "");
+		mCountEdittext.setSelection(mCountEdittext.getText().toString().length());
+		mCountEdittext.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				if(count == 1 && s.toString().equals("0")){
+					mCountEdittext.setText("1");
+					mCountEdittext.setSelection(mCountEdittext.getText().toString().length());
+				}
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				
+			}
+		});
 	}
 	
 	
@@ -113,6 +154,25 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 				mIndicator.setViewPager(mPager);
 			}
 			
+			if(null != cdm.taste && cdm.taste.length > 0){
+				mTasteGroup.setVisibility(View.VISIBLE);
+				for(String str : cdm.taste){
+					RadioButton rb = (RadioButton)getLayoutInflater()
+							.inflate(R.layout.radiobutton_commodity_details, mTasteGroup, false);
+					rb.setText(str);
+					mTasteGroup.addView(rb);
+				}
+			}
+			
+			mCommodityIntroduce.setText(cdm.detail);
+			if(null != cdm.detailImage && cdm.detailImage.length > 0){
+				for(String url : cdm.detailImage){
+					ImageView iv = (ImageView)getLayoutInflater().inflate(R.layout.imageview_commodity_details, mCommodityIntroduceArea, false);
+					ImageLoader.getInstance().displayImage(url, iv);
+					mCommodityIntroduceArea.addView(iv);
+				}
+			}
+			
 			mCommodityNameTxt.setText(cdm.name);
 			mCommodityOldPrice.setText(cdm.oldPrice);
 			mCommodityPrice.setText(cdm.price);
@@ -120,7 +180,6 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 			mCommentCount.setText(Html.fromHtml("<font color='#ff0099'>"+ cdm.evaluate +"</font>人  评价"));
 			mGoodPercent.setText(Html.fromHtml("<font color='#ff0099'>" + cdm.good + "%</font> 好评"));
 			mRatingbar.setRating(cdm.good);
-			
 			
 			cdm = null;
 		}
@@ -133,7 +192,49 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 		case R.id.act_commodity_details_goComment:
 			startActivity(new Intent(CommodityDetailsActivity.this, CommodityCommentActivity.class));
 			break;
-
+		case R.id.act_commodity_details_addInCart:
+			String countStr = mCountEdittext.getText().toString();
+			if(!Utils.isEmpty(countStr)){
+				try{
+					int count = Integer.valueOf(countStr);
+					mCartManager.addInShopCart(mDetails, count, false);
+				}catch(Exception e){
+					showToast("输入数量不正确");
+					Logger.e(TAG, "", e);
+				}
+			}
+			break;
+		case R.id.act_commodity_details_buy:
+			break;
+		case R.id.act_commodity_details_icJia:
+			String countStr2 = mCountEdittext.getText().toString();
+			if(!Utils.isEmpty(countStr2)){
+				try{
+					int count = Integer.valueOf(countStr2);
+					mCountEdittext.setText(++count + "");
+					mCountEdittext.setSelection(mCountEdittext.getText().toString().length());
+				}catch(Exception e){
+					showToast("输入数量不正确");
+					Logger.e(TAG, "", e);
+				}
+			}
+			break;
+		case R.id.act_commodity_details_icJian:
+			String countStr3 = mCountEdittext.getText().toString();
+			if(!Utils.isEmpty(countStr3)){
+				try{
+					int count = Integer.valueOf(countStr3);
+					--count;
+					if(count == 0)
+						count = 1;
+					mCountEdittext.setText(count + "");
+					mCountEdittext.setSelection(mCountEdittext.getText().toString().length());
+				}catch(Exception e){
+					showToast("输入数量不正确");
+					Logger.e(TAG, "", e);
+				}
+			}
+			break;
 		default:
 			break;
 		}
@@ -185,7 +286,7 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 					uj = JSON.parseObject(result, CommodityJson.class);
 				}
 			} catch (Exception e) {
-				Logger.e(getClass().getSimpleName(), "QueryCommodityDetails error", e);
+				Logger.e(TAG, "QueryCommodityDetails error", e);
 			}
 			return uj;
 		}

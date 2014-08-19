@@ -158,8 +158,8 @@ public class RepairsActivity extends BaseSecondActivity{
 	private void initInfos(RepairShowModel rsm){
 		if(null != rsm){
 			mAddress.setText("房号 :  " + rsm.unit +"栋" + rsm.room + "室");
-//			if(null != rsm.classify)
-//				mRepairsTypeWheel.setViewAdapter(new ArrayWheelAdapter<String>(this, (String[])rsm.classify.toArray()));
+			if(null != rsm.classify)
+				mRepairsTypeWheel.setViewAdapter(new ArrayWheelAdapter<String>(this, rsm.classify));
 		}
 	}
 	

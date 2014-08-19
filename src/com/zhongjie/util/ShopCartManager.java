@@ -51,10 +51,23 @@ public class ShopCartManager {
 	 * @param cm
 	 */
 	public void addInShopCart(CommodityModel cm, int count){
+		addInShopCart(cm, count, true);
+	}
+	
+	/**
+	 * 添加商品到购物车
+	 * @param cm
+	 * @param count 数量
+	 * @param isRealCount 参数count是否为商品在购物车里的真实数量(true 为真 , false 为当前购物车中此商品再增加的数量)
+	 */
+	public void addInShopCart(CommodityModel cm, int count, boolean isRealCount){
 		if(cm != null){
 			int index = mCartList.indexOf(cm);
 			if(-1 != index){
-				mCartList.get(index).number = count;
+				if(isRealCount)
+					mCartList.get(index).number = count;
+				else
+					mCartList.get(index).number += count;
 			}else{
 				ShopCartModel scm = new ShopCartModel();
 				Utils.fatherToChild(cm, scm);
@@ -63,6 +76,9 @@ public class ShopCartManager {
 			}
 		}
 	}
+	
+	
+	
 	/**
 	 * 获取商品在购物车中的数量
 	 * @param cm
@@ -84,7 +100,7 @@ public class ShopCartManager {
 	 * @param cm
 	 * @return
 	 */
-	public int getCommodityCount(int commodidtyId){
+	public int getCommodityCount(String commodidtyId){
 		int count = 0;
 		CommodityModel cm = new CommodityModel();
 		cm.commodityId = commodidtyId;
@@ -95,5 +111,20 @@ public class ShopCartManager {
 			}
 		}
 		return count;
+	}
+	
+	/**
+	 * 获得购物车物品的总数量
+	 * @return
+	 */
+	public int getTotalCount(){
+		int totalCount = 0;
+		if(null != mCartList){
+			for(ShopCartModel scm : mCartList){
+				totalCount += scm.number;
+			}
+			return totalCount;
+		}
+		return totalCount;
 	}
 }

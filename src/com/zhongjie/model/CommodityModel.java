@@ -1,7 +1,7 @@
 package com.zhongjie.model;
 
 public class CommodityModel {
-	public int commodityId;// <String>:商品ID
+	public String commodityId;// <String>:商品ID
 	public String name;// <String>:商品名称
 	public String image;// <String>:商品简图
 	public String info;// <String>:商品简介
@@ -28,7 +28,7 @@ public class CommodityModel {
 		else if(o == this)
 			return true;
 		else if(o instanceof CommodityModel){
-			if(((CommodityModel)o).commodityId == commodityId)
+			if(((CommodityModel)o).commodityId.equals(commodityId))
 				return true;
 		}
 		return false;

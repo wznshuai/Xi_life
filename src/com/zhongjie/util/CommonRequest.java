@@ -104,9 +104,9 @@ public class CommonRequest {
 	 * @param step 每页长度
 	 * @return
 	 */
-	public String queryCommodityList(String catagoryId, int start, int step){
+	public String queryCommodityList(String catalogId, int start, int step){
 		HashMap<String, String> data = new HashMap<String, String>();
-		data.put("catagoryId", catagoryId);
+		data.put("catalogId", catalogId);
 		data.put("start", start + "");
 		data.put("step", step + "");
 		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_COMMODITYLIST, data);
@@ -116,9 +116,9 @@ public class CommonRequest {
 	 * @param commodityId
 	 * @return
 	 */
-	public String queryCommodityDetails(int commodityId){
+	public String queryCommodityDetails(String commodityId){
 		HashMap<String, String> data = new HashMap<String, String>();
-		data.put("commodityId", commodityId + "");
+		data.put("commodityId", commodityId);
 		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_COMMODITY_DETAILS, data);
 	}
 	/**

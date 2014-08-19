@@ -28,11 +28,11 @@ import com.alibaba.fastjson.JSON;
 import com.zhongjie.MainActivity;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseListActivity;
-import com.zhongjie.global.Session;
 import com.zhongjie.model.CommodityListJson;
 import com.zhongjie.model.CommodityModel;
 import com.zhongjie.util.CommonRequest;
 import com.zhongjie.util.Constants;
+import com.zhongjie.util.Logger;
 import com.zhongjie.util.ShopCartManager;
 import com.zhongjie.util.Utils;
 import com.zhongjie.view.PromptView;
@@ -43,7 +43,6 @@ public class CommodityListActivity extends BaseListActivity {
 	private WindowManager mWm;
 	private View mFloatView;
 	private TextView mBuyCountView;
-	private int mBuyCount = 0;
 	private String mCatalogId;
 	private List<CommodityModel> mCommodityList; 
 	private ShopCartManager mCartManager;
@@ -71,6 +70,12 @@ public class CommodityListActivity extends BaseListActivity {
 	}
 	
 	@Override
+	protected void onResume() {
+		super.onResume();
+		mBuyCountView.setText(" " + mCartManager.getTotalCount() + " ");
+	}
+	
+	@Override
 	protected void initViews() {
 		super.initViews();
 		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
@@ -88,7 +93,7 @@ public class CommodityListActivity extends BaseListActivity {
 				Intent intent = new Intent(CommodityListActivity.this, CommodityDetailsActivity.class);
 				intent.putExtra("commodityId", cm.commodityId);
 				intent.putExtra("commodityName", cm.name);
-				startActivity(new Intent());
+				startActivity(intent);
 			}
 			
 		});
@@ -210,9 +215,8 @@ public class CommodityListActivity extends BaseListActivity {
 							int pos = (Integer)arg0.getTag();
 							CommodityModel cm = getItem(pos);
 							if(null != cm){
-								mBuyCountView.setText(" " + ++mBuyCount + " ");
-								Session.getSession().put(Constants.SHOP_CART_KEY, mBuyCount);
 								mCartManager.addInShopCart(cm);
+								mBuyCountView.setText(" " + mCartManager.getTotalCount() + " ");
 							}
 						}
 					}
@@ -242,9 +246,13 @@ public class CommodityListActivity extends BaseListActivity {
 		@Override
 		protected CommodityListJson doInBackground(String... params) {
 			CommodityListJson eclj = null;
-			String json = mRequest.queryCommodityList(mCatalogId, start, step);
-			if(!TextUtils.isEmpty(json)){
-				eclj = JSON.parseObject(json, CommodityListJson.class);
+			try {
+				String json = mRequest.queryCommodityList(mCatalogId, start, step);
+				if(!TextUtils.isEmpty(json)){
+					eclj = JSON.parseObject(json, CommodityListJson.class);
+				}
+			} catch (Exception e) {
+				Logger.d(TAG, "", e);
 			}
 			return eclj;
 		}

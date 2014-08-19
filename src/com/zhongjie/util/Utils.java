@@ -2,9 +2,11 @@ package com.zhongjie.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.UUID;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.telephony.TelephonyManager;
 import android.view.WindowManager;
 
 public class Utils {
@@ -77,6 +79,53 @@ public class Utils {
 			return true;
 		else
 			return false;
+	}
+	
+	/*
+	 * return username of androidpn-client (不考虑虚拟机)
+	 */
+	public static String getDeviceToken(Context pContext) {
+
+		if (pContext == null)
+			return "";
+
+		String deviceToken = null;
+
+
+
+		TelephonyManager telephonyManager = (TelephonyManager) pContext
+				.getSystemService(Context.TELEPHONY_SERVICE);
+
+
+		String tmDevice = "" + telephonyManager.getDeviceId();
+		String tmSerial = "" + telephonyManager.getSimSerialNumber();
+		String androidId = ""
+				+ android.provider.Settings.Secure.getString(
+						pContext.getContentResolver(),
+						android.provider.Settings.Secure.ANDROID_ID);
+		UUID deviceUuid = new UUID(androidId.hashCode(),
+				((long) tmDevice.hashCode() << 32) | tmSerial.hashCode()
+						| pContext.getPackageName().hashCode());
+
+		String uniqueId = deviceUuid.toString();
+
+		deviceToken = uniqueId;// 00000000-7a48-5a0a-22a5-c1db1d04d453
+
+		return deviceToken;
+	}
+
+	/**
+	 * 
+	 * @Title: getPhoneVersion
+	 * @author 创建人 hairam
+	 * @Description: (获取手机型号)
+	 * @param @return 设定文件
+	 * @return String 返回类型
+	 * @throws
+	 */
+	public static String getPhoneVersion() {
+		String phoneVersion = android.os.Build.MODEL;
+		return phoneVersion;
 	}
 	
 	/**

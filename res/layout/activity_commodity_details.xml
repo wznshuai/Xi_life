@@ -26,223 +26,231 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/white"
                 android:orientation="vertical" >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp" >
-
-                    <com.zhongjie.view.MyViewPager
-                        android:id="@+id/act_commodity_details_viewpager"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fadingEdge="none" />
-
-                    <com.zhongjie.view.viewpagerindicator.CirclePageIndicator
-                        android:id="@+id/act_commodity_indicator_dot"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/act_commodity_details_viewpager"
-                        android:layout_marginBottom="10dp"
-                        android:padding="10dp"
-                        app:circle_radius="3dp"
-                        app:extraSpacing="10dp"
-                        app:fillColor="#b8b8b8"
-                        app:pageColor="#393838"
-                        app:strokeWidth="0dp" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#ffffff" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#aa8866"
-                    android:orientation="vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="10dp" >
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical" >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="260dp" >
+
+                        <com.zhongjie.view.MyViewPager
+                            android:id="@+id/act_commodity_details_viewpager"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fadingEdge="none" />
+
+                        <com.zhongjie.view.viewpagerindicator.CirclePageIndicator
+                            android:id="@+id/act_commodity_indicator_dot"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/act_commodity_details_viewpager"
+                            android:layout_marginBottom="10dp"
+                            android:padding="10dp"
+                            app:circle_radius="3dp"
+                            app:extraSpacing="10dp"
+                            app:fillColor="#b8b8b8"
+                            app:pageColor="#393838"
+                            app:strokeWidth="0dp" />
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#ffffff" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="bottom"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:id="@+id/act_commodity_details_commodityName"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColor="#ffffff"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/act_commodity_details_weight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#66523d"
-                            android:padding="1dp"
-                            android:textColor="#ffffff" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/act_commodity_details_detail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#ffffff" />
-
-                    <RadioGroup
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal" >
-
-                        <RadioButton
-                            style="@style/Common_CheckBox.Commodity_details"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="海苔" />
-
-                        <RadioButton
-                            style="@style/Common_CheckBox.Commodity_details"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="海苔" />
-
-                        <RadioButton
-                            style="@style/Common_CheckBox.Commodity_details"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="海苔" />
-                    </RadioGroup>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal" >
+                        android:background="#aa8866"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="10dp" >
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:gravity="bottom"
                             android:orientation="horizontal" >
 
                             <TextView
-                                android:id="@+id/act_commodity_price"
-                                android:layout_width="wrap_content"
+                                android:id="@+id/act_commodity_details_commodityName"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:textColor="#ffff00"
-                                android:textSize="16sp" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp" >
-
-                                <TextView
-                                    android:id="@+id/act_commodity_oldPrice"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:paddingLeft="1dp"
-                                    android:paddingRight="1dp"
-                                    android:textSize="10sp" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignBottom="@+id/act_commodity_oldPrice"
-                                    android:layout_alignLeft="@+id/act_commodity_oldPrice"
-                                    android:layout_alignRight="@+id/act_commodity_oldPrice"
-                                    android:layout_alignTop="@+id/act_commodity_oldPrice"
-                                    android:gravity="center_vertical" >
-
-                                    <ImageView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="1dp"
-                                        android:src="#ffff00" />
-                                </LinearLayout>
-                            </RelativeLayout>
+                                android:layout_weight="1"
+                                android:textColor="#ffffff"
+                                android:textSize="18sp" />
 
                             <TextView
+                                android:id="@+id/act_commodity_details_weight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/pink_bg"
+                                android:background="#66523d"
                                 android:padding="1dp"
-                                android:text="APP专享"
-                                android:textColor="@android:color/white" />
+                                android:textColor="#ffffff" />
                         </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/act_commodity_details_icJian"
+                        <TextView
+                            android:id="@+id/act_commodity_details_detail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_jian" />
+                            android:layout_marginTop="5dp"
+                            android:textColor="#ffffff" />
 
-                        <EditText
-                            android:id="@+id/act_commodity_details_commodityCount"
-                            android:layout_width="50dp"
+                        <RadioGroup
+                            android:id="@+id/act_commodity_details_taste"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal" >
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal" >
+
+                                <TextView
+                                    android:id="@+id/act_commodity_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="#ffff00"
+                                    android:textSize="16sp" />
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp" >
+
+                                    <TextView
+                                        android:id="@+id/act_commodity_oldPrice"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingLeft="1dp"
+                                        android:paddingRight="1dp"
+                                        android:textSize="10sp" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignBottom="@+id/act_commodity_oldPrice"
+                                        android:layout_alignLeft="@+id/act_commodity_oldPrice"
+                                        android:layout_alignRight="@+id/act_commodity_oldPrice"
+                                        android:layout_alignTop="@+id/act_commodity_oldPrice"
+                                        android:gravity="center_vertical" >
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="1dp"
+                                            android:src="#ffff00" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/pink_bg"
+                                    android:padding="1dp"
+                                    android:text="APP专享"
+                                    android:textColor="@android:color/white" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/act_commodity_details_icJian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_jian" />
+
+                            <EditText
+                                android:id="@+id/act_commodity_details_commodityCount"
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:gravity="center"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
+                                android:singleLine="true"
+                                android:text="0" />
+
+                            <ImageView
+                                android:id="@+id/act_commodity_details_icJia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_jia" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:imeOptions="actionDone"
-                            android:inputType="number"
-                            android:singleLine="true"
-                            android:text="0" />
+                            android:orientation="horizontal" >
 
-                        <ImageView
-                            android:id="@+id/act_commodity_details_icJia"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_jia" />
+                            <Button
+                                android:id="@+id/act_commodity_details_addInCart"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_grey_bg"
+                                android:drawableLeft="@drawable/ic_add_in_shoppingcar"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="5dp"
+                                android:text="加入购物车"
+                                android:textColor="#666666" />
+
+                            <Button
+                                android:id="@+id/act_commodity_details_buy"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_blue_bg"
+                                android:drawablePadding="5dp"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="立即购买"
+                                android:textColor="@android:color/white" />
+                        </LinearLayout>
                     </LinearLayout>
 
-                    <LinearLayout
+                    <include
+                        android:id="@+id/act_commodity_details_goComment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:orientation="horizontal" >
-
-                        <Button
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/btn_grey_bg"
-                            android:drawableLeft="@drawable/ic_add_in_shoppingcar"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="5dp"
-                            android:text="加入购物车"
-                            android:textColor="#666666" />
-
-                        <Button
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/btn_blue_bg"
-                            android:drawablePadding="5dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:text="立即购买"
-                            android:textColor="@android:color/white" />
-                    </LinearLayout>
+                        android:layout_margin="15dp"
+                        layout="@layout/include_comment" />
                 </LinearLayout>
-				<include android:id="@+id/act_commodity_details_goComment" android:layout_width="match_parent" android:layout_height="wrap_content" 
-				    layout="@layout/include_comment" android:layout_margin="15dp"/>               
+
+                <LinearLayout
+                    android:id="@+id/act_commodity_details_introduce_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/act_commodity_details_introduce"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#666666" />
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
