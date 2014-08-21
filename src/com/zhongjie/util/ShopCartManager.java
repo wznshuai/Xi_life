@@ -3,13 +3,20 @@ package com.zhongjie.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
+
+import com.alibaba.fastjson.JSON;
 import com.zhongjie.model.CommodityModel;
 import com.zhongjie.model.ShopCartModel;
 
 public class ShopCartManager {
+	public static final String SAVE_KEY = "ShopCartManager";
+	
 	private static ShopCartManager mInstance;
 	
 	private List<ShopCartModel> mCartList;
+	public List<ShopCartModel> mCheckedList;
+
 	private ShopCartManager(){}
 	
 	public static ShopCartManager getInstance(){
@@ -20,6 +27,21 @@ public class ShopCartManager {
 			
 		return mInstance;
 	}
+	
+	public static ShopCartManager getInstance(List<ShopCartModel> mCartList){
+		if(null == mInstance){
+			mInstance = new ShopCartManager();
+			if(null != mCartList)
+				mInstance.mCartList = mCartList;
+			else
+				mInstance.mCartList = new ArrayList<ShopCartModel>();
+		}else{
+			mInstance.mCartList = mCartList;
+		}
+			
+		return mInstance;
+	}
+	
 	
 	/**
 	 * 添加商品到购物车
@@ -33,6 +55,7 @@ public class ShopCartManager {
 			}else{
 				ShopCartModel scm = new ShopCartModel();
 				Utils.fatherToChild(cm, scm);
+				scm.number = 1;
 				mCartList.add(scm);
 			}
 		}
@@ -42,7 +65,7 @@ public class ShopCartManager {
 	 * 得到购物车
 	 * @return
 	 */
-	public List<ShopCartModel> getShopCar(){
+	public List<ShopCartModel> getShopCart(){
 		return mCartList;
 	}
 	
@@ -126,5 +149,29 @@ public class ShopCartManager {
 			return totalCount;
 		}
 		return totalCount;
+	}
+	
+	public void save(Context context){
+		if(null != mCartList && mCartList.size() > 0){
+			SharedPreferencesUtil.getInstance(context).saveString(SAVE_KEY, JSON.toJSONString(mCartList));
+		}
+	}
+	
+	public void readDataFromSavd(Context context){
+		String data = SharedPreferencesUtil.getInstance(context).getString(SAVE_KEY);
+		if(!Utils.isEmpty(data)){
+			mCartList = JSON.parseArray(data, ShopCartModel.class);
+		}
+	}
+	
+	public void removeFromCheckedList(ShopCartModel scm){
+		if(null != mCheckedList)
+			mCheckedList.remove(scm);
+	}
+	
+	public void addInCheckedList(ShopCartModel scm){
+		if(null == mCheckedList)
+			mCheckedList = new ArrayList<ShopCartModel>();
+		mCheckedList.add(scm);
 	}
 }

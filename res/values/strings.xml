@@ -44,6 +44,7 @@
     <string name="main_content" type="id" />
     <string name="real_content" type="id"/>
     <string name="slide_view" type="id"/>
+	<string name="item_pos" type="id"/>
     
     <!-- 临时数据 -->
     <string name="temp1">订单金额  : <font color='#ff0099'>￥3600.00</font></string>
@@ -53,4 +54,5 @@
     <string name="prompt_empty">无数据！</string>
     <string name="prompt_retry">获取失败,请重试！</string>
     <string name="prompt_error">很抱歉，无法获取数据!</string>
+    
 </resources>

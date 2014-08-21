@@ -12,6 +12,7 @@ import com.zhongjie.model.UserModel;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.Constants;
 import com.zhongjie.util.SharedPreferencesUtil;
+import com.zhongjie.util.ShopCartManager;
 
 
 public class WelcomeActivity extends Activity{
@@ -27,6 +28,7 @@ public class WelcomeActivity extends Activity{
 
 		@Override
 		protected Void doInBackground(Void... params) {
+			ShopCartManager.getInstance().readDataFromSavd(getApplicationContext());
 			String sessId = SharedPreferencesUtil.getInstance(getApplicationContext()).getString(Constants.USER_SESSID);
 			if(null != sessId && !TextUtils.isEmpty(sessId)){
 				UserModel um = new UserModel();

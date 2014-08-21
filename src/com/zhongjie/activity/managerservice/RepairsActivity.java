@@ -198,7 +198,7 @@ public class RepairsActivity extends BaseSecondActivity{
 		@Override
 		protected void onPostExecute(RepairsShowJson result) {
 			super.onPostExecute(result);
-			if(!canGOON())
+			if(!canGoon())
 				return;
 			if(null != cld){
 				cld.cancel();

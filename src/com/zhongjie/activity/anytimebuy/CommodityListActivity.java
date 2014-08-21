@@ -21,10 +21,12 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.MainActivity;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseListActivity;
@@ -194,6 +196,7 @@ public class CommodityListActivity extends BaseListActivity {
 				vh.commodityName = (TextView)convertView.findViewById(R.id.list_item_commodity_name);
 				vh.commodityPrice = (TextView)convertView.findViewById(R.id.list_item_commodity_money);
 				vh.commodityWeight = (TextView)convertView.findViewById(R.id.list_item_commodity_weight);
+				vh.img = (ImageView)convertView.findViewById(R.id.list_item_commodity_img);
 				convertView.setTag(vh);
 			}else{
 				vh = (ViewHolder)convertView.getTag();
@@ -221,6 +224,7 @@ public class CommodityListActivity extends BaseListActivity {
 						}
 					}
 				});
+				ImageLoader.getInstance().displayImage(mCommodity.image, vh.img, options);
 			}
 			
 			return convertView;
@@ -229,6 +233,7 @@ public class CommodityListActivity extends BaseListActivity {
 		class ViewHolder{
 			TextView commodityName, commodityWeight, commodityPrice, commodityDescription;	
 			View addInShoppingCar;
+			ImageView img;
 		}
 	}
 	
@@ -260,7 +265,7 @@ public class CommodityListActivity extends BaseListActivity {
 		@Override
 		protected void onPostExecute(CommodityListJson result) {
 			super.onPostExecute(result);
-			if(!canGOON())
+			if(!canGoon())
 				return;
 			if(start == 0)
 				mPromptView.showContent();

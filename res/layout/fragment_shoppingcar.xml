@@ -76,10 +76,10 @@
                 android:layout_height="wrap_content"
                 android:text="总计 : "/>
             <TextView 
+                android:id="@+id/fra_shoppingcar_totalFee"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="￥66.66"
                 android:textSize="18sp"
                 android:textColor="#ff0099"
                 android:gravity="left"/>
@@ -88,7 +88,7 @@
                 android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="结算(6)"
+                android:text="结算"
                 android:padding="3dp"
                 android:background="@drawable/orange_bg_selector"/>
         </LinearLayout>

@@ -8,19 +8,20 @@
     android:padding="8dp" >
 
     <CheckBox
-        android:id="@+id/list_item_shoppingcar_checkbox"
+        android:id="@+id/list_item_shopcart_checkbox"
         style="@style/Common_CheckBox.Pink.Big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="false"
         android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:clickable="false"/>
+        android:clickable="true"/>
 
     <ImageView
+        android:id="@+id/list_item_shopcart_img"
         android:layout_width="@dimen/commodity_item_img"
         android:layout_height="@dimen/commodity_item_img"
         android:layout_marginLeft="8dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/temp_ic_fantuan" />
 
     <LinearLayout
@@ -30,16 +31,16 @@
         android:orientation="vertical" >
 
         <TextView
+            android:id="@+id/list_item_shopcart_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="饭团·豆沙馅"
             android:textColor="#333333" />
 
         <TextView
+            android:id="@+id/list_item_shopcart_introduce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="精选优质大米，香浓可口"
             android:textColor="#666666" />
 
         <RelativeLayout
@@ -47,36 +48,36 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/list_item_shoppingcar_weight"
+                android:id="@+id/list_item_shopcart_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
-                android:text="重量 : 250g"
                 android:textColor="#976600" />
 
             <TextView
-                android:layout_below="@+id/list_item_shoppingcar_weight"
-                android:id="@+id/list_item_commodity_money"
+                android:layout_below="@+id/list_item_shopcart_weight"
+                android:id="@+id/list_item_shopcart_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥2.40"
                 android:textColor="#ff0099" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-				android:layout_alignBottom="@+id/list_item_commodity_money"
+				android:layout_alignBottom="@+id/list_item_shopcart_money"
                 android:layout_alignParentRight="true"
                 android:orientation="horizontal"
                 android:gravity="center_vertical" >
 
                 <ImageView
+                    android:id="@+id/list_item_shopcart_ic_jian"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="10dp"
                     android:src="@drawable/ic_jian_grey" />
 
                 <EditText
-                    android:id="@+id/list_item_shoppingcar_edittext"
+                    android:id="@+id/list_item_shopcart_edittext"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -84,13 +85,14 @@
                     android:gravity="center"
                     android:imeOptions="actionDone"
                     android:inputType="number"
-                    android:singleLine="true"
-                    android:text="1" />
+                    android:singleLine="true"/>
 
                 <ImageView
+                    android:id="@+id/list_item_shopcart_ic_jia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_jia_grey" />
+                    android:padding="10dp"
+                    android:src="@drawable/ic_jia_grey" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

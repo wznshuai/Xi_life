@@ -2,6 +2,10 @@ package com.zhongjie;
 
 import java.io.File;
 import java.security.KeyStore;
+import java.util.List;
+
+import net.tsz.afinal.FinalDb;
+import net.tsz.afinal.FinalDb.DaoConfig;
 
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
@@ -31,15 +35,19 @@ import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.zhongjie.database.ShopCartDbService;
 import com.zhongjie.global.Session;
+import com.zhongjie.model.ShopCartModel;
 import com.zhongjie.util.Constants;
 import com.zhongjie.util.SSLSocketFactoryEx;
+import com.zhongjie.util.ShopCartManager;
 
 public class MyApplication extends Application{
 
 	private HttpClient httpClient;
 	private final String TAG = "MyApplication";
-
+	public static FinalDb finalDb;
+	public final static String DB_NAME = "Xi_life.db"; 
 
 
 	 @Override
@@ -48,6 +56,22 @@ public class MyApplication extends Application{
 		 createHttpClient();
 		 initImageLoader(this);
 		 createDirs();
+	 }
+	 
+	 @SuppressWarnings("unused")
+	private void init(){
+		 /**
+			 * 创建数据库
+			 */
+			DaoConfig dc = new DaoConfig();
+			File f = new File(Constants.APP_DB_DIR);
+			if(!f.exists())
+				f.mkdirs();
+			f = null;
+			dc.setTargetDirectory(Constants.APP_DB_DIR);
+			dc.setContext(this);
+			dc.setDbName(DB_NAME);
+			finalDb = FinalDb.create(dc);
 	 }
 
 
@@ -170,6 +194,7 @@ public class MyApplication extends Application{
 	}
 	
 	public void exitApp() {
+		ShopCartManager.getInstance().save(getApplicationContext());
 		Session.getSession().cleanUpSession();
 		shutdownHttpClient();
 	    Process.killProcess(Process.myPid());

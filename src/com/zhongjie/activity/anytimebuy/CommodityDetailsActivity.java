@@ -49,7 +49,6 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 	private TextView mCommentCount, mGoodPercent, 
 				mCommodityNameTxt, mCommodityWeight, mCommodityPrice, mCommodityOldPrice;
 	private View goCommentView, mIcJianView, mIcJiaView, mAddInCartView, mBuyView;
-	private String mCommodityName;
 	private CommonRequest mRequest;
 	private CommodityModel mDetails;
 	private EditText mCountEdittext;
@@ -71,7 +70,6 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 	protected void initData() {
 		mRequest = new CommonRequest(getApplicationContext());
 		mCommodityId = getIntent().getStringExtra("commodityId");
-		mCommodityName = getIntent().getStringExtra("commodityName");
 		mCartManager = ShopCartManager.getInstance();
 	}
 
@@ -294,7 +292,7 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 		@Override
 		protected void onPostExecute(CommodityJson result) {
 			super.onPostExecute(result);
-			if(!canGOON())
+			if(!canGoon())
 				return;
 			if(null != cld){
 				cld.cancel();

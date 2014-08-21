@@ -126,6 +126,10 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 	public void setCurrentTabByTag(String tag){
 		mTabHost.setCurrentTabByTag(tag);
 	}
+	
+	public String getCurrentTabTag(){
+		return mTabHost.getCurrentTabTag();
+	}
 
 	private void setCurrentFragment(String tabId){
 		FragmentTransaction ft = mFm.beginTransaction();

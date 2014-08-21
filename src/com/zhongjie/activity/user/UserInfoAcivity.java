@@ -172,7 +172,7 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 		@Override
 		protected void onPostExecute(UserJson result) {
 			super.onPostExecute(result);
-			if(!canGOON())
+			if(!canGoon())
 				return;
 			if(null != cld){
 				cld.cancel();
@@ -225,7 +225,7 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 		@Override
 		protected void onPostExecute(UserJson result) {
 			super.onPostExecute(result);
-			if(!canGOON())
+			if(!canGoon())
 				return;
 			if(null != cld){
 				cld.cancel();
@@ -416,7 +416,7 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 		@Override
 		protected void onPostExecute(UploadImageJson result) {
 
-			if (!canGOON())
+			if (!canGoon())
 				return;
 
 			if (null != cld) {

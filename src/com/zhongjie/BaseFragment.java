@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -51,6 +50,8 @@ public class BaseFragment extends Fragment{
 		options = new DisplayImageOptions.Builder()
 		.cacheInMemory(true)
 		.cacheOnDisc(true)
+		.showImageForEmptyUri(R.drawable.ic_default_head)
+		.showImageOnFail(R.drawable.ic_default_head)
 		.displayer(new FadeInBitmapDisplayer(300))
 		.imageScaleType(ImageScaleType.EXACTLY)
 		.build();

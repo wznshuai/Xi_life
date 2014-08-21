@@ -147,4 +147,12 @@ public class CommonRequest {
 		data.put("sessId", sessId);
 		return mHttpUtil.executePost(ApiConstants.URL_REPAIR_SHOW, data);
 	}
+	/**
+	 * 获取报修页面信息
+	 * @param sessId
+	 * @return
+	 */
+	public String queryAray(){
+		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_QUERY_ARAY);
+	}
 }

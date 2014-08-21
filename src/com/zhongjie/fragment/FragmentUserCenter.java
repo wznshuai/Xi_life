@@ -15,10 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.zhongjie.BaseFragment;
 import com.zhongjie.MainActivity;
 import com.zhongjie.R;
@@ -109,15 +106,6 @@ public class FragmentUserCenter extends BaseFragment{
 			}
 		});
 		
-		options = new DisplayImageOptions.Builder()
-		.cacheInMemory(true)
-		.cacheOnDisc(true)
-		.displayer(new FadeInBitmapDisplayer(300))
-		.imageScaleType(ImageScaleType.EXACTLY)
-		.showImageForEmptyUri(R.drawable.ic_default_head)
-		.showImageOnFail(R.drawable.ic_default_head)
-		.showImageOnLoading(R.drawable.ic_default_head)
-		.build();
 		ImageLoader.getInstance().displayImage("", mHeadImg, options);
 		mEditView.setOnClickListener(new OnClickListener() {
 			

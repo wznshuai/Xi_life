@@ -179,7 +179,7 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 		@Override
 		protected void onPostExecute(BaseJson result) {
 			super.onPostExecute(result);
-			if(!canGOON())
+			if(!canGoon())
 				return;
 			if(null != result){
 				if(result.code != 0)
@@ -214,7 +214,7 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 		@Override
 		protected void onPostExecute(UserJson result) {
 			super.onPostExecute(result);
-			if(!canGOON())
+			if(!canGoon())
 				return;
 			if(null != result){
 				if(result.code != 0)

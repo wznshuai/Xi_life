@@ -44,7 +44,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:visibility="gone">
                     <TextView 
                         android:id="@+id/act_fill_order_handle_txt"
                         android:textColor="#666666"
@@ -284,6 +285,7 @@
                 android:text="应付总计 : "/>
 			
             <TextView 
+                android:id="@+id/act_fill_order_totalFee"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"

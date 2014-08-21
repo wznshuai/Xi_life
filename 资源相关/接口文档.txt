@@ -398,7 +398,7 @@
 	     输出参数：
 	       id<String>:自提点ID
 	       name<String>:自提点名称
-	       phone<List>:自提点联系电话
+	       phone<String>:自提点联系电话
 	       address<String>:自提点地址
 	     示例：
 	       成功：成功：{"errMsg":"","data":[{"id":"1","phone":"12345","address":"奶牛家","name":"自提点一"},{"id":"2","phone":"54321","address":"黄牛家","name":"自提点二"}],"code":"0"}
@@ -425,7 +425,7 @@
 	       POST
 	     输入参数：
 	       sessId<String>:用户唯一码
-	       status<String>:订单状态(00:待支付; 01:已支付; 90:已完成; 99:已取消)
+	       status<String>:订单状态(空字符串:全部; 00:待支付; 01:已支付; 90:已完成; 99:已取消)
 	       start<String>:起始位置
 	       step<String>:步长
 	     输出参数：
@@ -654,7 +654,7 @@
 	   输出参数：
 	     id<String>:自提点ID
 	     name<String>:自提点名称
-	     phone<List>:自提点联系电话
+	     phone<String>:自提点联系电话
 	     address<String>:自提点地址
 	   示例：
 	     成功：{"errMsg":"","data":[{"id":"1","phone":"12345","address":"奶牛家","name":"自提点一"},{"id":"2","phone":"67890","address":"黄牛家","name":"自提点二"}],"code":"0"}
@@ -668,7 +668,7 @@
 	     POST
 	   输入参数：
 	     sessId<String>:用户唯一码
-	     status<String>:订单状态(00:待支付; 01:已支付; 90:已完成; 99:已取消)
+	     status<String>:订单状态(空字符串:全部; 00:待支付; 01:已支付; 90:已完成; 99:已取消)
 	     start<String>:起始位置
 	     step<String>:步长
 	   输出参数：

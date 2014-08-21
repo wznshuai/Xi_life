@@ -93,7 +93,7 @@ public class LoginActivity extends BaseSecondActivity implements OnClickListener
 		@Override
 		protected void onPostExecute(UserJson result) {
 			super.onPostExecute(result);
-			if(!canGOON())
+			if(!canGoon())
 				return;
 			if(null != cld){
 				cld.cancel();

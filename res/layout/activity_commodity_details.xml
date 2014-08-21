@@ -208,7 +208,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:background="@drawable/btn_grey_bg"
+                                android:background="@drawable/btn_commodity_details_add_in_shopcart_selector"
                                 android:drawableLeft="@drawable/ic_add_in_shoppingcar"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="5dp"

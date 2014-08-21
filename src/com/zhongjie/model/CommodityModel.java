@@ -1,5 +1,6 @@
 package com.zhongjie.model;
 
+
 public class CommodityModel {
 	public String commodityId;// <String>:商品ID
 	public String name;// <String>:商品名称

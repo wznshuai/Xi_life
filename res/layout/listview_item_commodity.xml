@@ -10,6 +10,7 @@
         android:id="@+id/list_item_commodity_img"
         android:layout_width="@dimen/commodity_item_img"
         android:layout_height="@dimen/commodity_item_img"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_default_head" />
 	<LinearLayout 
 	    android:layout_marginLeft="8dp"

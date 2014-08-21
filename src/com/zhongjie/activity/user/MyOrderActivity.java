@@ -146,7 +146,7 @@ public class MyOrderActivity extends BaseListActivity {
 		@Override
 		protected void onPostExecute(OrderListJson result) {
 			super.onPostExecute(result);
-			if (!canGOON())
+			if (!canGoon())
 				return;
 			if (start == 0)
 				mPromptView.showContent();
