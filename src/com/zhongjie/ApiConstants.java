@@ -26,4 +26,6 @@ public class ApiConstants {
 	public static final String URL_REPAIR_SHOW = BASE_HOST + "repair/show";
 	//获取自提点列表
 	public static final String URL_ESHOP_QUERY_ARAY = BASE_HOST + "eshop/queryAray";
+	//提交订单
+	public static final String URL_CLEAN_SUBMITORDER = BASE_HOST + "clean/submitOrder";
 }

@@ -21,4 +21,11 @@
 	<dimen name="commodity_item_img">80dp</dimen>
 	<dimen name="dialog_width_min">240dp</dimen>
     <dimen name="dialog_common_margin">10dp</dimen>
+    
+     <dimen name="fbutton_default_conner_radius">8dp</dimen>
+    <dimen name="fbutton_default_padding_left">10dp</dimen>
+    <dimen name="fbutton_default_padding_right">10dp</dimen>
+    <dimen name="fbutton_default_padding_top">5dp</dimen>
+    <dimen name="fbutton_default_padding_bottom">5dp</dimen>
+    <dimen name="fbutton_default_shadow_height">2dp</dimen>
 </resources>

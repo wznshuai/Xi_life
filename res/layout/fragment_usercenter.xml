@@ -96,6 +96,7 @@
             android:paddingTop="10dp" >
 
             <TextView
+                android:id="@+id/fra_usercenter_waitpay"
                 style="@style/UserCenter_PayTab_Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,6 +111,7 @@
                 android:src="@color/text_black_hint" />
 
             <TextView
+                android:id="@+id/fra_usercenter_waitcomment"
                 style="@style/UserCenter_PayTab_Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -124,6 +126,7 @@
                 android:src="@color/text_black_hint" />
 
             <TextView
+                android:id="@+id/fra_usercenter_paycomplete"
                 style="@style/UserCenter_PayTab_Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -138,6 +141,7 @@
                 android:src="@color/text_black_hint" />
 
             <TextView
+                android:id="@+id/fra_usercenter_paycancel"
                 style="@style/UserCenter_PayTab_Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -58,17 +58,19 @@ public class MyOrderActivity extends BaseListActivity {
 	protected void findViews() {
 		mListView = (ListView) findViewById(R.id.act_order_listview);
 		mRadioGroup = (RadioGroup)findViewById(R.id.act_order_radioGroup);
+		mPromptView = (PromptView)findViewById(R.id.promptView);
 	}
 
 	@Override
 	protected void initViews() {
 		
 		if(mCurStatus.equals(OrderStatus.STATUS_HAD_CANCELED)){
-			mRadioGroup.check(mRadioGroup.getChildAt(3).getId());
+			System.out.println("STATUS_HAD_CANCELED");
+			mRadioGroup.check(mRadioGroup.getChildAt(6).getId());
 		}else if(mCurStatus.equals(OrderStatus.STATUS_HAD_COMMPLETED)){
-			mRadioGroup.check(mRadioGroup.getChildAt(2).getId());
+			mRadioGroup.check(mRadioGroup.getChildAt(4).getId());
 		}else if(mCurStatus.equals(OrderStatus.STATUS_WAIT_COMMENT)){
-			mRadioGroup.check(mRadioGroup.getChildAt(1).getId());
+			mRadioGroup.check(mRadioGroup.getChildAt(2).getId());
 		}else if(mCurStatus.equals(OrderStatus.STATUS_WAIT_PAY)){
 			mRadioGroup.check(mRadioGroup.getChildAt(0).getId());
 		}
@@ -90,7 +92,7 @@ public class MyOrderActivity extends BaseListActivity {
 								: maxCount / step + 1;
 						if (start + 1 < maxPage) {
 							start++;
-							new QueryUserOrderTask().execute();
+							new QueryUserOrderTask().execute(mCurStatus);
 						}
 					}
 				}
@@ -110,7 +112,7 @@ public class MyOrderActivity extends BaseListActivity {
 				mCurStatus = getOrderStatusCode(((RadioButton)group.findViewById(checkedId)).getText().toString());
 				mListView.setAdapter(null);
 				start = 0;
-				new QueryUserOrderTask().execute();
+				new QueryUserOrderTask().execute(mCurStatus);
 			}
 		});
 	}
@@ -119,11 +121,11 @@ public class MyOrderActivity extends BaseListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_order);
 		super.onCreate(savedInstanceState);
-		new QueryUserOrderTask().execute();
+		new QueryUserOrderTask().execute(mCurStatus);
 	}
 
 	class QueryUserOrderTask extends AsyncTask<String, Void, OrderListJson> {
-
+		String status;
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -135,8 +137,9 @@ public class MyOrderActivity extends BaseListActivity {
 
 		@Override
 		protected OrderListJson doInBackground(String... params) {
+			status = params[0];
 			OrderListJson eclj = null;
-			String json = mRequest.queryUserOrder(sessId, mCurStatus, start, step);
+			String json = mRequest.queryUserOrder(sessId, status, start, step);
 			if (!TextUtils.isEmpty(json)) {
 				eclj = JSON.parseObject(json, OrderListJson.class);
 			}
@@ -148,6 +151,10 @@ public class MyOrderActivity extends BaseListActivity {
 			super.onPostExecute(result);
 			if (!canGoon())
 				return;
+			
+			if(!status.equals(mCurStatus))
+				return;
+			
 			if (start == 0)
 				mPromptView.showContent();
 			else

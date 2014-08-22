@@ -114,7 +114,7 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 			}
 			EshopCatalogModel eShop = getItem(position);
 			ImageView img = (ImageView)convertView.findViewById(R.id.list_item_anytimebuy_img);
-			ImageLoader.getInstance().displayImage(eShop.catalogImage, img);
+			ImageLoader.getInstance().displayImage(eShop.catalogImage, img, options);
 			return convertView;
 		}
 	}

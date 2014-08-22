@@ -44,11 +44,14 @@
 	            android:layout_alignParentBottom="true"
 	           	android:layout_width="wrap_content"
 	           	android:layout_height="wrap_content"/>
-	        <Button 
+	        <com.zhongjie.view.FButton 
 	            android:id="@+id/list_item_commodity_add_in_shoppingcar"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:padding="3dp"
+	            android:paddingLeft="3dp"
+	            android:paddingRight="3dp"
+	            android:paddingTop="3dp"
+	            android:paddingBottom="3dp"
 	            android:focusable="false"
 	            android:background="@drawable/ic_blue_btn_bg"
 	            android:text="加入购物车"

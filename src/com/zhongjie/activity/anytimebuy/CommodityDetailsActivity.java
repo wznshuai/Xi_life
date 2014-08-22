@@ -17,6 +17,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,6 +59,7 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 	private RadioGroup mTasteGroup;
 	private TextView mCommodityIntroduce;
 	private LinearLayout mCommodityIntroduceArea;
+	private String mSelectedTaste;
 	
 	
 	@Override
@@ -154,12 +157,24 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 			
 			if(null != cdm.taste && cdm.taste.length > 0){
 				mTasteGroup.setVisibility(View.VISIBLE);
+				int i = 0;
 				for(String str : cdm.taste){
 					RadioButton rb = (RadioButton)getLayoutInflater()
 							.inflate(R.layout.radiobutton_commodity_details, mTasteGroup, false);
 					rb.setText(str);
+					rb.setId(i);
+					rb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+						
+						@Override
+						public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+							if(isChecked)
+								mSelectedTaste = buttonView.getText().toString(); 
+						}
+					});
 					mTasteGroup.addView(rb);
+					i++;
 				}
+				mTasteGroup.check(0);
 			}
 			
 			mCommodityIntroduce.setText(cdm.detail);
@@ -195,6 +210,7 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 			if(!Utils.isEmpty(countStr)){
 				try{
 					int count = Integer.valueOf(countStr);
+					mDetails.selectedTaste = mSelectedTaste;
 					mCartManager.addInShopCart(mDetails, count, false);
 				}catch(Exception e){
 					showToast("输入数量不正确");

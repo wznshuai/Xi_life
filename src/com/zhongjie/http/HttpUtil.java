@@ -117,7 +117,7 @@ public class HttpUtil {
 			while (it.hasNext()) {
 				String key = it.next();
 				String value = params.get(key);
-				if (value == null || value.trim().equals("")) {
+				if (value == null) {
 					it.remove();
 					params.remove(key);
 				} else {
@@ -155,7 +155,7 @@ public class HttpUtil {
 		while (it.hasNext()) {
 			String key = it.next();
 			String value = params.get(key);
-			if (value == null || value.trim().equals("")) {
+			if (value == null) {
 				it.remove();
 				params.remove(key);
 			} else {

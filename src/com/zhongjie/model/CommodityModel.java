@@ -1,5 +1,7 @@
 package com.zhongjie.model;
 
+import com.zhongjie.util.Utils;
+
 
 public class CommodityModel {
 	public String commodityId;// <String>:商品ID
@@ -20,8 +22,8 @@ public class CommodityModel {
 	public int evaluate;// <String>:商品评价人数
 	public int start;// <String>:商品评价星级(1:一颗星; 2:两颗星; ...)
 	public int good;// <String>:商品好评度(0-100 的整数)
+	public String selectedTaste;//客户选择的口味
 
-	
 	@Override
 	public boolean equals(Object o) {
 		if(o == null)
@@ -29,8 +31,15 @@ public class CommodityModel {
 		else if(o == this)
 			return true;
 		else if(o instanceof CommodityModel){
-			if(((CommodityModel)o).commodityId.equals(commodityId))
-				return true;
+			if(((CommodityModel)o).commodityId.equals(commodityId)){
+				if(Utils.isEmpty(selectedTaste) && Utils.isEmpty(((CommodityModel)o).selectedTaste)){
+					return true;
+				}else if(!Utils.isEmpty(selectedTaste) 
+						&& !Utils.isEmpty(((CommodityModel)o).selectedTaste)
+						&& selectedTaste.equals(((CommodityModel)o).selectedTaste)){
+					return true;
+				}
+			}
 		}
 		return false;
 	}

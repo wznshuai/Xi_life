@@ -155,4 +155,12 @@ public class CommonRequest {
 	public String queryAray(){
 		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_QUERY_ARAY);
 	}
+	
+	public String submitOrder(String sessId, String cleanInfo, String takeTime, 
+			String dispatchMode, String arayacakId, 
+			String man, String phone, String address, String remark){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("sessId", sessId);
+		return mHttpUtil.executePost(ApiConstants.URL_CLEAN_SUBMITORDER, data);
+	}
 }

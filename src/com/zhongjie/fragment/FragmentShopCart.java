@@ -275,6 +275,7 @@ public class FragmentShopCart extends BaseFragment {
 						.findViewById(R.id.list_item_shopcart_weight);
 				vh.jia = convertView.findViewById(R.id.list_item_shopcart_ic_jia);
 				vh.jian = convertView.findViewById(R.id.list_item_shopcart_ic_jian);
+				vh.taste = (TextView)convertView.findViewById(R.id.list_item_shopcart_taste);
 
 				convertView.setTag(vh);
 				convertView.setOnClickListener(new OnClickListener() {
@@ -422,6 +423,8 @@ public class FragmentShopCart extends BaseFragment {
 					vh.name.setText(scm.name);
 				if (!Utils.isEmpty(scm.weight))
 					vh.weight.setText(scm.weight);
+				
+				vh.taste.setText(scm.selectedTaste);
 
 				vh.edittext.setText(scm.number + "");
 				vh.edittext.setSelection(vh.edittext.getText().toString()
@@ -446,7 +449,7 @@ public class FragmentShopCart extends BaseFragment {
 
 		class ViewHolder {
 			ImageView img;
-			TextView name, introduce, weight, money;
+			TextView name, introduce, weight, money, taste;
 			CheckBox checkbox;
 			EditText edittext;
 			View jia, jian;
