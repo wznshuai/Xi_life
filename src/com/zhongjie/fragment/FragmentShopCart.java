@@ -64,8 +64,6 @@ public class FragmentShopCart extends BaseFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		initData();
-		findViews();
 	}
 
 	@Override

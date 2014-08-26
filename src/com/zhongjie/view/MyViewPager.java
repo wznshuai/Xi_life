@@ -1,11 +1,12 @@
 package com.zhongjie.view;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-public class MyViewPager extends ViewPager{
+import com.zhongjie.view.autoscroll.AutoScrollViewPager;
+
+public class MyViewPager extends AutoScrollViewPager{
 	
 	private SlideRightOutView srov;
 

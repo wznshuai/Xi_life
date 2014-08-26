@@ -18,6 +18,7 @@ import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.BaseFragment;
+import com.zhongjie.MainActivity;
 import com.zhongjie.R;
 import com.zhongjie.activity.anytimebuy.CommodityListActivity;
 import com.zhongjie.model.EshopCatalogListJson;
@@ -42,6 +43,17 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 	}
 	
 	@Override
+	public void onResume() {
+		super.onResume();
+		if (getActivityMine().getCurrentTabTag().equals(MainActivity.TAB_1)) {
+			getActivityMine().setTopCenterLogo(R.drawable.ic_top_logo);
+			if(null == mEshopCatelogList || mEshopCatelogList.size() == 0){
+				new QueryEshopCatelog().execute();
+			}
+		}
+	}
+	
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_anytimebuy, null);
@@ -50,10 +62,6 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		initData();
-		findViews();
-		initViews();
-		new QueryEshopCatelog().execute();
 	}
 	
 	@Override

@@ -63,9 +63,6 @@ public class FragmentUserCenter extends BaseFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		initData();
-		findViews();
-		initViews();
 		loadUserInfo();
 	}
 
@@ -99,6 +96,7 @@ public class FragmentUserCenter extends BaseFragment {
 	public void onResume() {
 		super.onResume();
 		if (getActivityMine().getCurrentTabTag().equals(MainActivity.TAB_4)) {
+			getActivityMine().setTopCenterLogo(R.drawable.ic_top_logo);
 			initUserInfo(mUserManager.getmUser());
 		}
 	}

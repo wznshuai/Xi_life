@@ -14,18 +14,18 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.zhongjie.R;
-import com.zhongjie.activity.BaseSecondActivity;
+import com.zhongjie.activity.BaseListActivity;
 import com.zhongjie.activity.shoppingcar.FillOrderActivity;
 import com.zhongjie.util.Utils;
 
-public class CommodityCommentActivity extends BaseSecondActivity implements OnClickListener{
+public class CommodityCommentActivity extends BaseListActivity implements OnClickListener{
 	
-	private ListView mListView;
+	private PullToRefreshListView mListView;
 	private TextView mCommentCount, mGoodPercent;
 	private int photoAreaWidth;
 	private View buyBtn;
@@ -37,7 +37,7 @@ public class CommodityCommentActivity extends BaseSecondActivity implements OnCl
 
 	@Override
 	protected void findViews() {
-		mListView = (ListView)findViewById(R.id.act_commodity_comment_listview);
+		mListView = (PullToRefreshListView)findViewById(R.id.act_commodity_comment_listview);
 		buyBtn = findViewById(R.id.act_commodity_comment_buy);
 	}
 
@@ -48,7 +48,7 @@ public class CommodityCommentActivity extends BaseSecondActivity implements OnCl
 		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
 		mTopLeftImg.setVisibility(View.VISIBLE);
 		
-		mListView.addHeaderView(getLayoutInflater().inflate(R.layout.header_commodity_comment, null));
+		mListView.getRefreshableView().addHeaderView(getLayoutInflater().inflate(R.layout.header_commodity_comment, null));
 		
 		mListView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
 			
@@ -57,7 +57,6 @@ public class CommodityCommentActivity extends BaseSecondActivity implements OnCl
 				photoAreaWidth = mListView.getWidth() 
 						- getResources().getDimensionPixelSize(R.dimen.order_photo) 
 						- Utils.dp2px(getApplicationContext(), 40);
-				System.out.println("photoAreaWidth : " + photoAreaWidth);
 				mListView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 				mListView.setAdapter(new MyCommentAdapter());
 			}

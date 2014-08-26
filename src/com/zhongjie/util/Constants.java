@@ -8,6 +8,7 @@ public class Constants {
 	public static final String APP_TEMP = APP_DIR + "/temp";
 	public static final String APP_IMAGE = APP_DIR + "/image";
 	public static final String APP_DB_DIR = APP_DIR + "/database";
+	public static final String APP_HTTP_CACHE = APP_DIR + "/httpcache";
 	
 	public static final String SHOP_CART_KEY = "SHOPPING_CAR_KEY";
 	

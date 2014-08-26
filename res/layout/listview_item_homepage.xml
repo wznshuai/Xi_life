@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/grey_bg"
     android:orientation="horizontal"
+    android:background="@color/white"
     android:padding="8dp" >
 
     <ImageView
@@ -11,7 +11,7 @@
         android:layout_width="@dimen/commodity_item_img"
         android:layout_height="@dimen/commodity_item_img"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_default_head" />
+        android:src="@drawable/temp_ic_fantuan" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -24,7 +24,8 @@
             android:id="@+id/list_item_commodity_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#333333" />
+            android:textColor="#333333" 
+            android:text="饭团·豆沙馅"/>
 
         <TextView
             android:id="@+id/list_item_commodity_description"
@@ -33,34 +34,23 @@
             android:singleLine="true"
             android:ellipsize="end"
             android:layout_marginTop="3dp"
-            android:textColor="#666666" />
+            android:textColor="#666666"
+            android:text="精选优质大米，香浓可口" />
 
         <TextView
             android:id="@+id/list_item_commodity_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
-            android:textColor="#976600" />
+            android:textColor="#976600"
+            android:text="重量 : 250g" />
 
         <TextView
             android:id="@+id/list_item_commodity_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ff0099" />
+            android:textColor="#ff0099"
+            android:text="￥2.40" />
     </LinearLayout>
-
-    <com.zhongjie.view.FButton
-        android:id="@+id/list_item_commodity_add_in_shoppingcar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/ic_blue_btn_bg"
-        android:focusable="false"
-        android:paddingBottom="3dp"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:paddingTop="3dp"
-        android:text="加入购物车"
-        android:textColor="@android:color/white" />
 
 </LinearLayout>

@@ -19,7 +19,7 @@
         android:background="@drawable/main_bg" >
 
 
-        <ListView
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/act_commodity_comment_listview"
             style="@style/MyListView"
             android:layout_above="@+id/tempId2"

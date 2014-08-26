@@ -64,6 +64,8 @@ public class BaseFragment extends Fragment{
 		super.onActivityCreated(savedInstanceState);
 		mCon = getActivity().getApplicationContext();
 		initData();
+		findViews();
+		initViews();
 	}
 	
 	protected void initSomething(){

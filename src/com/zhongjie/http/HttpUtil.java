@@ -59,6 +59,31 @@ public class HttpUtil {
 	}
 
 	public String executeGet(String url, HashMap<String, String> params) {
+//		int cacheSize = 10 * 1024 * 1024; // 10 MiB
+//		String result = null;
+//		OkHttpClient client = new OkHttpClient();
+//		client.setConnectTimeout(10, TimeUnit.SECONDS);
+//		client.setWriteTimeout(10, TimeUnit.SECONDS);
+//	    client.setReadTimeout(30, TimeUnit.SECONDS);
+//		try {
+//			Response response = null;
+//			File httpCache = new File(Constants.APP_HTTP_CACHE);
+//		    if(!httpCache.exists())
+//		    	httpCache.mkdirs();
+//		    client.setCache(new Cache(httpCache, cacheSize));
+//			if (params != null && params.size() != 0){
+//				url += encryptGetParams(params);
+//			}
+//			response = client.newCall(new Request.Builder().url(url).build()).execute();
+//			Logger.d(TAG, url);
+//			if(response.code() == HttpStatus.SC_OK){
+//				result = response.body().string();
+//				Logger.d(TAG, result);
+//			}
+//		} catch (Exception e) {
+//			Logger.e(TAG, "in executeGet error", e);
+//		} 
+//		return result;
 		String result = null;
 		try {
 			HttpClient client = myApplication.getHttpClient(); // 获取HttpClient实例

@@ -21,7 +21,7 @@ public class FragmentBigImg extends BaseFragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		ImageView iv = new ImageView(getActivity().getApplicationContext());
-		iv.setScaleType(ScaleType.CENTER_CROP);
+		iv.setScaleType(ScaleType.FIT_XY);
 		if(!Utils.isEmpty(imgUrl)){
 			ImageLoader.getInstance().displayImage(imgUrl, iv);
 		}else{

@@ -42,8 +42,6 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		findViews();
-		initViews();
 	}
 	
 	@Override
