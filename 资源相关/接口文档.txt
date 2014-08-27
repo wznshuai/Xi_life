@@ -210,6 +210,7 @@
 	   输出参数：
 	     commodityId<String>:商品ID
 	     name<String>:商品名称
+	     image<String>:商品简图
 	     imageA<String>:商品图片一
 	     imageB<String>:商品图片二
 	     imageC<String>:商品图片三
@@ -225,9 +226,11 @@
 	     start<String>:商品评价星级(1:一颗星; 2:两颗星; ...)
 	     good<String>:商品好评度(0-100 的整数)
 	   示例：
-	     成功：{"errMsg":"","data":{"errMsg":"","data":{"evaluate":5,"oldPrice":"10.00","detail":"大包子详情","weight":"500G","imageA":"大包子A.jpg","imageB":"大包子B.jpg","good":80,"imageC":"大包子C.jpg","detailImage":["http://大包子详情"],"taste":["辣的","甜的"],"info":"大包子简介","price":"5.00","start":5,"name":"大包子","commodityId":"1","descMode":"1"},"code":"0"}
-	       or:{"errMsg":"","data":{"evaluate":1,"oldPrice":"10.00","detail":"小包子详情","weight":"50G","imageA":"小包子A.jpg","imageB":"小包子B.jpg","good":0,"imageC":"小包子C.jpg","detailImage":["http://小包子详情1","http://小包子详情2"],"taste":["咸的","湿的","咸湿的"],"info":"小包子简介","price":"3.00","start":5,"name":"小包子","commodityId":"2","descMode":"2"},"code":"0"}
-	       or:{"errMsg":"","data":{"oldPrice":"10.00","evaluate":0,"detail":"粥详情","weight":"500G","imageA":"粥A.jpg","imageB":"粥B.jpg","good":100,"imageC":"粥C.jpg","info":"粥简介","price":"8.00","start":5,"name":"粥","commodityId":"3","descMode":"1"},"code":"0"}
+	     成功：{"errMsg":"","data":{"errMsg":"","data":{"evaluate":5,"oldPrice":"10.00","detail":"大包子详情","weight":"500G","image":"大包子简介.jpg","imageA":"大包子A.jpg","imageB":"大包子B.jpg","good":80,"imageC":"大包子C.jpg","detailImage":["http://大包子详情"],"taste":["辣的","甜的"],"info":"大包子简介","price":"5.00","start":5,"name":"大包子","commodityId":"1","descMode":"1"},"code":"0"}
+	        or:{"errMsg":"","data":{"evaluate":1,"oldPrice":"10.00","detail":"小包子详情","weight":"50G","image":"大包子简介.jpg","imageA":"小包子A.jpg","imageB":"小包子B.jpg","good":0,"imageC":"小包子C.jpg","detailImage":["http://小包子详情1","http://小包子详情2"],"taste":["咸的","湿的","咸湿的"],"info":"小包子简介","price":"3.00","start":5,"name":"小包子","commodityId":"2","descMode":"2"},"code":"0"}
+	        or:{"errMsg":"","data":{"oldPrice":"10.00","evaluate":0,"detail":"粥详情","weight":"500G","image":"大包子简介.jpg","imageA":"粥A.jpg","imageB":"粥B.jpg","good":100,"imageC":"粥C.jpg","info":"粥简介","price":"8.00","start":5,"name":"粥","commodityId":"3","descMode":"1"},"code":"0"}
+	     无商品：{"errMsg":"","data":{},"code":"0"}
+	     异常：{"data":{},"errMsg":"获取商品详情异常","code":"-1"}
 	     无商品：{"errMsg":"","data":{},"code":"0"}
 	     异常：{"data":{},"errMsg":"获取商品详情异常","code":"-1"}
 
@@ -432,12 +435,10 @@
 	   输出参数：
 	     unit<String>:单元
 	     room<String>:房间
-	     year<List>:年
-	     month<List>:月
-	     day<List>:日
 	     classify<List>:报修分类
+	     repairDate<String>:最大预约时间（yyyy-MM-dd）
 	   示例：
-	     成功：{"errMsg":"","data":{"classify":["玄关","客厅","餐厅","阳台","洗衣房","卧室","厨房","卫生间","入户花园","地下室","庭院"],"unit":"1","month":["1","2","3","4","5","6","7","8","9","10","11","12"],"year":["2014","2015","2016"],"day":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"],"room":"1"},"code":"0"}
+	     成功：{"errMsg":"","data":{"classify":["玄关","客厅","餐厅","阳台","洗衣房","卧室","厨房","卫生间","入户花园","地下室","庭院"],"unit":"1","repairDate":"2014-09-11","room":"1"},"code":"0"}
 	     异常：{"data":{},"errMsg":"查看报修页面异常","code":"-1"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
 
@@ -461,19 +462,15 @@
 	     POST
 	   输入参数：
 	     sessId<String>:用户唯一码
-	     year<String>:年
-	     month<String>:月
-	     day<String>:日
+	     repairDate<String>:预约报修时间（yyyy-MM-dd）
 	     classify<String>:报修分类
 	     image<String>:报修图片
 	   输出参数：
 	     unit<String>:单元
 	     room<String>:房间
-	     year<String>:年
-	     month<String>:月
-	     day<String>:日
+	     repairDate<String>:预约报修时间（yyyy-MM-dd）
 	   示例：
-	     成功：{"data":{"unit":"501","month":"7","year":"2014","day":"30","room":null},"errMsg":"","code":"0"}
+	     成功：{"errMsg":"","data":{"unit":"1","repairDate":"2014-08-27","room":"1"},"code":"0"}
 	     异常：{"data":{},"errMsg":"提交报修申请异常","code":"-1"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
 
@@ -489,16 +486,14 @@
 	   输出参数：
 	     repairItem<List>:报修栏目
 	       repairId<String>:报修ID
-	       years<String>:预约修理年
-	       months<String>:预约修理月
-	       days<String>:预约修理日
+	       repairDate<String>:预约修理时间
 	       classify<String>:报修分类
 	       image<String>:报修图片
 	       status<String>:修理状态(0:待处理; 1:处理完成)
 	       createTime<String>:报修时间(yyyy-MM-dd)
 	     repairItemCount<String>:报修栏目数量
 	   示例：
-	     成功：{"data":{"repairItem":[{"createTime":"2014-08-12","classify":"卫生间","months":"7","days":"30","status":"0","image":"resource/repairImage/aafc5de0dfa0486eba41.jpg","years":"2014","repairId":"2b3cbbc17eef4a84a28d"}],"repairItemCount":1},"errMsg":"","code":"0"}
+	     成功：{"errMsg":"","data":{"repairItem":[{"createTime":"2014-08-27","classify":"卫生间","status":"0","repairDate":"2014-08-27","image":"resource/repairImage/aafc5de0dfa0486eba41.jpg","repairId":"20864446d538468fba32"}],"repairItemCount":1},"code":"0"}
 	     异常：{"data":{},"errMsg":"查看我的报修异常","code":"-1"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
   
@@ -613,6 +608,4 @@
 	       orderStatus<String>:订单状态(00:待支付; 01:已支付; 90:已完成; 99:已取消)
 	   示例：
 	     有订单：{"errMsg":"","data":{"orderItem":[{"orderDetail":[{"price":"6.00","name":"男西服","image":"男西服.jpg","number":"1","commodityId":"s1"},{"price":"4.00","name":"女西服","image":"女西服.jpg","number":"1","commodityId":"s2"}],"orderMoney":"10.00","orderStatus":"00","orderId":"1"}],"orderItemCount":1},"code":"0"}
-	     无订单：{"errMsg":"","data":{"orderItem":[],"orderItemCount":1},"code":"0"}
-	     异常：{"data":{},"errMsg":"查询干洗订单异常","code":"-1"}
-	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
+	     无�

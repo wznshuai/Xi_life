@@ -12,7 +12,7 @@ public class ApiConstants {
 	public static final String URL_USER_INFO = BASE_HOST + "user/info";
 	//修改资料
 	public static final String URL_USER_MODIFY_INFO = BASE_HOST + "user/modifyUserInfo";
-	//上传头像
+	//修改头像
 	public static final String URL_USER_UPLOADIMAGE = BASE_HOST + "user/imageUpload";
 	//随收购目录
 	public static final String URL_ESHOP_CATALOG = BASE_HOST + "eshop/queryCatalog";
@@ -28,4 +28,8 @@ public class ApiConstants {
 	public static final String URL_ESHOP_QUERY_ARAY = BASE_HOST + "eshop/queryAray";
 	//提交订单
 	public static final String URL_CLEAN_SUBMITORDER = BASE_HOST + "clean/submitOrder";
+	//报修
+	public static final String URL_REPAIR_SUBMIT = BASE_HOST + "repair/submit";
+	//上传报修图片
+	public static final String URL_REPAIR_IMAGEUPLOAD = BASE_HOST + "repair/imageUpload";
 }

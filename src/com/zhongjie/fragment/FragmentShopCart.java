@@ -263,8 +263,8 @@ public class FragmentShopCart extends BaseFragment {
 						.findViewById(R.id.list_item_shopcart_edittext);
 				vh.img = (ImageView) convertView
 						.findViewById(R.id.list_item_shopcart_img);
-				vh.introduce = (TextView) convertView
-						.findViewById(R.id.list_item_shopcart_introduce);
+//				vh.introduce = (TextView) convertView
+//						.findViewById(R.id.list_item_shopcart_introduce);
 				vh.money = (TextView) convertView
 						.findViewById(R.id.list_item_shopcart_money);
 				vh.name = (TextView) convertView
@@ -411,10 +411,11 @@ public class FragmentShopCart extends BaseFragment {
 			}.setEdit(vh.edittext));
 			ShopCartModel scm = getItem(position);
 			if (null != scm) {
+				System.out.println("购物车 url ：" + scm.image);
 				ImageLoader.getInstance().displayImage(scm.image, vh.img,
 						options);
-				if (!Utils.isEmpty(scm.detail))
-					vh.introduce.setText(scm.detail);
+//				if (!Utils.isEmpty(scm.detail))
+//					vh.introduce.setText(scm.detail);
 				if (!Utils.isEmpty(scm.price))
 					vh.money.setText(scm.price);
 				if (!Utils.isEmpty(scm.name))
@@ -422,7 +423,12 @@ public class FragmentShopCart extends BaseFragment {
 				if (!Utils.isEmpty(scm.weight))
 					vh.weight.setText(scm.weight);
 				
-				vh.taste.setText(scm.selectedTaste);
+				if(Utils.isEmpty(scm.selectedTaste)){
+					vh.taste.setVisibility(View.GONE);
+				}else{
+					vh.taste.setVisibility(View.VISIBLE);
+					vh.taste.setText(scm.selectedTaste);	
+				}
 
 				vh.edittext.setText(scm.number + "");
 				vh.edittext.setSelection(vh.edittext.getText().toString()

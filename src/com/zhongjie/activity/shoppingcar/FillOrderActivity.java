@@ -35,6 +35,7 @@ import com.zhongjie.model.ShopCartModel;
 import com.zhongjie.util.CommonRequest;
 import com.zhongjie.util.Logger;
 import com.zhongjie.util.ShopCartManager;
+import com.zhongjie.util.Utils;
 import com.zhongjie.view.CommonDialog;
 import com.zhongjie.view.CommonLoadingDialog;
 import com.zhongjie.view.PromptView;
@@ -84,13 +85,17 @@ public class FillOrderActivity extends BaseSecondActivity implements OnClickList
 		View v = getLayoutInflater().inflate(R.layout.inculde_fill_order_commodity, mCommodityArea, false);
 		TextView count = (TextView)v.findViewById(R.id.include_fill_order_commodity_count);
 		ImageView img = (ImageView)v.findViewById(R.id.include_fill_order_commodity_img);
-		TextView introduce = (TextView)v.findViewById(R.id.include_fill_order_commodity_introduce);
+		TextView taste = (TextView)v.findViewById(R.id.include_fill_order_commodity_taste);
 		TextView name = (TextView)v.findViewById(R.id.include_fill_order_commodity_name);
 		TextView price = (TextView)v.findViewById(R.id.include_fill_order_commodity_price);
 		TextView weight = (TextView)v.findViewById(R.id.include_fill_order_commodity_weight);
 		count.setText("x" + scm.number);
 		ImageLoader.getInstance().displayImage(scm.image, img, options);
-		introduce.setText(scm.detail);
+		if(Utils.isEmpty(scm.selectedTaste)){
+			taste.setVisibility(View.GONE);
+		}else{
+			taste.setText(scm.selectedTaste);
+		}
 		name.setText(scm.name);
 		price.setText(scm.price);
 		weight.setText(scm.weight);

@@ -51,16 +51,18 @@
                     android:padding="10dp" >
 
                     <TextView
+                        android:id="@+id/act_repairs_success_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="房号 : 22栋501室"
+                        android:text="房号 : "
                         android:textColor="#333333" />
                     
                      <TextView
+                         android:id="@+id/act_repairs_success_date"
                          android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="预约日期 : 2014年7月7日"
+                        android:text="预约日期 : "
                         android:textColor="#333333" />
 
                     <ImageView
@@ -75,9 +77,10 @@
                         android:layout_marginBottom="10dp"
                         android:background="#ffffff" />
 					<ImageView 
-					    android:layout_width="wrap_content"
+					    android:id="@+id/act_repairs_success_img"
+					    android:layout_width="match_parent"
 					    android:layout_height="wrap_content"
-					    android:src="@drawable/temp_ic_ad"/>
+					    android:scaleType="center"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

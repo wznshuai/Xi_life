@@ -86,10 +86,8 @@ public class Session {
 		return map.containsValue(value);
 	}
 
-	public void remove(String key) {
-		if (containsValue(key)) {
-			map.remove(key);
-		}
+	public Object remove(String key) {
+		return map.remove(key);
 	}
 
 	public void clear() {

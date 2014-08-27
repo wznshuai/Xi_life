@@ -61,6 +61,7 @@
         android:paddingRight="3dp"
         android:paddingTop="3dp"
         android:text="加入购物车"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:visibility="gone" />
 
 </LinearLayout>

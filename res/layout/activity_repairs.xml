@@ -153,12 +153,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="照片上传 :"
-                        android:textColor="@android:color/black" />
-
+                        android:textColor="@android:color/black"
+                        android:layout_marginRight="5dp" />
+                    
                     <ImageView
+                        android:id="@+id/act_repairs_takeAPicture"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:src="@drawable/ic_photograph" />
                 </LinearLayout>
 

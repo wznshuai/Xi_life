@@ -148,19 +148,59 @@ public class CommonRequest {
 		return mHttpUtil.executePost(ApiConstants.URL_REPAIR_SHOW, data);
 	}
 	/**
-	 * 获取报修页面信息
+	 * 获取自提点列表
 	 * @param sessId
 	 * @return
 	 */
 	public String queryAray(){
 		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_QUERY_ARAY);
 	}
-	
+	/**
+	 * 提交订单
+	 * @param sessId
+	 * @param cleanInfo
+	 * @param takeTime
+	 * @param dispatchMode
+	 * @param arayacakId
+	 * @param man
+	 * @param phone
+	 * @param address
+	 * @param remark
+	 * @return
+	 */
 	public String submitOrder(String sessId, String cleanInfo, String takeTime, 
 			String dispatchMode, String arayacakId, 
 			String man, String phone, String address, String remark){
 		HashMap<String, String> data = new HashMap<String, String>();
 		data.put("sessId", sessId);
 		return mHttpUtil.executePost(ApiConstants.URL_CLEAN_SUBMITORDER, data);
+	}
+	/**
+	 * 报修
+	 * @param sessID
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @param classify
+	 * @param image
+	 * @return
+	 */
+	public String repairSubmit(String sessId, String repairDate, String classify, String image){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("sessId", sessId);
+		data.put("repairDate", repairDate);
+		data.put("classify", classify);
+		data.put("image", image);
+		return mHttpUtil.executePost(ApiConstants.URL_REPAIR_SUBMIT, data);
+	}
+	
+	/**
+	 * 上传报修图片
+	 * @param imageFile
+	 * @return
+	 */
+	public String repairImageUpload(File... imageFile){
+		HashMap<String, String> data = new HashMap<String, String>();
+		return mHttpUtil.executePost(ApiConstants.URL_REPAIR_IMAGEUPLOAD, data, "file", imageFile);
 	}
 }

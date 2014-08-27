@@ -22,11 +22,16 @@
 	        android:layout_height="wrap_content"
 	        android:textColor="#333333"/>
 	    <TextView 
-	        android:id="@+id/include_fill_order_commodity_introduce"
-	        android:textColor="#666666"
-	        android:layout_marginTop="3dp"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"/>
+	        android:id="@+id/include_fill_order_commodity_taste"
+	       android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@drawable/yellow_bg"
+            android:textColor="#ff0000"/>
 	    <RelativeLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent">
