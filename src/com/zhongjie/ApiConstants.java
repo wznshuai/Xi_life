@@ -32,4 +32,6 @@ public class ApiConstants {
 	public static final String URL_REPAIR_SUBMIT = BASE_HOST + "repair/submit";
 	//上传报修图片
 	public static final String URL_REPAIR_IMAGEUPLOAD = BASE_HOST + "repair/imageUpload";
+	//查看首页
+	public static final String URL_HOME_SHOW= BASE_HOST + "home/show";
 }

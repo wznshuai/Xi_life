@@ -29,6 +29,7 @@
     
     <string name="read_me">我已阅读并接受《嘻生活服务协议》</string>
     
+    <string name="notnull">不能为空</string>
     <string name="user_phonenum_notnull">手机号不能为空</string>
     <string name="user_phonenum_verify">手机号格式不正确</string>
 	<string name="user_pwd_notnull">密码不能为空</string>

@@ -224,7 +224,6 @@ public class CommodityListActivity extends BaseListActivity {
 						}
 					}
 				});
-				System.out.println("商品列表url : " + mCommodity.image);
 				ImageLoader.getInstance().displayImage(mCommodity.image, vh.img, options);
 			}
 			

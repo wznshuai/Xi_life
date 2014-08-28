@@ -156,7 +156,7 @@ public class CommonRequest {
 		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_QUERY_ARAY);
 	}
 	/**
-	 * 提交订单
+	 * 干洗提交订单
 	 * @param sessId
 	 * @param cleanInfo
 	 * @param takeTime
@@ -168,11 +168,19 @@ public class CommonRequest {
 	 * @param remark
 	 * @return
 	 */
-	public String submitOrder(String sessId, String cleanInfo, String takeTime, 
+	public String submitCLeanDryOrder(String sessId, String cleanInfo, String takeTime, 
 			String dispatchMode, String arayacakId, 
 			String man, String phone, String address, String remark){
 		HashMap<String, String> data = new HashMap<String, String>();
 		data.put("sessId", sessId);
+		data.put("cleanInfo", cleanInfo);
+		data.put("takeTime", takeTime);
+		data.put("dispatchMode", dispatchMode);
+		data.put("arayacakId", arayacakId);
+		data.put("man", man);
+		data.put("phone", phone);
+		data.put("address", address);
+		data.put("remark", remark);
 		return mHttpUtil.executePost(ApiConstants.URL_CLEAN_SUBMITORDER, data);
 	}
 	/**
@@ -202,5 +210,38 @@ public class CommonRequest {
 	public String repairImageUpload(File... imageFile){
 		HashMap<String, String> data = new HashMap<String, String>();
 		return mHttpUtil.executePost(ApiConstants.URL_REPAIR_IMAGEUPLOAD, data, "file", imageFile);
+	}
+	/**
+	 * 查看首页
+	 * @return
+	 */
+	public String repairImageUpload(){
+		return mHttpUtil.executeGet(ApiConstants.URL_HOME_SHOW);
+	}
+	/**
+	 * 随手够提交订单
+	 * @param sessId
+	 * @param commodityInfo
+	 * @param dispatchMode
+	 * @param arayacakId
+	 * @param man
+	 * @param phone
+	 * @param address
+	 * @param remark
+	 * @return
+	 */
+	public String submitOrder(String sessId, String commodityInfo, String dispatchMode, 
+			String arayacakId,  
+			String man, String phone, String address, String remark){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("sessId", sessId);
+		data.put("commodityInfo", commodityInfo);
+		data.put("dispatchMode", dispatchMode);
+		data.put("arayacakId", arayacakId);
+		data.put("man", man);
+		data.put("phone", phone);
+		data.put("address", address);
+		data.put("remark", remark);
+		return mHttpUtil.executePost(ApiConstants.URL_CLEAN_SUBMITORDER, data);
 	}
 }

@@ -269,7 +269,7 @@ public class MyOrderActivity extends BaseListActivity {
 						commodityName.setText(scm.name);
 						ImageLoader.getInstance().displayImage(scm.image, commodityImg);
 						commodityPrice.setText(scm.price);
-						commodityCount.setText(scm.number);
+						commodityCount.setText(scm.count);
 						
 						goComment.setOnClickListener(new OnClickListener() {
 

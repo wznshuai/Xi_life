@@ -118,6 +118,7 @@
                                 android:text="收货地址 : "
                                 android:textColor="#666666"/>
                             <EditText 
+                                android:id="@+id/act_fill_order_address"
                                 android:padding="3dp"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
@@ -139,6 +140,7 @@
                                 android:text="收  货  人: "
                                 android:textColor="#666666"/>
                             <EditText 
+                                android:id="@+id/act_fill_order_name"
                                 android:padding="3dp"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
@@ -160,6 +162,7 @@
                                 android:text="手  机  号: "
                                 android:textColor="#666666"/>
                             <EditText 
+                                android:id="@+id/act_fill_order_phone"
                                 android:padding="3dp"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"

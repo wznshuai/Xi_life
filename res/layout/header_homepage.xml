@@ -136,6 +136,7 @@
         android:orientation="horizontal" >
 
         <ImageView
+            android:id="@+id/header_homepage_full1_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -145,6 +146,7 @@
             android:src="@drawable/temp_breakfast" />
 
         <LinearLayout
+            android:id="@+id/header_homepage_full1_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -183,6 +185,7 @@
             android:background="#ffffff" />
 
         <ImageView
+            android:id="@+id/header_homepage_full2_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -192,6 +195,7 @@
             android:src="@drawable/temp_fruit" />
 
         <LinearLayout
+            android:id="@+id/header_homepage_full2_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"

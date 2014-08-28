@@ -47,7 +47,8 @@ public class FragmentShopCart extends BaseFragment {
 	private MyShopCartAdapter mAdapter;
 	private TextView mTotalFee;
 	private ShopCartManager mCartManager;
-
+	private NumberFormat format;
+	
 	public static FragmentShopCart newInstance() {
 		if (null == mInstance)
 			mInstance = new FragmentShopCart();
@@ -69,6 +70,8 @@ public class FragmentShopCart extends BaseFragment {
 	@Override
 	protected void initData() {
 		super.initData();
+		format = NumberFormat.getCurrencyInstance();
+		format.setCurrency(Currency.getInstance(Locale.CHINA));
 		mCartManager = ShopCartManager.getInstance();
 	}
 
@@ -220,16 +223,13 @@ public class FragmentShopCart extends BaseFragment {
 			for (ShopCartModel scm : mCartManager.mCheckedList) {
 				try {
 					float price = Float.valueOf(scm.price);
-					totalFee += price * scm.number;
+					totalFee += price * scm.count;
 				} catch (NumberFormatException e) {
 					Logger.e(tag, "计算总钱数出错", e);
 					continue;
 				}
 			}
 		}
-
-		NumberFormat format = NumberFormat.getCurrencyInstance();
-		format.setCurrency(Currency.getInstance(Locale.CHINA));
 		mTotalFee.setText(format.format(totalFee));
 	}
 
@@ -350,7 +350,7 @@ public class FragmentShopCart extends BaseFragment {
 				public void afterTextChanged(Editable s) {
 					if(!TextUtils.isEmpty(s)){
 						try {
-							mCartData.get((Integer)edit.getTag()).number = Integer.valueOf(s.toString().trim());
+							mCartData.get((Integer)edit.getTag()).count = Integer.valueOf(s.toString().trim());
 							computeTotalMoney();
 						} catch (Exception e) {
 							Logger.e(tag, "", e);
@@ -411,13 +411,15 @@ public class FragmentShopCart extends BaseFragment {
 			}.setEdit(vh.edittext));
 			ShopCartModel scm = getItem(position);
 			if (null != scm) {
-				System.out.println("购物车 url ：" + scm.image);
 				ImageLoader.getInstance().displayImage(scm.image, vh.img,
 						options);
 //				if (!Utils.isEmpty(scm.detail))
 //					vh.introduce.setText(scm.detail);
-				if (!Utils.isEmpty(scm.price))
-					vh.money.setText(scm.price);
+				if (!Utils.isEmpty(scm.price)){
+					
+					vh.money.setText("￥" + scm.price);
+				}
+					
 				if (!Utils.isEmpty(scm.name))
 					vh.name.setText(scm.name);
 				if (!Utils.isEmpty(scm.weight))
@@ -430,7 +432,7 @@ public class FragmentShopCart extends BaseFragment {
 					vh.taste.setText(scm.selectedTaste);	
 				}
 
-				vh.edittext.setText(scm.number + "");
+				vh.edittext.setText(scm.count + "");
 				vh.edittext.setSelection(vh.edittext.getText().toString()
 						.length());
 				if (null != mCartManager.mCheckedList

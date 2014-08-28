@@ -608,4 +608,34 @@
 	       orderStatus<String>:订单状态(00:待支付; 01:已支付; 90:已完成; 99:已取消)
 	   示例：
 	     有订单：{"errMsg":"","data":{"orderItem":[{"orderDetail":[{"price":"6.00","name":"男西服","image":"男西服.jpg","number":"1","commodityId":"s1"},{"price":"4.00","name":"女西服","image":"女西服.jpg","number":"1","commodityId":"s2"}],"orderMoney":"10.00","orderStatus":"00","orderId":"1"}],"orderItemCount":1},"code":"0"}
-	     无�
+	     无订单：{"errMsg":"","data":{"orderItem":[],"orderItemCount":1},"code":"0"}
+	     异常：{"data":{},"errMsg":"查询干洗订单异常","code":"-1"}
+	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
+
+
+六、首页
+  1、查看首页
+     请求地址：
+       /home/show
+	   请求方式：
+	     GET
+	   输入参数：
+	     无
+	   输出参数：
+	     ad<List>:通栏广告
+	       image<String>:图片地址
+	       url<String>:图片链接地址
+	     full<List>:便捷宣传(早餐速递/当季水果等)
+	       image<String>:图片地址
+	       url<String>:图片链接地址
+	     commodity<List>:精选商品
+	       commodityId<String>:商品ID
+	       image<String>:商品简图
+	       name<String>:商品名称
+	       info<String>:商品简述
+	       weight<String>:商品重量
+	       oldPrice<String>:商品原价
+	       price<String>:商品价格
+	   示例：
+	     成功：{"errMsg":"","data":{"commodity":[{"oldPrice":"22.00","price":"20.00","weight":"500G","name":"八宝粥","image":"http://八宝粥.jpg","commodityId":"b1cdc0d5fdb445a7bfb0","info":"八宝粥简述"},{"oldPrice":"20.00","price":"18.00","weight":"500G","name":"小米粥","image":"http://小米粥.jpg","commodityId":"b1cdc0d5fdb445a7bfb1","info":"小米粥简述"}],"full":[{"image":"通栏1.jpg","url":"通栏1链接"},{"image":"通栏2.jpg","url":"通栏2链接"}],"ad":[{"image":"广告1.jpg","url":"广告1链接"},{"image":"广告2.jpg","url":"广告2链接"},{"image":"广告3.jpg","url":"广告3链接"},{"image":"广告4.jpg","url":"广告4链接"},{"image":"广告5.jpg","url":"广告5链接"}]},"code":"0"}
+	     异常：{"data":{},"errMsg":"查询首页异常","code":"-1"}

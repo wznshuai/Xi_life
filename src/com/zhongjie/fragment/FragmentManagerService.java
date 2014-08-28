@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.zhongjie.BaseFragment;
+import com.zhongjie.MainActivity;
 import com.zhongjie.R;
 import com.zhongjie.activity.managerservice.RepairsActivity;
 import com.zhongjie.activity.user.LoginActivity;
@@ -59,6 +60,20 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 		mPager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
 		mIndicator.setViewPager(mPager);
 		mGoRepairs.setOnClickListener(this);
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(getActivityMine().getCurrentTabTag().equals(MainActivity.TAB_2)){
+			mPager.startAutoScroll();
+		}
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		mPager.stopAutoScroll();
 	}
 	
 	class MyPagerAdapter extends FragmentStatePagerAdapter{

@@ -23,7 +23,7 @@ public class FragmentBigImg extends BaseFragment{
 		ImageView iv = new ImageView(getActivity().getApplicationContext());
 		iv.setScaleType(ScaleType.FIT_XY);
 		if(!Utils.isEmpty(imgUrl)){
-			ImageLoader.getInstance().displayImage(imgUrl, iv);
+			ImageLoader.getInstance().displayImage(imgUrl, iv, options);
 		}else{
 			iv.setImageResource(resId == 0 ? R.drawable.temp_datu : resId);
 		}

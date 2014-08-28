@@ -11,7 +11,7 @@ import android.widget.Scroller;
  */
 public class CustomDurationScroller extends Scroller {
 
-    private double scrollFactor = 1;
+    private double scrollFactor = 2.5;
 
     public CustomDurationScroller(Context context) {
         super(context);
