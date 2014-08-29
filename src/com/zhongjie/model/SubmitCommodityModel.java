@@ -1,7 +1,7 @@
 package com.zhongjie.model;
 
 public class SubmitCommodityModel {
-	public int count;
+	public String count;
 	public String commodityId;
 	public String taste;
 	
@@ -12,7 +12,7 @@ public class SubmitCommodityModel {
 
 	public SubmitCommodityModel(int count, String commodityId, String taste) {
 		super();
-		this.count = count;
+		this.count = count + "";
 		this.commodityId = commodityId;
 		this.taste = taste;
 	}

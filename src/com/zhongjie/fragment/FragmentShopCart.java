@@ -313,6 +313,93 @@ public class FragmentShopCart extends BaseFragment {
 						computeTotalMoney();
 					}
 				});
+				
+				vh.edittext.addTextChangedListener(new TextWatcher() {
+					
+					EditText edit;
+
+					public TextWatcher setEdit(EditText edit) {
+						this.edit = edit;
+						return this;
+					}
+
+					@Override
+					public void onTextChanged(CharSequence s, int start, int before, int count) {
+						if(count == 1 && s.toString().equals("0")){
+							edit.setText("1");
+							edit.setSelection(edit.getText().toString().length());
+						}
+					}
+					
+					@Override
+					public void beforeTextChanged(CharSequence s, int start, int count,
+							int after) {
+						
+					}
+					
+					@Override
+					public void afterTextChanged(Editable s) {
+						if(!TextUtils.isEmpty(s)){
+							try {
+								mCartData.get((Integer)edit.getTag()).count = Integer.valueOf(s.toString().trim());
+								computeTotalMoney();
+							} catch (Exception e) {
+								Logger.e(tag, "", e);
+							}
+						}
+					}
+				}.setEdit(vh.edittext));
+				
+				vh.jia.setOnClickListener(new OnClickListener() {
+					EditText edit;
+					
+					public OnClickListener setEdit(EditText edit) {
+						this.edit = edit;
+						return this;
+					}
+
+					@Override
+					public void onClick(View v) {
+						String countStr2 = edit.getText().toString();
+						if(!Utils.isEmpty(countStr2)){
+							try{
+								int count = Integer.valueOf(countStr2);
+								edit.setText(++count + "");
+								edit.setSelection(edit.getText().toString().length());
+							}catch(Exception e){
+								showToast("输入数量不正确");
+								Logger.e(tag, "", e);
+							}
+						}
+					}
+				}.setEdit(vh.edittext));
+				
+				vh.jian.setOnClickListener(new OnClickListener() {
+					EditText edit;
+					
+					public OnClickListener setEdit(EditText edit) {
+						this.edit = edit;
+						return this;
+					}
+
+					@Override
+					public void onClick(View v) {
+						String countStr3 = edit.getText().toString();
+						if(!Utils.isEmpty(countStr3)){
+							try{
+								int count = Integer.valueOf(countStr3);
+								--count;
+								if(count == 0)
+									count = 1;
+								edit.setText(count + "");
+								edit.setSelection(edit.getText().toString().length());
+							}catch(Exception e){
+								showToast("输入数量不正确");
+								Logger.e(tag, "", e);
+							}
+						}
+					}
+				}.setEdit(vh.edittext));
 			} else {
 				vh = (ViewHolder) convertView.getTag();
 			}
@@ -323,92 +410,6 @@ public class FragmentShopCart extends BaseFragment {
 			
 			vh.edittext.setTag(position);
 			
-			vh.edittext.addTextChangedListener(new TextWatcher() {
-				
-				EditText edit;
-
-				public TextWatcher setEdit(EditText edit) {
-					this.edit = edit;
-					return this;
-				}
-
-				@Override
-				public void onTextChanged(CharSequence s, int start, int before, int count) {
-					if(count == 1 && s.toString().equals("0")){
-						edit.setText("1");
-						edit.setSelection(edit.getText().toString().length());
-					}
-				}
-				
-				@Override
-				public void beforeTextChanged(CharSequence s, int start, int count,
-						int after) {
-					
-				}
-				
-				@Override
-				public void afterTextChanged(Editable s) {
-					if(!TextUtils.isEmpty(s)){
-						try {
-							mCartData.get((Integer)edit.getTag()).count = Integer.valueOf(s.toString().trim());
-							computeTotalMoney();
-						} catch (Exception e) {
-							Logger.e(tag, "", e);
-						}
-					}
-				}
-			}.setEdit(vh.edittext));
-			
-			vh.jia.setOnClickListener(new OnClickListener() {
-				EditText edit;
-				
-				public OnClickListener setEdit(EditText edit) {
-					this.edit = edit;
-					return this;
-				}
-
-				@Override
-				public void onClick(View v) {
-					String countStr2 = edit.getText().toString();
-					if(!Utils.isEmpty(countStr2)){
-						try{
-							int count = Integer.valueOf(countStr2);
-							edit.setText(++count + "");
-							edit.setSelection(edit.getText().toString().length());
-						}catch(Exception e){
-							showToast("输入数量不正确");
-							Logger.e(tag, "", e);
-						}
-					}
-				}
-			}.setEdit(vh.edittext));
-			
-			vh.jian.setOnClickListener(new OnClickListener() {
-				EditText edit;
-				
-				public OnClickListener setEdit(EditText edit) {
-					this.edit = edit;
-					return this;
-				}
-
-				@Override
-				public void onClick(View v) {
-					String countStr3 = edit.getText().toString();
-					if(!Utils.isEmpty(countStr3)){
-						try{
-							int count = Integer.valueOf(countStr3);
-							--count;
-							if(count == 0)
-								count = 1;
-							edit.setText(count + "");
-							edit.setSelection(edit.getText().toString().length());
-						}catch(Exception e){
-							showToast("输入数量不正确");
-							Logger.e(tag, "", e);
-						}
-					}
-				}
-			}.setEdit(vh.edittext));
 			ShopCartModel scm = getItem(position);
 			if (null != scm) {
 				ImageLoader.getInstance().displayImage(scm.image, vh.img,

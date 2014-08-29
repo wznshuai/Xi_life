@@ -50,6 +50,7 @@ public class CommodityListActivity extends BaseListActivity {
 	private ShopCartManager mCartManager;
 	private PromptView mPromptView;
 	private CommonRequest mRequest;
+	private MyCommodityAdapter mAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -275,8 +276,16 @@ public class CommodityListActivity extends BaseListActivity {
 				if(0 == result.code){
 					if(null != result.data && result.data.commodityItemCount > 0){
 						maxCount = result.data.commodityItemCount;
-						mCommodityList = result.data.commodityItem;
-						mListView.setAdapter(new MyCommodityAdapter());
+						if(start == 0){
+							mCommodityList = result.data.commodityItem;
+							if(null == mAdapter)
+								mAdapter = new MyCommodityAdapter();
+							mListView.setAdapter(mAdapter);
+						}else{
+							mCommodityList.addAll(result.data.commodityItem);
+							mAdapter.notifyDataSetChanged();
+						}
+						
 					}else{
 						mPromptView.showEmpty();
 					}

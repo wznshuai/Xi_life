@@ -149,12 +149,19 @@ public class CommonRequest {
 	}
 	/**
 	 * 获取自提点列表
-	 * @param sessId
+	 * @param type 0为随手够， 1为干洗
 	 * @return
 	 */
-	public String queryAray(){
-		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_QUERY_ARAY);
+	public String queryAray(int type){
+		String url = null;
+		if(type == 0)
+			url = ApiConstants.URL_ESHOP_QUERY_ARAY;
+		else if(type == 1)
+			url = ApiConstants.URL_CLEAN_QUERY_ARAY;
+		return mHttpUtil.executeGet(url);
 	}
+	
+	
 	/**
 	 * 干洗提交订单
 	 * @param sessId
@@ -220,28 +227,47 @@ public class CommonRequest {
 	}
 	/**
 	 * 随手够提交订单
+	 * @param type 类型(01:随手购; 02:干洗)
 	 * @param sessId
 	 * @param commodityInfo
+	 * @param takeTime 预约取件时间(YYYY-MM-DD) (type=02, 干洗时使用, 必填)
 	 * @param dispatchMode
 	 * @param arayacakId
 	 * @param man
 	 * @param phone
+	 * @param invoice 发票抬头(type=01, 随手购时使用, 非必填)
 	 * @param address
 	 * @param remark
 	 * @return
 	 */
-	public String submitOrder(String sessId, String commodityInfo, String dispatchMode, 
+	public String submitOrder(String type, String sessId, String commodityInfo, String takeTime, String dispatchMode, 
 			String arayacakId,  
-			String man, String phone, String address, String remark){
+			String man, String phone, String invoice, String address, String remark){
 		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("type", type);
 		data.put("sessId", sessId);
 		data.put("commodityInfo", commodityInfo);
+		data.put("takeTime", takeTime);
 		data.put("dispatchMode", dispatchMode);
 		data.put("arayacakId", arayacakId);
 		data.put("man", man);
+		data.put("invoice", invoice);
 		data.put("phone", phone);
 		data.put("address", address);
 		data.put("remark", remark);
-		return mHttpUtil.executePost(ApiConstants.URL_CLEAN_SUBMITORDER, data);
+		return mHttpUtil.executePost(ApiConstants.URL_ORDER_SUBMIT, data);
+	}
+	/**
+	 * 查询干洗品类列表
+	 * @param catagoryId 商品分类ID
+	 * @param start 开始页数
+	 * @param step 每页长度
+	 * @return
+	 */
+	public String queryCleanList(int start, int step){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("start", start + "");
+		data.put("step", step + "");
+		return mHttpUtil.executeGet(ApiConstants.URL_CLEAN_QUERYLIST, data);
 	}
 }

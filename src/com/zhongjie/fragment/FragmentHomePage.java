@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -25,6 +27,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.BaseFragment;
 import com.zhongjie.MainActivity;
 import com.zhongjie.R;
+import com.zhongjie.activity.PhotoViewActivity;
+import com.zhongjie.activity.anytimebuy.CommodityDetailsActivity;
+import com.zhongjie.activity.managerservice.DryCleanActivity;
 import com.zhongjie.activity.managerservice.RepairsActivity;
 import com.zhongjie.activity.user.LoginActivity;
 import com.zhongjie.model.ADModel;
@@ -46,7 +51,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 	private MyViewPager mPager;
 	private CirclePageIndicator mIndicator;
 	private ListView mListView;
-	private View mRepairs, mGoUserCenter, mHeaderView;
+	private View mRepairs, mGoUserCenter, mHeaderView, mGoDryClean;
 	private CommonRequest mRequest;
 	private List<ADModel> mAdList;
 	private List<FullModel> mFullList;
@@ -71,7 +76,6 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		new HomeDataTask().execute();
 	}
 	
 	@Override
@@ -94,6 +98,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 		mFull2 = mHeaderView.findViewById(R.id.header_homepage_full2_area);
 		mFullImg1 = (ImageView)mHeaderView.findViewById(R.id.header_homepage_full1_img);
 		mFullImg2 = (ImageView)mHeaderView.findViewById(R.id.header_homepage_full2_img);
+		mGoDryClean = mHeaderView.findViewById(R.id.fra_homepage_dryclean);
 	}
 	
 	@Override
@@ -102,6 +107,9 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 		if(getActivityMine().getCurrentTabTag().equals(MainActivity.TAB_CENTER)){
 			mPager.startAutoScroll();
 			getActivityMine().setTopCenterLogo(R.drawable.ic_logo_homepage);
+			if(null == mAdList || null == mFullList || null == mCommodityList){
+				new HomeDataTask().execute();
+			}
 		}
 	}
 	
@@ -122,6 +130,26 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 		mListView.setAdapter(mCommodityAdapter);
 		mRepairs.setOnClickListener(this);
 		mGoUserCenter.setOnClickListener(this);
+		mGoDryClean.setOnClickListener(this);
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				if(position == 0)
+					return;
+				CommodityModel cm = mCommodityAdapter.getItem(position - mListView.getHeaderViewsCount());
+				Intent intent = new Intent(getActivity(), CommodityDetailsActivity.class);
+				intent.putExtra("commodityId", cm.commodityId);
+				intent.putExtra("commodityName", cm.name);
+				startActivity(intent);
+			}
+			
+		});
+		mFull1.setOnClickListener(this);
+		mFull2.setOnClickListener(this);
+		mFullImg1.setOnClickListener(this);
+		mFullImg2.setOnClickListener(this);
 	}
 	
 	class MyPagerAdapter extends FragmentStatePagerAdapter{
@@ -133,7 +161,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 		@Override
 		public Fragment getItem(int arg0) {
 			
-			return new FragmentBigImg(mAdList.get(arg0).image);
+			return new FragmentBigImg(mAdList.get(arg0).image, mAdList.get(arg0).url);
 		}
 
 		@Override
@@ -187,7 +215,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 			}else{
 				vh = (ViewHolder)convertView.getTag();
 			}
-			CommodityModel cm = getItem(position - mListView.getHeaderViewsCount());
+			CommodityModel cm = getItem(position);
 			if(null != cm){
 				vh.commodityDescription.setText(cm.detail);
 				vh.commodityName.setText(cm.name);
@@ -274,6 +302,25 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 			break;
 		case R.id.fra_homepage_goUserCenter:
 			getActivityMine().setCurrentTabByTag(MainActivity.TAB_4);
+			break;
+		case R.id.fra_homepage_dryclean:
+			startActivity(new Intent(getActivity(), DryCleanActivity.class));
+			break;
+		case R.id.header_homepage_full1_area:
+		case R.id.header_homepage_full1_img:
+			if(null != mFullList && mFullList.size() > 0){
+				Intent intent = new Intent(getActivity(), PhotoViewActivity.class);
+				intent.putExtra(PhotoViewActivity.BIGIMG_URL, mFullList.get(0).url);
+				startActivity(intent);
+			}
+			break;
+		case R.id.header_homepage_full2_area:
+		case R.id.header_homepage_full2_img:
+			if(null != mFullList && mFullList.size() > 1){
+				Intent intent = new Intent(getActivity(), PhotoViewActivity.class);
+				intent.putExtra(PhotoViewActivity.BIGIMG_URL, mFullList.get(1).url);
+				startActivity(intent);
+			}
 			break;
 		default:
 			break;

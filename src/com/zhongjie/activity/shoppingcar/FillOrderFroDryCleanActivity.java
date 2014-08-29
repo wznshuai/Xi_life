@@ -2,6 +2,7 @@ package com.zhongjie.activity.shoppingcar;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -26,28 +27,32 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import antistatic.spinnerwheel.AbstractWheel;
+import antistatic.spinnerwheel.OnWheelChangedListener;
+import antistatic.spinnerwheel.WheelVerticalView;
+import antistatic.spinnerwheel.adapters.NumericWheelAdapter;
 
 import com.alibaba.fastjson.JSON;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
-import com.zhongjie.activity.shoppingcar.FillOrderActivity.MyAdapter.ViewHolder;
+import com.zhongjie.activity.shoppingcar.FillOrderFroDryCleanActivity.MyAdapter.ViewHolder;
 import com.zhongjie.model.ArayListJson;
 import com.zhongjie.model.ArayModel;
 import com.zhongjie.model.BaseJson;
-import com.zhongjie.model.ShopCartModel;
+import com.zhongjie.model.DryCleanModel;
 import com.zhongjie.model.SubmitCommodityModel;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.CommonRequest;
 import com.zhongjie.util.Logger;
-import com.zhongjie.util.ShopCartManager;
+import com.zhongjie.util.ShopCartManagerForDryClean;
 import com.zhongjie.util.Utils;
 import com.zhongjie.util.Validator;
 import com.zhongjie.view.CommonDialog;
 import com.zhongjie.view.CommonLoadingDialog;
 import com.zhongjie.view.PromptView;
 
-public class FillOrderActivity extends BaseSecondActivity implements
+public class FillOrderFroDryCleanActivity extends BaseSecondActivity implements
 		OnClickListener {
 	private final static String PS = "01";
 	private final static String ZT = "02";
@@ -58,25 +63,31 @@ public class FillOrderActivity extends BaseSecondActivity implements
 	private TextView mHandleTxt, mDispatchingType, mTotalFee;
 	private PromptView mPromptView;
 	private ListView mListView;
-	private ShopCartManager mCartManager;
+	private ShopCartManagerForDryClean mCartManager;
 	private CommonRequest mRequest;
 	private List<ArayModel> mArayList;
 	private String mDispatchMode = ZT;
 	private String mArayacakId;
 	private String man, phone, address, invoice = null;
 	private EditText mAddressEdit, mPhoneEdit, mNameEdit, mInvoiceEdit;
+	
+	private WheelVerticalView mYearWheel, mMonthWheel, mDayWheel;
+	private Calendar mCurCalendar, mMaxCalendar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		setContentView(R.layout.activity_fill_order);
+		setContentView(R.layout.activity_fill_order_for_dry_clean);
 		super.onCreate(savedInstanceState);
 		new QueryArayTask().execute();
 	}
 
 	@Override
 	protected void initData() {
-		mCartManager = ShopCartManager.getInstance();
+		mCartManager = ShopCartManagerForDryClean.getInstance();
 		mRequest = new CommonRequest(getApplicationContext());
+		mCurCalendar = Calendar.getInstance(Locale.CHINA);
+		mMaxCalendar = (Calendar)mCurCalendar.clone();
+		mMaxCalendar.add(Calendar.DAY_OF_YEAR, 15);
 	}
 
 	@Override
@@ -97,51 +108,45 @@ public class FillOrderActivity extends BaseSecondActivity implements
 		mPhoneEdit = (EditText) findViewById(R.id.act_fill_order_phone);
 		mNameEdit = (EditText) findViewById(R.id.act_fill_order_name);
 		mInvoiceEdit = (EditText)findViewById(R.id.act_fill_order_invoice_title);
+		
+		mYearWheel = (WheelVerticalView)findViewById(R.id.act_fill_order_for_dry_clean_wheel_year);
+		mMonthWheel = (WheelVerticalView)findViewById(R.id.act_fill_order_for_dry_clean_wheel_month);
+		mDayWheel = (WheelVerticalView)findViewById(R.id.act_fill_order_for_dry_clean_wheel_day);
 	}
 
-	public void createCommodityView(ShopCartModel scm) {
+	public void createCommodityView(DryCleanModel scm) {
 		View v = getLayoutInflater().inflate(
-				R.layout.include_fill_order_commodity, mCommodityArea, false);
+				R.layout.include_fill_order_dry_clean, mCommodityArea, false);
 		TextView count = (TextView) v
-				.findViewById(R.id.include_fill_order_commodity_count);
+				.findViewById(R.id.include_fill_order_dry_clean_commodity_count);
 		ImageView img = (ImageView) v
-				.findViewById(R.id.include_fill_order_commodity_img);
-		TextView taste = (TextView) v
-				.findViewById(R.id.include_fill_order_commodity_taste);
+				.findViewById(R.id.include_fill_order_dry_clean_commodity_img);
 		TextView name = (TextView) v
-				.findViewById(R.id.include_fill_order_commodity_name);
+				.findViewById(R.id.include_fill_order_dry_clean_commodity_name);
 		TextView price = (TextView) v
-				.findViewById(R.id.include_fill_order_commodity_price);
-		TextView weight = (TextView) v
-				.findViewById(R.id.include_fill_order_commodity_weight);
+				.findViewById(R.id.include_fill_order_dry_clean_commodity_price);
 		count.setText("x" + scm.count);
 		ImageLoader.getInstance().displayImage(scm.image, img, options);
-		if (Utils.isEmpty(scm.selectedTaste)) {
-			taste.setVisibility(View.GONE);
-		} else {
-			taste.setText(scm.selectedTaste);
-		}
 		name.setText(scm.name);
 		price.setText(scm.price);
-		weight.setText(scm.weight);
 
 		mCommodityArea.addView(v);
 	}
 
 	private void initPullView() {
-		if (null != mCartManager.mCheckedList
-				&& mCartManager.mCheckedList.size() > 0) {
-			createCommodityView(mCartManager.mCheckedList.get(0));
-			if (mCartManager.mCheckedList.size() > 1) {
+		if (null != mCartManager.mCartList
+				&& mCartManager.mCartList.size() > 0) {
+			createCommodityView(mCartManager.mCartList.get(0));
+			if (mCartManager.mCartList.size() > 1) {
 				mPullView.setVisibility(View.VISIBLE);
 				mPullView.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
 						if (mCommodityArea.getChildCount() == 1) {
-							for (int i = 1; i < mCartManager.mCheckedList
+							for (int i = 1; i < mCartManager.mCartList
 									.size(); i++) {
-								createCommodityView(mCartManager.mCheckedList
+								createCommodityView(mCartManager.mCartList
 										.get(i));
 							}
 							mHandleView.setImageResource(R.drawable.ic_push);
@@ -172,6 +177,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 			}
 
 		});
+		initCalendar();
 		mTopCenterImg.setImageResource(R.drawable.ic_top_logo);
 		mTopCenterImg.setVisibility(View.VISIBLE);
 		initPullView();
@@ -181,7 +187,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 			@Override
 			public void onClick(View v) {
 				final CommonDialog cd = CommonDialog
-						.creatDialog(FillOrderActivity.this);
+						.creatDialog(FillOrderFroDryCleanActivity.this);
 				cd.setTitle("请选择配送方式");
 				cd.setContentView(R.layout.dialog_select_dispatching_type);
 				cd.findViewById(R.id.dialog_select_dispatching_type_ps)
@@ -206,6 +212,82 @@ public class FillOrderActivity extends BaseSecondActivity implements
 		});
 		mSubmit.setOnClickListener(this);
 	}
+	
+	private void initCalendar(){
+		final int curYear = mCurCalendar.get(Calendar.YEAR);
+		final int maxYear = mMaxCalendar.get(Calendar.YEAR);
+		final int curMounth = mCurCalendar.get(Calendar.MONTH) + 1;
+		final int maxMounth = mMaxCalendar.get(Calendar.MONTH) + 1;
+		mYearWheel.setViewAdapter(new NumericWheelAdapter(this, curYear
+				, maxYear));
+		
+		//设置可选月数
+		if(curYear == maxYear){
+			mMonthWheel.setViewAdapter(new NumericWheelAdapter(this, curMounth
+					, maxMounth, "%02d"));
+		}else{
+			mMonthWheel.setViewAdapter(new NumericWheelAdapter(this, curMounth
+					, 12, "%02d"));
+			
+			mYearWheel.addChangingListener(new OnWheelChangedListener() {
+				
+				@Override
+				public void onChanged(AbstractWheel wheel, int oldValue, int newValue) {
+					newValue = paresStrDate(((NumericWheelAdapter)mMonthWheel.getViewAdapter()).getItemText(newValue).toString());
+					//设置可选月数
+					if(newValue == curYear){
+						mMonthWheel.setViewAdapter(new NumericWheelAdapter(FillOrderFroDryCleanActivity.this, curMounth
+								, 12, "%02d"));
+					}else if(newValue == maxYear){
+						mMonthWheel.setViewAdapter(new NumericWheelAdapter(FillOrderFroDryCleanActivity.this, 1
+								, maxMounth, "%02d"));
+					}else{
+						mMonthWheel.setViewAdapter(new NumericWheelAdapter(FillOrderFroDryCleanActivity.this, 1
+								, 12, "%02d"));
+					}
+					mMonthWheel.setCurrentItem(0, true);
+				}
+			});
+		}
+		
+		
+		
+		if(curMounth == maxMounth){
+			mDayWheel.setViewAdapter(new NumericWheelAdapter(this, mCurCalendar.get(Calendar.DAY_OF_MONTH)
+					, mMaxCalendar.get(Calendar.DAY_OF_MONTH), "%02d"));
+		}else{
+			mDayWheel.setViewAdapter(new NumericWheelAdapter(this, mCurCalendar.get(Calendar.DAY_OF_MONTH)
+					, mCurCalendar.getActualMaximum(Calendar.DAY_OF_MONTH), "%02d"));
+			
+			mMonthWheel.addChangingListener(new OnWheelChangedListener() {
+				
+				@Override
+				public void onChanged(AbstractWheel wheel, int oldValue, int newValue) {
+					newValue = paresStrDate(((NumericWheelAdapter)mMonthWheel.getViewAdapter()).getItemText(newValue).toString());
+					if(newValue == curMounth){
+						mDayWheel.setViewAdapter(new NumericWheelAdapter(FillOrderFroDryCleanActivity.this, mCurCalendar.get(Calendar.DAY_OF_MONTH)
+								, mCurCalendar.getActualMaximum(Calendar.DAY_OF_MONTH), "%02d"));
+					}else if(newValue == maxMounth){
+						mDayWheel.setViewAdapter(new NumericWheelAdapter(FillOrderFroDryCleanActivity.this, 1
+								, mMaxCalendar.get(Calendar.DAY_OF_MONTH), "%02d"));
+					}else{
+						Calendar temp = ((Calendar)mCurCalendar.clone());
+						temp.set(Calendar.MONTH, newValue - 1);
+						mDayWheel.setViewAdapter(new NumericWheelAdapter(FillOrderFroDryCleanActivity.this, 1
+								, temp.getActualMaximum(Calendar.DAY_OF_MONTH), "%02d"));
+					}
+					mDayWheel.setCurrentItem(0, true);
+				}
+			});
+		}
+	}
+	
+	private int paresStrDate(String strDate){
+		if(strDate.charAt(0) == 0 && strDate.length() > 1){
+			return Integer.valueOf(strDate.substring(1, strDate.length()));
+		}
+		return Integer.valueOf(strDate);
+	}
 
 	class QueryArayTask extends AsyncTask<Void, Void, ArayListJson> {
 		CommonLoadingDialog cld;
@@ -220,7 +302,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 		protected ArayListJson doInBackground(Void... params) {
 			ArayListJson uj = null;
 			try {
-				String result = mRequest.queryAray(0);
+				String result = mRequest.queryAray(1);
 				if (!TextUtils.isEmpty(result)) {
 					uj = JSON.parseObject(result, ArayListJson.class);
 				}
@@ -261,7 +343,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			cld = CommonLoadingDialog.create(FillOrderActivity.this);
+			cld = CommonLoadingDialog.create(FillOrderFroDryCleanActivity.this);
 			cld.setCanceledOnTouchOutside(false);
 			cld.setOnCancelListener(new OnCancelListener() {
 
@@ -278,18 +360,27 @@ public class FillOrderActivity extends BaseSecondActivity implements
 			BaseJson uj = null;
 			try {
 				List<SubmitCommodityModel> scmList = null;
-				if (null != mCartManager.mCheckedList) {
-					for (ShopCartModel scm : mCartManager.mCheckedList) {
+				if (null != mCartManager.mCartList) {
+					for (DryCleanModel scm : mCartManager.mCartList) {
 						if (null == scmList)
 							scmList = new ArrayList<SubmitCommodityModel>();
 						scmList.add(new SubmitCommodityModel(scm.count,
-								scm.commodityId, scm.selectedTaste));
+								scm.cleanId, null));
 					}
 				}
+				String year = ((NumericWheelAdapter)mYearWheel.getViewAdapter())
+						.getItemText(mYearWheel.getCurrentItem()).toString();
+				String month = ((NumericWheelAdapter)mMonthWheel.getViewAdapter())
+						.getItemText(mMonthWheel.getCurrentItem()).toString();
+				String day = ((NumericWheelAdapter)mDayWheel.getViewAdapter())
+						.getItemText(mDayWheel.getCurrentItem()).toString();
+				
+				String takeTime = year + "-" + month + "-" + day;
+				
 				String commodityInfo = JSON.toJSONString(null == scmList ? ""
 						: scmList);
-				String result = mRequest.submitOrder("01", UserModelManager
-						.getInstance().getmUser().sessId, commodityInfo, null,
+				String result = mRequest.submitOrder("02", UserModelManager
+						.getInstance().getmUser().sessId, commodityInfo, takeTime,
 						mDispatchMode, mDispatchMode.equals(ZT) ? mArayacakId
 								: null, mDispatchMode.equals(ZT) ? null : man,
 						phone, invoice, address, null);
@@ -313,7 +404,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 			}
 			if (null != result) {
 				if (result.code == 0) {
-					Intent intent = new Intent(FillOrderActivity.this,
+					Intent intent = new Intent(FillOrderFroDryCleanActivity.this,
 							SubmitOrderSuccess.class);
 					startActivity(intent);
 				} else {
@@ -417,9 +508,9 @@ public class FillOrderActivity extends BaseSecondActivity implements
 	private void computeTotalMoney() {
 		float totalFee = 0.00f;
 
-		if (null != mCartManager.mCheckedList
-				&& mCartManager.mCheckedList.size() > 0) {
-			for (ShopCartModel scm : mCartManager.mCheckedList) {
+		if (null != mCartManager.mCartList
+				&& mCartManager.mCartList.size() > 0) {
+			for (DryCleanModel scm : mCartManager.mCartList) {
 				try {
 					float price = Float.valueOf(scm.price);
 					totalFee += price * scm.count;

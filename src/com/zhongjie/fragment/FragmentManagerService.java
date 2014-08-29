@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.zhongjie.BaseFragment;
 import com.zhongjie.MainActivity;
 import com.zhongjie.R;
+import com.zhongjie.activity.managerservice.DryCleanActivity;
 import com.zhongjie.activity.managerservice.RepairsActivity;
 import com.zhongjie.activity.user.LoginActivity;
 import com.zhongjie.model.UserModelManager;
@@ -25,7 +26,7 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 	
 	private MyViewPager mPager;
 	private CirclePageIndicator mIndicator;
-	private View mGoRepairs;
+	private View mGoRepairs, mGoDryClean;
 	
 	public static FragmentManagerService newInstance(){
 		if(null == mInstance)
@@ -51,6 +52,7 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 		mPager = (MyViewPager)findViewById(R.id.fra_manager_service_viewpager);
 		mIndicator = (CirclePageIndicator)findViewById(R.id.fra_manager_service_indicator_dot);
 		mGoRepairs = findViewById(R.id.fra_manager_service_repairs);
+		mGoDryClean = findViewById(R.id.fra_manager_service_dryclean);
 	}
 	
 	@Override
@@ -60,6 +62,7 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 		mPager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
 		mIndicator.setViewPager(mPager);
 		mGoRepairs.setOnClickListener(this);
+		mGoDryClean.setOnClickListener(this);
 	}
 	
 	@Override
@@ -103,7 +106,9 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 				startActivity(new Intent(getActivity(), LoginActivity.class));
 			}
 			break;
-
+		case R.id.fra_manager_service_dryclean:
+			startActivity(new Intent(getActivity(), DryCleanActivity.class));
+			break;
 		default:
 			break;
 		}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp" >
+
+    <ImageView
+        android:id="@+id/include_fill_order_dry_clean_commodity_img"
+        android:layout_width="@dimen/commodity_item_img"
+        android:layout_height="@dimen/commodity_item_img"
+        android:scaleType="centerCrop"
+        android:src="@drawable/temp_ic_fantuan" />
+
+    <TextView
+        android:id="@+id/include_fill_order_dry_clean_commodity_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/include_fill_order_dry_clean_commodity_img"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/include_fill_order_dry_clean_commodity_img"
+        android:textColor="#333333" />
+
+    <TextView
+        android:id="@+id/include_fill_order_dry_clean_commodity_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/include_fill_order_dry_clean_commodity_img"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/include_fill_order_dry_clean_commodity_img"
+        android:textColor="#ff0099" />
+
+    <TextView
+        android:id="@+id/include_fill_order_dry_clean_commodity_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/include_fill_order_dry_clean_commodity_img"
+        android:layout_alignParentRight="true" />
+
+</RelativeLayout>

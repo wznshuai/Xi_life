@@ -1,5 +1,5 @@
 ﻿一、个人中心
-	1、发送短信
+  1、发送短信
      请求地址：
        /user/sendSMS
      请求方式：
@@ -13,133 +13,133 @@
        重复发送：{"errMsg":"短信验证码已发送，请勿重复提交！","data":{},"code":"001"}
        异常：{"data":{},"code":"-1","errMsg":"发送短信异常"}
 
-	2、用户注册
+  2、用户注册
      请求地址：
        /user/register
-	   请求方式：
-	     POST
-	   输入参数：
-	     mobile<String>:手机号
-	     password<String>:密码
-	     code<String>:短信校验码
-	   输出参数：
-	     sessId<String>:用户唯一码
-	   示例：
-	     成功：{"errMsg":"","data":{"sessId":"9ecc2b8fec064f239bef"},"code":"0"}
+     请求方式：
+       POST
+     输入参数：
+       mobile<String>:手机号
+       password<String>:密码
+       code<String>:短信校验码
+     输出参数：
+       sessId<String>:用户唯一码
+     示例：
+       成功：{"errMsg":"","data":{"sessId":"9ecc2b8fec064f239bef"},"code":"0"}
 	     重复注册：{"errMsg":"此手机号已注册，请尝试登录！","data":{},"code":"003"}
 	     短信效验码错误：{"errMsg":"验证码错误，请重新获取短信校验码！","data":{},"code":"002"}
 	     异常：{"data":{},"code":"-1","errMsg":"用户注册异常"}
 
-	3、用户登陆
-	   请求地址：
+  3、用户登陆
+     请求地址：
        /user/login
-	   请求方式：
-	     POST
-	   输入参数：
-	     mobile<String>:手机号
-	     password<String>:密码
-	   输出参数：
-	     sessId<String>:用户唯一码
-	   示例：
-	     成功：{"errMsg":"","data":{"sessId":"9ecc2b8fec064f239bef"},"code":"0"}
+     请求方式：
+       POST
+     输入参数：
+       mobile<String>:手机号
+       password<String>:密码
+     输出参数：
+       sessId<String>:用户唯一码
+     示例：
+       成功：{"errMsg":"","data":{"sessId":"9ecc2b8fec064f239bef"},"code":"0"}
 	     手机号尚未注册：{"errMsg":"此手机号尚未注册！","data":{},"code":"004"}
 	     密码错误：{"errMsg":"登录密码错误！","data":{},"code":"005"}
 	     异常：{"data":{},"code":"-1","errMsg":"用户登陆异常"}
 
   4、修改密码
-	   请求地址：
+     请求地址：
        /user/changePassword
-	   请求方式：
-	     POST
-	   输入参数：
-	     mobile<String>:手机号
-	     password<String>:密码
-	     code<String>:短信效验码
-	   输出参数：
-	     无
-	   示例：
+     请求方式：
+       POST
+     输入参数：
+       mobile<String>:手机号
+       password<String>:密码
+       code<String>:短信效验码
+     输出参数：
+       无
+     示例：
 	     成功：{"errMsg":"","data":{},"code":"0"}
 	     短信效验码错误：{"errMsg":"短信验证码错误，请重新输入！","data":{},"code":"002"}
 	     异常：{"data":{},"code":"-1","errMsg":"用户修改密码异常"}
 
   5、个人中心
-	   请求地址：
+     请求地址：
        /user/home/{sessId}
-	   请求方式：
-	     POST
-	   输入参数：
-	     sessId<String>:用户唯一码
-	   输出参数：
-	     nickName<String>:昵称
-	     image<String>:头像
-	     unit<String>:单元
-	     room<String>:房间
-	     integral<String>:积分
-	   示例：
+     请求方式：
+       POST
+     输入参数：
+       sessId<String>:用户唯一码
+     输出参数：
+       nickName<String>:昵称
+       image<String>:头像
+       unit<String>:单元
+       room<String>:房间
+       integral<String>:积分
+     示例：
 	     查询到用户资料：{"errMsg":"","data":{"unit":"2","nickName":"John","image":"http://image1","room":"502","integral":405},"code":"0"}
 	     用户不存在：{"errMsg":"","data":{},"code":"0"}
 	     异常：{"data":{},"code":"-1","errMsg":"获取个人中心异常"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
 
   6、查询个人资料
-	   请求地址：
+     请求地址：
        /user/info/{sessId}
-	   请求方式：
+     请求方式：
 	     POST
-	   输入参数：
+     输入参数：
 	     sessId<String>:用户唯一码
-	   输出参数：
+     输出参数：
 	     nickName<String>:昵称
 	     phone<String>:手机号
 	     image<String>:头像
 	     unit<String>:单元
 	     room<String>:房间
-	   示例：
+     示例：
 	     查询到用户资料：{"errMsg":"","data":{"unit":"2","phone":"18933619711","nickName":"John","image":"http://image1","room":"502"},"code":"0"}
 	     用户不存在：{"errMsg":"","data":{},"code":"0"}
 	     异常：{"errMsg":"获取个人资料异常","data":{},"code":"-1"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
 
   7、修改个人资料
-	   请求地址：
+     请求地址：
        /user/modifyUserInfo
-	   请求方式：
+     请求方式：
 	     POST
-	   输入参数：
+     输入参数：
 	     sessId<String>:用户唯一码
 	     nickName<String>:昵称
 	     image<String>:头像
 	     unit<String>:单元
 	     room<String>:房间
-	   输出参数：
+     输出参数：
 	     nickName<String>:昵称
 	     phone<String>:手机号
 	     image<String>:头像
 	     unit<String>:单元
 	     room<String>:房间
-	   示例：
+     示例：
 	     成功：{"errMsg":"","data":{"unit":null,"phone":"1234567891","nickName":"John","image":null,"room":null},"code":"0"}
 	     用户不存在：{"errMsg":"","data":{},"code":"0"}
 	     异常：{"data":{},"code":"-1","errMsg":"修改个人资料异常"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
 
   8、用户积分查询
-	   请求地址：
+     请求地址：
        /user/cost/{sessId}
-	   请求方式：
+     请求方式：
 	     POST
-	   输入参数：
+     输入参数：
 	     sessId<String>:用户唯一码
 	     start<String>:起始位置
 	     step<String>:步长
-	   输出参数：
+     输出参数：
 	     integral<Sting>:积分总额
 	     integralItem<List>:积分明细流水
 	       item<String>:名目
 	       currTime<String>:发生时间(格式：yyyy-MM-dd)
 	       cost<String>:积分发生额(可为负数)
 	     integralItemCount<String>:积分明细流水总数量
-	   示例：
+     示例：
 	     有积分明细：{"errMsg":"","data":{"integralItem":[{"item":"兑换","currTime":"2014-08-03","cost":"-55"},{"item":"消费","currTime":"2014-08-02","cost":"100"},{"item":"注册","currTime":"2014-08-01","cost":"50"}],"integralItemCount":3,"integral":95},"code":"0"}
 	     无积分明细：{"errMsg":"","data":{"integralItem":[],"integralItemCount":0,"integral":0},"code":"0"}
 	     异常：{"errMsg":"获取用户积分异常","data":{},"code":"-1"}
@@ -150,11 +150,11 @@
        /user/imageUpload
      请求方式：
 	     POST(enctype="multipart/form-data")
-	   输入参数：
+     输入参数：
 	     file<MultipartFile>:文件流
-	   输出参数：
+     输出参数：
 	     uploadPath<Sting>:服务器地址
-	   示例：
+     示例：
 	     上传成功：{"data":{"uploadPath":"http://appserver.vbangke.com/resource/headImage/cc4a472a77e146efa46c.jpg"},"errMsg":"","code":"0"}
 	     异常：{"errMsg":"用户上传头像异常","data":{},"code":"-1"}
 	   
@@ -308,6 +308,7 @@
 	       arayacakId<String>:自提点ID(用户选择自提时输入)
 	       man<String>:收货人姓名(用户选择配送时输入)
 	       phone<String>:收货人手机(用户选择配送时输入)
+	       invoice<String>:发票抬头(非必填)
 	       address<String>:收货地址(用户选择配送时输入)
 	       remark<String>:订单备注
 	     输出参数：
@@ -526,11 +527,9 @@
 	     POST
 	   输入参数：
 	     sessId<String>:用户唯一码
-	     cleanInfo<String>:商品信息(商品ID!购买数量#商品ID!购买数量)
+	     commodityInfo<String>:商品信息(JSON<List<Map>>)[{"commodityId":"1","count":"1"},{"commodityId":"3","count":"2"}]
 	   输出参数：
-	     year<String>:预约取衣,年
-	     month<String>:预约取衣,月
-	     day<String>:预约取衣,日
+	     repairDate<String>:最大预约取衣时间（yyyy-MM-dd）
 	     totalMoney<String>:订单总价
 	     cleanInfo<List>:商品信息
 	       cleanId<String>:品类商品ID
@@ -539,7 +538,7 @@
 	       price<String>:品类商品价格(元)
 	       number<String>:数量
 	   示例：
-	     成功：{"errMsg":"","data":{"month":"[1,2,3,4,5,6,7,8,9,10,11,12]","year":"[2014,2015,2016]","day":"[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]","totalMoney":"110.00","cleanInfo":[{"cleanId":"3","price":"30.00","name":"T恤","image":"/txu.jpg","number":"2"},{"cleanId":"1","price":"50.00","name":"西服","image":"/xifu.jpg","number":"1"}]},"code":"0"}
+	     成功：{"errMsg":"","data":{"repairDate":"2014-09-13","totalMoney":"110.00","cleanInfo":[{"cleanId":"3","price":"30.00","name":"T恤","image":"/txu.jpg","number":"2"},{"cleanId":"1","price":"50.00","name":"西服","image":"/xifu.jpg","number":"1"}]},"code":"0"}
 	     异常：{"data":{},"errMsg":"查看订单异常","code":"-1"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
 
@@ -550,14 +549,14 @@
 	     POST
 	   输入参数：
 	     sessId<String>:用户唯一码
-	     cleanInfo<String>:商品信息(商品ID!购买数量#商品ID!购买数量)
+	     commodityInfo<String>:商品信息(JSON<List<Map>>)[{"commodityId":"1","count":"1"},{"commodityId":"3","count":"2"}]
 	     takeTime<String>:预约取件时间(YYYY-MM-DD)
 	     dispatchMode<String>:物流模式(01:配送; 02:自提)
 	     arayacakId<String>:自提点ID(用户选择自提时输入)
 	     man<String>:收货人姓名(用户选择配送时输入)
 	     phone<String>:收货人手机(用户选择配送时输入)
 	     address<String>:收货地址(用户选择配送时输入)
-	     remark<String>:订单备注(输入商品口味)
+	     remark<String>:订单备注
 	   输出参数：
 	     code<String>:订单编码
 	     orderTime<String>:下单时间(yyyy-MM-dd HH:mm:ss)
@@ -639,3 +638,32 @@
 	   示例：
 	     成功：{"errMsg":"","data":{"commodity":[{"oldPrice":"22.00","price":"20.00","weight":"500G","name":"八宝粥","image":"http://八宝粥.jpg","commodityId":"b1cdc0d5fdb445a7bfb0","info":"八宝粥简述"},{"oldPrice":"20.00","price":"18.00","weight":"500G","name":"小米粥","image":"http://小米粥.jpg","commodityId":"b1cdc0d5fdb445a7bfb1","info":"小米粥简述"}],"full":[{"image":"通栏1.jpg","url":"通栏1链接"},{"image":"通栏2.jpg","url":"通栏2链接"}],"ad":[{"image":"广告1.jpg","url":"广告1链接"},{"image":"广告2.jpg","url":"广告2链接"},{"image":"广告3.jpg","url":"广告3链接"},{"image":"广告4.jpg","url":"广告4链接"},{"image":"广告5.jpg","url":"广告5链接"}]},"code":"0"}
 	     异常：{"data":{},"errMsg":"查询首页异常","code":"-1"}
+
+
+七、门面接口
+  1、提交订单门面模式接口
+     请求地址：
+       /order/submit
+	   请求方式：
+	     POST
+	   输入参数：
+	     type<String>:类型(01:随手购; 02:干洗)
+	     sessId<String>:用户唯一码
+	     commodityInfo<String>:商品信息(JSON<List<Map>>, taste可不传)[{"commodityId":"3","taste":"甜的","count":"1"},{"commodityId":"2","taste":"","count":"1"}]
+	     takeTime<String>:预约取件时间(YYYY-MM-DD) (type=02, 干洗时使用, 必填)
+	     dispatchMode<String>:物流模式(01:配送; 02:自提)
+	     arayacakId<String>:自提点ID(用户选择自提时输入)
+	     man<String>:收货人姓名(用户选择配送时输入)
+	     phone<String>:收货人手机(用户选择配送时输入)
+	     address<String>:收货地址(用户选择配送时输入)
+	     invoice<String>:发票抬头(type=01, 随手购时使用, 非必填)
+	     remark<String>:订单备注
+	   输出参数：
+	     随手购：
+	       code<String>:订单编码
+	       count<String>:购买商品总数
+	       money<String>:订单金额
+	     干洗：
+	       code<String>:订单编码
+	       orderTime<String>:下单时间(yyyy-MM-dd HH:mm:ss)
+	       money<String>:订单金额
