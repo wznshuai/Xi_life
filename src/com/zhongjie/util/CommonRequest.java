@@ -147,6 +147,7 @@ public class CommonRequest {
 		data.put("sessId", sessId);
 		return mHttpUtil.executePost(ApiConstants.URL_REPAIR_SHOW, data);
 	}
+	
 	/**
 	 * 获取自提点列表
 	 * @param type 0为随手够， 1为干洗
@@ -269,5 +270,16 @@ public class CommonRequest {
 		data.put("start", start + "");
 		data.put("step", step + "");
 		return mHttpUtil.executeGet(ApiConstants.URL_CLEAN_QUERYLIST, data);
+	}
+	
+	/**
+	 * 获取缴费页面信息
+	 * @param sessId
+	 * @return
+	 */
+	public String paymentShow(String sessId){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("sessId", sessId);
+		return mHttpUtil.executePost(ApiConstants.URL_FEE_SHOW, data);
 	}
 }

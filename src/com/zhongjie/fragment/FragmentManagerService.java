@@ -14,6 +14,7 @@ import com.zhongjie.BaseFragment;
 import com.zhongjie.MainActivity;
 import com.zhongjie.R;
 import com.zhongjie.activity.managerservice.DryCleanActivity;
+import com.zhongjie.activity.managerservice.PaymentActivity;
 import com.zhongjie.activity.managerservice.RepairsActivity;
 import com.zhongjie.activity.user.LoginActivity;
 import com.zhongjie.model.UserModelManager;
@@ -26,7 +27,7 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 	
 	private MyViewPager mPager;
 	private CirclePageIndicator mIndicator;
-	private View mGoRepairs, mGoDryClean;
+	private View mGoRepairs, mGoDryClean, mGoPayment;
 	
 	public static FragmentManagerService newInstance(){
 		if(null == mInstance)
@@ -49,6 +50,7 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 	@Override
 	protected void findViews() {
 		super.findViews();
+		mGoPayment = findViewById(R.id.fra_manager_service_goPayment);
 		mPager = (MyViewPager)findViewById(R.id.fra_manager_service_viewpager);
 		mIndicator = (CirclePageIndicator)findViewById(R.id.fra_manager_service_indicator_dot);
 		mGoRepairs = findViewById(R.id.fra_manager_service_repairs);
@@ -63,6 +65,7 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 		mIndicator.setViewPager(mPager);
 		mGoRepairs.setOnClickListener(this);
 		mGoDryClean.setOnClickListener(this);
+		mGoPayment.setOnClickListener(this);
 	}
 	
 	@Override
@@ -108,6 +111,13 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 			break;
 		case R.id.fra_manager_service_dryclean:
 			startActivity(new Intent(getActivity(), DryCleanActivity.class));
+			break;
+		case R.id.fra_manager_service_goPayment:
+			if(UserModelManager.getInstance().isLogin()){
+				startActivity(new Intent(getActivity(), PaymentActivity.class));
+			}else{
+				startActivity(new Intent(getActivity(), LoginActivity.class));
+			}
 			break;
 		default:
 			break;

@@ -34,26 +34,26 @@
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:id="@+id/act_fill_order_commodity_area"
+                    android:id="@+id/act_fill_order_for_dry_clean_commodity_area"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical" 
                     android:animateLayoutChanges="true"/>
                 <LinearLayout 
-                    android:id="@+id/act_fill_order_pull_area"
+                    android:id="@+id/act_fill_order_for_dry_clean_pull_area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center"
                     android:visibility="gone">
                     <TextView 
-                        android:id="@+id/act_fill_order_handle_txt"
+                        android:id="@+id/act_fill_order_for_dry_clean_handle_txt"
                         android:textColor="#666666"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="共#件商品，点击展开"/>
                     <ImageView 
-                        android:id="@+id/act_fill_order_handle"
+                        android:id="@+id/act_fill_order_for_dry_clean_handle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_pull"
@@ -113,7 +113,7 @@
                 </LinearLayout>
                 
                 <LinearLayout 
-                    android:id="@+id/act_fill_order_selectType"
+                    android:id="@+id/act_fill_order_for_dry_clean_selectType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -128,7 +128,7 @@
                         android:gravity="left"
                         android:textColor="#000000"/>
                     <TextView 
-                        android:id="@+id/act_fill_order_dispatching_type"
+                        android:id="@+id/act_fill_order_for_dry_clean_dispatching_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="自提"
@@ -141,7 +141,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <LinearLayout 
-                        android:id="@+id/act_fill_order_dispatching_ps"
+                        android:id="@+id/act_fill_order_for_dry_clean_dispatching_ps"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -171,7 +171,7 @@
                                 android:text="收货地址 : "
                                 android:textColor="#666666"/>
                             <EditText 
-                                android:id="@+id/act_fill_order_address"
+                                android:id="@+id/act_fill_order_for_dry_clean_address"
                                 android:padding="3dp"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
@@ -193,7 +193,7 @@
                                 android:text="收  货  人: "
                                 android:textColor="#666666"/>
                             <EditText 
-                                android:id="@+id/act_fill_order_name"
+                                android:id="@+id/act_fill_order_for_dry_clean_name"
                                 android:padding="3dp"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
@@ -215,7 +215,7 @@
                                 android:text="手  机  号: "
                                 android:textColor="#666666"/>
                             <EditText 
-                                android:id="@+id/act_fill_order_phone"
+                                android:id="@+id/act_fill_order_for_dry_clean_phone"
                                 android:padding="3dp"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
@@ -227,7 +227,7 @@
                         </LinearLayout>
                     </LinearLayout>
                     <LinearLayout 
-                        android:id="@+id/act_fill_order_dispatching_zt"
+                        android:id="@+id/act_fill_order_for_dry_clean_dispatching_zt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/grey_bg"
@@ -249,7 +249,7 @@
                             android:layout_height="0dp"
                             android:layout_weight="1">
                             <com.zhongjie.view.MyListView 
-                                android:id="@+id/act_fill_order_listview"
+                                android:id="@+id/act_fill_order_for_dry_clean_listview"
                                 style="@style/MyListView"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -277,7 +277,7 @@
                 </RelativeLayout>
                 
                 <LinearLayout 
-                    android:id="@+id/act_fill_order_selectType"
+                    android:id="@+id/act_fill_order_for_dry_clean_selectType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -292,7 +292,6 @@
                         android:gravity="left"
                         android:textColor="#000000"/>
                     <TextView 
-                        android:id="@+id/act_fill_order_dispatching_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="支付宝客户端"
@@ -313,7 +312,7 @@
                         android:gravity="left"
                         android:textColor="#000000"/>
                     <EditText 
-                        android:id="@+id/act_fill_order_invoice_title"
+                        android:id="@+id/act_fill_order_for_dry_clean_invoice_title"
                         android:layout_marginLeft="5dp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -342,7 +341,7 @@
                 android:text="应付总计 : "/>
 			
             <TextView 
-                android:id="@+id/act_fill_order_totalFee"
+                android:id="@+id/act_fill_order_for_dry_clean_totalFee"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -352,7 +351,7 @@
                 android:textSize="20sp"/>
             
             <Button
-                android:id="@+id/act_fill_order_submit_order"
+                android:id="@+id/act_fill_order_for_dry_clean_submit_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"

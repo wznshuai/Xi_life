@@ -134,6 +134,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 			createCommodityView(mCartManager.mCheckedList.get(0));
 			if (mCartManager.mCheckedList.size() > 1) {
 				mPullView.setVisibility(View.VISIBLE);
+				mHandleTxt.setText("共" + mCartManager.mCheckedList.size() + "件商品，点击展开");
 				mPullView.setOnClickListener(new OnClickListener() {
 
 					@Override
@@ -150,7 +151,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 							mCommodityArea.removeViews(1,
 									mCommodityArea.getChildCount() - 1);
 							mHandleView.setImageResource(R.drawable.ic_pull);
-							mHandleTxt.setText("共#件商品，点击展开");
+							mHandleTxt.setText("共" + mCartManager.mCheckedList.size() + "件商品，点击展开");
 						}
 					}
 				});

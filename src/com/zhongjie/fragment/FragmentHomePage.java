@@ -30,6 +30,7 @@ import com.zhongjie.R;
 import com.zhongjie.activity.PhotoViewActivity;
 import com.zhongjie.activity.anytimebuy.CommodityDetailsActivity;
 import com.zhongjie.activity.managerservice.DryCleanActivity;
+import com.zhongjie.activity.managerservice.PaymentActivity;
 import com.zhongjie.activity.managerservice.RepairsActivity;
 import com.zhongjie.activity.user.LoginActivity;
 import com.zhongjie.model.ADModel;
@@ -51,7 +52,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 	private MyViewPager mPager;
 	private CirclePageIndicator mIndicator;
 	private ListView mListView;
-	private View mRepairs, mGoUserCenter, mHeaderView, mGoDryClean;
+	private View mRepairs, mGoUserCenter, mHeaderView, mGoDryClean, mGoPayment;
 	private CommonRequest mRequest;
 	private List<ADModel> mAdList;
 	private List<FullModel> mFullList;
@@ -99,6 +100,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 		mFullImg1 = (ImageView)mHeaderView.findViewById(R.id.header_homepage_full1_img);
 		mFullImg2 = (ImageView)mHeaderView.findViewById(R.id.header_homepage_full2_img);
 		mGoDryClean = mHeaderView.findViewById(R.id.fra_homepage_dryclean);
+		mGoPayment = mHeaderView.findViewById(R.id.fra_homepage_goPayment);
 	}
 	
 	@Override
@@ -150,6 +152,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 		mFull2.setOnClickListener(this);
 		mFullImg1.setOnClickListener(this);
 		mFullImg2.setOnClickListener(this);
+		mGoPayment.setOnClickListener(this);
 	}
 	
 	class MyPagerAdapter extends FragmentStatePagerAdapter{
@@ -320,6 +323,13 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 				Intent intent = new Intent(getActivity(), PhotoViewActivity.class);
 				intent.putExtra(PhotoViewActivity.BIGIMG_URL, mFullList.get(1).url);
 				startActivity(intent);
+			}
+			break;
+		case R.id.fra_homepage_goPayment:
+			if(UserModelManager.getInstance().isLogin()){
+				startActivity(new Intent(getActivity(), PaymentActivity.class));
+			}else{
+				startActivity(new Intent(getActivity(), LoginActivity.class));
 			}
 			break;
 		default:

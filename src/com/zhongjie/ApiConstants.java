@@ -42,4 +42,6 @@ public class ApiConstants {
 	public static final String URL_CLEAN_QUERYLIST = BASE_HOST + "clean/queryList";
 	//订单提交
 	public static final String URL_ORDER_SUBMIT = BASE_HOST + "order/submit";
+	//查看缴费页面
+	public static final String URL_FEE_SHOW = BASE_HOST + "fee/show";
 }

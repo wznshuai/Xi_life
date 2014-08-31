@@ -2,7 +2,6 @@ package com.zhongjie;
 
 import java.io.File;
 import java.security.KeyStore;
-import java.util.List;
 
 import net.tsz.afinal.FinalDb;
 import net.tsz.afinal.FinalDb.DaoConfig;
@@ -35,9 +34,7 @@ import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.zhongjie.database.ShopCartDbService;
 import com.zhongjie.global.Session;
-import com.zhongjie.model.ShopCartModel;
 import com.zhongjie.util.Constants;
 import com.zhongjie.util.SSLSocketFactoryEx;
 import com.zhongjie.util.ShopCartManager;

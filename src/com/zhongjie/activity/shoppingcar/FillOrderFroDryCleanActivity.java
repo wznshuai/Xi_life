@@ -92,22 +92,22 @@ public class FillOrderFroDryCleanActivity extends BaseSecondActivity implements
 
 	@Override
 	protected void findViews() {
-		mCommodityArea = (LinearLayout) findViewById(R.id.act_fill_order_commodity_area);
-		mPullView = findViewById(R.id.act_fill_order_pull_area);
-		mHandleView = (ImageView) findViewById(R.id.act_fill_order_handle);
-		mHandleTxt = (TextView) findViewById(R.id.act_fill_order_handle_txt);
-		mSelectTypeView = findViewById(R.id.act_fill_order_selectType);
-		mDispatchingType = (TextView) findViewById(R.id.act_fill_order_dispatching_type);
-		mZTArea = findViewById(R.id.act_fill_order_dispatching_zt);
-		mPSArea = findViewById(R.id.act_fill_order_dispatching_ps);
+		mCommodityArea = (LinearLayout) findViewById(R.id.act_fill_order_for_dry_clean_commodity_area);
+		mPullView = findViewById(R.id.act_fill_order_for_dry_clean_pull_area);
+		mHandleView = (ImageView) findViewById(R.id.act_fill_order_for_dry_clean_handle);
+		mHandleTxt = (TextView) findViewById(R.id.act_fill_order_for_dry_clean_handle_txt);
+		mSelectTypeView = findViewById(R.id.act_fill_order_for_dry_clean_selectType);
+		mDispatchingType = (TextView) findViewById(R.id.act_fill_order_for_dry_clean_dispatching_type);
+		mZTArea = findViewById(R.id.act_fill_order_for_dry_clean_dispatching_zt);
+		mPSArea = findViewById(R.id.act_fill_order_for_dry_clean_dispatching_ps);
 		mPromptView = (PromptView) findViewById(R.id.promptView);
-		mListView = (ListView) findViewById(R.id.act_fill_order_listview);
-		mSubmit = findViewById(R.id.act_fill_order_submit_order);
-		mTotalFee = (TextView) findViewById(R.id.act_fill_order_totalFee);
-		mAddressEdit = (EditText) findViewById(R.id.act_fill_order_address);
-		mPhoneEdit = (EditText) findViewById(R.id.act_fill_order_phone);
-		mNameEdit = (EditText) findViewById(R.id.act_fill_order_name);
-		mInvoiceEdit = (EditText)findViewById(R.id.act_fill_order_invoice_title);
+		mListView = (ListView) findViewById(R.id.act_fill_order_for_dry_clean_listview);
+		mSubmit = findViewById(R.id.act_fill_order_for_dry_clean_submit_order);
+		mTotalFee = (TextView) findViewById(R.id.act_fill_order_for_dry_clean_totalFee);
+		mAddressEdit = (EditText) findViewById(R.id.act_fill_order_for_dry_clean_address);
+		mPhoneEdit = (EditText) findViewById(R.id.act_fill_order_for_dry_clean_phone);
+		mNameEdit = (EditText) findViewById(R.id.act_fill_order_for_dry_clean_name);
+		mInvoiceEdit = (EditText)findViewById(R.id.act_fill_order_for_dry_clean_invoice_title);
 		
 		mYearWheel = (WheelVerticalView)findViewById(R.id.act_fill_order_for_dry_clean_wheel_year);
 		mMonthWheel = (WheelVerticalView)findViewById(R.id.act_fill_order_for_dry_clean_wheel_month);
@@ -139,6 +139,7 @@ public class FillOrderFroDryCleanActivity extends BaseSecondActivity implements
 			createCommodityView(mCartManager.mCartList.get(0));
 			if (mCartManager.mCartList.size() > 1) {
 				mPullView.setVisibility(View.VISIBLE);
+				mHandleTxt.setText("共" + mCartManager.mCartList.size() + "件商品，点击展开");
 				mPullView.setOnClickListener(new OnClickListener() {
 
 					@Override
@@ -155,7 +156,7 @@ public class FillOrderFroDryCleanActivity extends BaseSecondActivity implements
 							mCommodityArea.removeViews(1,
 									mCommodityArea.getChildCount() - 1);
 							mHandleView.setImageResource(R.drawable.ic_pull);
-							mHandleTxt.setText("共#件商品，点击展开");
+							mHandleTxt.setText("共" + mCartManager.mCartList.size() + "件商品，点击展开");
 						}
 					}
 				});
@@ -564,7 +565,7 @@ public class FillOrderFroDryCleanActivity extends BaseSecondActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.act_fill_order_submit_order:
+		case R.id.act_fill_order_for_dry_clean_submit_order:
 			invoice = mInvoiceEdit.getText().toString();
 			if (mDispatchMode.equals(PS) && doValidate()) {
 				new SubmitOrderTask().execute();

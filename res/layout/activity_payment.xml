@@ -33,56 +33,11 @@
                 android:orientation="vertical"
                 android:padding="15dp" >
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/act_payment_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="房号 :"
-                        android:textColor="@android:color/black" />
-
-                    <EditText
-                        android:id="@+id/act_userinfo_editaddress1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/white_bg"
-                        android:hint="23"
-                        android:imeOptions="actionNext"
-                        android:inputType="number"
-                        android:minWidth="50dp"
-                        android:padding="5dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="栋"
-                        android:textColor="@android:color/black" />
-
-                    <EditText
-                        android:id="@+id/act_userinfo_editaddress2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/white_bg"
-                        android:hint="2301"
-                        android:imeOptions="actionNext"
-                        android:inputType="number"
-                        android:minWidth="50dp"
-                        android:padding="5dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="室"
-                        android:textColor="@android:color/black" />
-                </LinearLayout>
+                    android:textColor="@android:color/black" />
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -109,7 +64,7 @@
                         android:textColor="@android:color/black" />
 
                     <antistatic.spinnerwheel.WheelVerticalView
-                        android:id="@+id/act_payment_year"
+                        android:id="@+id/act_payment_wheel_year"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp" />
@@ -121,72 +76,17 @@
                         android:textColor="#000000" />
 
                     <antistatic.spinnerwheel.WheelVerticalView
-                        android:id="@+id/act_payment_quarterly"
+                        android:id="@+id/act_payment_wheel_month"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp" />
 
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_height"
-                    android:layout_marginTop="10dp"
-                    android:background="#aabbcc" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_height"
-                    android:layout_marginBottom="10dp"
-                    android:background="#ffffff" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="报销分类 :"
-                        android:textColor="@android:color/black" />
-
-                    <Spinner
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_height"
-                    android:layout_marginTop="10dp"
-                    android:background="#aabbcc" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_height"
-                    android:layout_marginBottom="10dp"
-                    android:background="#ffffff" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="照片上传 :"
-                        android:textColor="@android:color/black" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_photograph" />
+                        android:text="季度"
+                        android:textColor="#000000" />
+                    
                 </LinearLayout>
 
                 <ImageView
@@ -202,14 +102,14 @@
                     android:background="#ffffff" />
 
                 <Button
-                    android:id="@+id/act_repairs_submit"
+                    android:id="@+id/act_payment_submit"
                     style="@style/Common_Button.Blue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
                     android:layout_marginTop="20dp"
-                    android:text="报      修" />
+                    android:text="查     询" />
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
