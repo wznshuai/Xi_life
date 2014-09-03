@@ -26,23 +26,152 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="20dp" >
-                <TextView 
+                android:layout_margin="20dp"
+                android:orientation="vertical" >
+
+                <TextView
                     android:id="@+id/tempId6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
                     android:background="@drawable/white_bg"
-                    android:padding="10dp"/>
-                
-                <LinearLayout 
-                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:textColor="#000000" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/grey_bg">
-                    
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/grey_bg"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="订单信息"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/line_height"
+                        android:layout_marginTop="10dp"
+                        android:background="#aabbcc" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/line_height"
+                        android:layout_marginBottom="10dp"
+                        android:background="#ffffff" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="订单编号: "
+                            android:textColor="#333333" />
+
+                        <TextView
+                            android:id="@+id/act_submit_order_success_orderNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/dashes_line_blue"
+                        android:layerType="software" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="商品数:  "
+                            android:textColor="#333333" />
+
+                        <TextView
+                            android:id="@+id/act_submit_order_success_totalCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/dashes_line_blue" 
+                        android:layerType="software"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="订单金额:  "
+                            android:textColor="#333333" />
+
+                        <TextView
+                            android:id="@+id/act_submit_order_success_totalFee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ff0099"
+                            android:textSize="17sp" />
+                    </LinearLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/act_fill_order_selectType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/grey_bg"
+                    android:orientation="horizontal"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="支付方式"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/act_fill_order_dispatching_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="支付宝客户端"
+                        android:textColor="#666666" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/act_submit_order_success_pay"
+                    style="@style/Common_Button.Blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:clickable="true"
+                    android:text="立  即  支  付" />
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

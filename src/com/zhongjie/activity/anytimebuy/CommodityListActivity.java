@@ -83,7 +83,7 @@ public class CommodityListActivity extends BaseListActivity {
 		super.initViews();
 		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
 		mTopLeftImg.setVisibility(View.VISIBLE);
-		mTopCenterImg.setImageResource(R.drawable.ic_logo_ssg);
+		mTopCenterImg.setImageResource(R.drawable.ic_top_logo_ssg);
 		mTopCenterImg.setVisibility(View.VISIBLE);
 		mListView.setAdapter(new MyCommodityAdapter());
 		createFloatView(this);

@@ -108,7 +108,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 		super.onResume();
 		if(getActivityMine().getCurrentTabTag().equals(MainActivity.TAB_CENTER)){
 			mPager.startAutoScroll();
-			getActivityMine().setTopCenterLogo(R.drawable.ic_logo_homepage);
+			getActivityMine().setTopCenterLogo(R.drawable.ic_top_logo_homepage);
 			if(null == mAdList || null == mFullList || null == mCommodityList){
 				new HomeDataTask().execute();
 			}

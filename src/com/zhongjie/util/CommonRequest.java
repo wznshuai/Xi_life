@@ -135,8 +135,26 @@ public class CommonRequest {
 		data.put("status", status);
 		data.put("start", start + "");
 		data.put("step", step + "");
-		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_USER_ORDER, data);
+		return mHttpUtil.executePost(ApiConstants.URL_ESHOP_USER_ORDER, data);
 	}
+	
+	/**
+	 * 查询用户干洗订单
+	 * @param sessId 用户唯一吗
+	 * @param status 订单状态 (00:待支付; 01:已支付; 90:已完成; 99:已取消)
+	 * @param start 开始页数
+	 * @param step 每页长度
+	 * @return
+	 */
+	public String queryDryCleanOrder(String sessId, String status, int start, int step){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("sessId", sessId);
+		data.put("status", status);
+		data.put("start", start + "");
+		data.put("step", step + "");
+		return mHttpUtil.executePost(ApiConstants.URL_CLEAN_QUERY_ORDER, data);
+	}
+	
 	/**
 	 * 获取报修页面信息
 	 * @param sessId
@@ -281,5 +299,35 @@ public class CommonRequest {
 		HashMap<String, String> data = new HashMap<String, String>();
 		data.put("sessId", sessId);
 		return mHttpUtil.executePost(ApiConstants.URL_FEE_SHOW, data);
+	}
+	/**
+	 * 查询待缴费明细
+	 * @param sessId
+	 * @param year
+	 * @param quarter
+	 * @return
+	 */
+	public String paymentQuery(String sessId, String year, String quarter){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("sessId", sessId);
+		data.put("years", year);
+		data.put("quarter", quarter);
+		return mHttpUtil.executePost(ApiConstants.URL_FEE_QUERY, data);
+	}
+	
+	/**
+	 * 查询用户订单
+	 * @param sessId 用户唯一吗
+	 * @param status 订单状态 (00:待支付; 01:已支付; 90:已完成; 99:已取消)
+	 * @param start 开始页数
+	 * @param step 每页长度
+	 * @return
+	 */
+	public String queryRepairHistory(String sessId, int start, int step){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("sessId", sessId);
+		data.put("start", start + "");
+		data.put("step", step + "");
+		return mHttpUtil.executePost(ApiConstants.URL_REPAIR_QUERY, data);
 	}
 }

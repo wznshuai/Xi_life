@@ -92,9 +92,10 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp" >
-                <ListView
+                <com.handmark.pulltorefresh.library.PullToRefreshListView
                     android:id="@+id/act_order_listview"
                     style="@style/MyListView"
+                    android:overScrollMode="never"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false"

@@ -173,7 +173,7 @@ public class RepairsActivity extends BaseSecondActivity{
 
 	@Override
 	protected void initViews() {
-		mTopCenterImg.setImageResource(R.drawable.ic_logo_repair_top);
+		mTopCenterImg.setImageResource(R.drawable.ic_top_logo_repair);
 		mTopCenterImg.setVisibility(View.VISIBLE);
 		
 		initCalendar();

@@ -21,6 +21,7 @@ import com.zhongjie.MainActivity;
 import com.zhongjie.R;
 import com.zhongjie.activity.user.IntegralActivity;
 import com.zhongjie.activity.user.LoginActivity;
+import com.zhongjie.activity.user.MyDryCleanOrderActivity;
 import com.zhongjie.activity.user.MyOrderActivity;
 import com.zhongjie.activity.user.MyRepairsActivity;
 import com.zhongjie.activity.user.SettingActivity;
@@ -40,7 +41,7 @@ public class FragmentUserCenter extends BaseFragment {
 
 	private ImageView mHeadImg;
 	private View mEditView, goIntegralView, goSettingView, goMyRepairsView,
-			goMyOrderView, mLogoutView;
+			goMyOrderView, mLogoutView, mGoDryCleanOrder;
 	private static final int REQUEST_CODE = 0x001;
 
 	private TextView mTopRightView, mAddress, mIntergal, mNickname;
@@ -90,6 +91,7 @@ public class FragmentUserCenter extends BaseFragment {
 		mWaitComment = findViewById(R.id.fra_usercenter_waitcomment);
 		mPaycancel = findViewById(R.id.fra_usercenter_paycancel);
 		mPaycommplete = findViewById(R.id.fra_usercenter_paycomplete);
+		mGoDryCleanOrder = findViewById(R.id.fra_usercenter_goDryCleanHistory);
 	}
 
 	@Override
@@ -212,6 +214,16 @@ public class FragmentUserCenter extends BaseFragment {
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), MyOrderActivity.class);
 				intent.putExtra("status", OrderStatus.STATUS_WAIT_PAY);
+				startActivity(intent);
+			}
+		});
+		
+		mGoDryCleanOrder.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), MyDryCleanOrderActivity.class);
+				intent.putExtra("status", "");
 				startActivity(intent);
 			}
 		});

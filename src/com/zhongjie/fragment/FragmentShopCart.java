@@ -148,7 +148,7 @@ public class FragmentShopCart extends BaseFragment {
 	@Override
 	protected void initViews() {
 		super.initViews();
-		getActivityMine().setTopCenterLogo(R.drawable.ic_logo_shoppingcar);
+		getActivityMine().setTopCenterLogo(R.drawable.ic_top_logo_shopcart);
 		mTopRightImg.setImageResource(R.drawable.ic_trash_big);
 		mTopRightImg.setOnClickListener(new OnClickListener() {
 
@@ -223,7 +223,7 @@ public class FragmentShopCart extends BaseFragment {
 			for (ShopCartModel scm : mCartManager.mCheckedList) {
 				try {
 					float price = Float.valueOf(scm.price);
-					totalFee += price * scm.count;
+					totalFee += price * scm.number;
 				} catch (NumberFormatException e) {
 					Logger.e(tag, "计算总钱数出错", e);
 					continue;
@@ -341,7 +341,7 @@ public class FragmentShopCart extends BaseFragment {
 					public void afterTextChanged(Editable s) {
 						if(!TextUtils.isEmpty(s)){
 							try {
-								mCartData.get((Integer)edit.getTag()).count = Integer.valueOf(s.toString().trim());
+								mCartData.get((Integer)edit.getTag()).number = Integer.valueOf(s.toString().trim());
 								computeTotalMoney();
 							} catch (Exception e) {
 								Logger.e(tag, "", e);
@@ -433,7 +433,7 @@ public class FragmentShopCart extends BaseFragment {
 					vh.taste.setText(scm.selectedTaste);	
 				}
 
-				vh.edittext.setText(scm.count + "");
+				vh.edittext.setText(scm.number + "");
 				vh.edittext.setSelection(vh.edittext.getText().toString()
 						.length());
 				if (null != mCartManager.mCheckedList

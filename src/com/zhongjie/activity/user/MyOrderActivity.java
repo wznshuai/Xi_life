@@ -7,11 +7,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,24 +20,32 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.alipay.sdk.app.PayTask;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.R;
-import com.zhongjie.activity.BaseListActivity;
+import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.activity.anytimebuy.SendCommentActivity;
-import com.zhongjie.activity.shoppingcar.FillOrderActivity;
 import com.zhongjie.model.OrderListJson;
 import com.zhongjie.model.OrderModel;
 import com.zhongjie.model.OrderStatus;
 import com.zhongjie.model.ShopCartModel;
+import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.CommonRequest;
+import com.zhongjie.util.pay.Result;
 import com.zhongjie.view.PromptView;
 
-public class MyOrderActivity extends BaseListActivity {
+public class MyOrderActivity extends BaseSecondActivity {
 
 	private static String STATUS_WAIT_PAY = "待支付";
 	private static String STATUS_WAIT_COMMENT = "待评价";
 	private static String STATUS_HAD_COMMPLETED = "已完成";
 	private static String STATUS_HAD_CANCELED = "已取消";
+	
+	public int start = 0, step = 5, maxCount;
 
 	private PromptView mPromptView;
 	private CommonRequest mRequest;
@@ -47,16 +54,18 @@ public class MyOrderActivity extends BaseListActivity {
 	private String mCurStatus;
 	private RadioGroup mRadioGroup;
 
+	private PullToRefreshListView mListView;
+	private OrderAdapter mAdapter;
 	@Override
 	protected void initData() {
 		mRequest = new CommonRequest(getApplicationContext());
-		sessId = getIntent().getStringExtra("sessId");
+		sessId = UserModelManager.getInstance().getmUser().sessId;
 		mCurStatus = getIntent().getStringExtra("status");
 	}
 
 	@Override
 	protected void findViews() {
-		mListView = (ListView) findViewById(R.id.act_order_listview);
+		mListView = (PullToRefreshListView) findViewById(R.id.act_order_listview);
 		mRadioGroup = (RadioGroup)findViewById(R.id.act_order_radioGroup);
 		mPromptView = (PromptView)findViewById(R.id.promptView);
 	}
@@ -79,44 +88,75 @@ public class MyOrderActivity extends BaseListActivity {
 		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
 		mTopLeftImg.setVisibility(View.VISIBLE);
 		mTopCenterTxt.setVisibility(View.VISIBLE);
-		mListView.setAdapter(new OrderAdapter());
-		mListView.setOnScrollListener(new OnScrollListener() {
-
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
-					if (view.getLastVisiblePosition()
-							- mListView.getHeaderViewsCount() == view
-							.getAdapter().getCount() - 1) {
-						int maxPage = maxCount % step == 0 ? maxCount / step
-								: maxCount / step + 1;
-						if (start + 1 < maxPage) {
-							start++;
-							new QueryUserOrderTask().execute(mCurStatus);
-						}
-					}
-				}
-			}
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
-
-			}
-		});
+//		mListView.setOnScrollListener(new OnScrollListener() {
+//
+//			@Override
+//			public void onScrollStateChanged(AbsListView view, int scrollState) {
+//				if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
+//					if (view.getLastVisiblePosition()
+//							- mListView.getRefreshableView().getHeaderViewsCount() == view
+//							.getAdapter().getCount() - 1) {
+//						int maxPage = maxCount % step == 0 ? maxCount / step
+//								: maxCount / step + 1;
+//						if (start + 1 < maxPage) {
+//							start++;
+//							new QueryUserOrderTask().execute(mCurStatus);
+//						}
+//					}
+//				}
+//			}
+//
+//			@Override
+//			public void onScroll(AbsListView view, int firstVisibleItem,
+//					int visibleItemCount, int totalItemCount) {
+//
+//			}
+//		});
 		
 		mRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				mCurStatus = getOrderStatusCode(((RadioButton)group.findViewById(checkedId)).getText().toString());
-				mListView.setAdapter(null);
 				start = 0;
+				if(null != mOrderList)
+					mOrderList.clear();
+				mListView.onRefreshComplete();
+				if(null != mAdapter)
+					mAdapter.notifyDataSetChanged();
 				new QueryUserOrderTask().execute(mCurStatus);
 			}
 		});
-	}
+		
+		
+		mListView.setOnRefreshListener(new OnRefreshListener2<ListView>() {
 
+			@Override
+			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+				String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
+						DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+				// Update the LastUpdatedLabel
+				refreshView.getLoadingLayoutProxy().setLastUpdatedLabel("上次刷新时间: " + label);
+				start = 0;
+				new QueryUserOrderTask().execute(mCurStatus);
+			}
+
+			@Override
+			public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+				String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
+						DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+				// Update the LastUpdatedLabel
+				refreshView.getLoadingLayoutProxy().setLastUpdatedLabel("上次加载时间: " + label);
+				start++;
+				new QueryUserOrderTask().execute(mCurStatus);
+			}
+			
+		});
+		mListView.setMode(Mode.PULL_FROM_START);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_order);
@@ -129,10 +169,8 @@ public class MyOrderActivity extends BaseListActivity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			if (start == 0)
+			if (start == 0 && !mListView.isRefreshing())
 				mPromptView.showLoading();
-			else
-				showFooterView(FooterView.MORE);
 		}
 
 		@Override
@@ -157,24 +195,42 @@ public class MyOrderActivity extends BaseListActivity {
 			
 			if (start == 0)
 				mPromptView.showContent();
-			else
-				showFooterView(FooterView.HIDE_ALL);
+			if(mListView.isRefreshing())
+				mListView.onRefreshComplete();
+			
 			if (null != result) {
 				if (0 == result.code) {
 					if (null != result.data
 							&& result.data.orderItemCount > 0) {
 						maxCount = result.data.orderItemCount;
-						mOrderList = result.data.orderItem;
-						mListView.setAdapter(new OrderAdapter());
+						int maxPage = maxCount % step == 0 ? maxCount / step
+								: maxCount / step + 1;
+						if(start + 1 == maxPage)
+							mListView.setMode(Mode.PULL_FROM_START);
+						else if(start + 1 < maxPage)
+							mListView.setMode(Mode.BOTH);
+						
+						if(start == 0){
+							mOrderList = result.data.orderItem;
+							if(null == mAdapter)
+								mAdapter = new OrderAdapter();
+							mListView.setAdapter(mAdapter);
+						}else{
+							mOrderList.addAll(result.data.orderItem);
+							mAdapter.notifyDataSetChanged();
+						}
 					} else {
-						mPromptView.showEmpty();
+						if(null == mOrderList || mOrderList.size() == 0)
+							mPromptView.showEmpty();
 					}
 				} else {
 					showToast(result.errMsg);
-					mPromptView.showError();
+					if(null == mOrderList || mOrderList.size() == 0)
+						mPromptView.showError();
 				}
 			} else {
-				mPromptView.showError();
+				if(null == mOrderList || mOrderList.size() == 0)
+					mPromptView.showError();
 			}
 		}
 	}
@@ -205,6 +261,13 @@ public class MyOrderActivity extends BaseListActivity {
 		}else{
 			return "";
 		}
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mListView.setCurrentMode(Mode.PULL_FROM_START);
+		mListView.setRefreshing();
 	}
 
 	class OrderAdapter extends BaseAdapter {
@@ -239,13 +302,39 @@ public class MyOrderActivity extends BaseListActivity {
 						.findViewById(R.id.list_item_myorder_trashIC);
 				vh.commodityArea = (ViewGroup) convertView
 						.findViewById(R.id.list_item_myorder_commodity_area);
+				
+				vh.doNeed.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						TextView tv = (TextView) v;
+						final OrderModel order = getItem((Integer)v.getTag());
+						String str = tv.getText().toString();
+						Intent intent = new Intent();
+						if (str.equals("去评价")) {
+							intent.setClass(MyOrderActivity.this,
+									SendCommentActivity.class);
+							startActivity(intent);
+						} else if (str.equals("去付款")) {
+							new Thread(){
+								@Override
+								public void run() {
+									PayTask alipay = new PayTask(MyOrderActivity.this);
+									String resultStr = alipay.pay(order.payInfo);
+									System.out.println("resultStr : " + resultStr);
+									Result result = new Result(resultStr);
+									System.out.println("result.isOK() : " + result.isOK());
+								}
+							}.start();
+						}
+					}
+				});
 
 				convertView.setTag(vh);
 			} else {
 				vh = (ViewHolder) convertView.getTag();
 			}
 			
-			OrderModel order = getItem(position);
+			final OrderModel order = getItem(position);
 			if(null != order){
 				String status = getOrderStatusName(order.orderStatus);
 				vh.showStatus.setText(Html.fromHtml("订单状态 : <font color='#cc0000'>"
@@ -269,7 +358,7 @@ public class MyOrderActivity extends BaseListActivity {
 						commodityName.setText(scm.name);
 						ImageLoader.getInstance().displayImage(scm.image, commodityImg);
 						commodityPrice.setText(scm.price);
-						commodityCount.setText(scm.count);
+						commodityCount.setText("数量 : " + scm.number);
 						
 						goComment.setOnClickListener(new OnClickListener() {
 
@@ -291,6 +380,8 @@ public class MyOrderActivity extends BaseListActivity {
 						vh.commodityArea.addView(commodityItem);
 					}
 				}
+				
+				vh.doNeed.setTag(position);
 
 				if (status.equals(STATUS_WAIT_PAY)) {
 					vh.trashIC.setVisibility(View.VISIBLE);
@@ -303,23 +394,6 @@ public class MyOrderActivity extends BaseListActivity {
 					vh.doNeed.setVisibility(View.GONE);
 				}
 
-				vh.doNeed.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						TextView tv = (TextView) v;
-						String str = tv.getText().toString();
-						Intent intent = new Intent();
-						if (str.equals("去评价")) {
-							intent.setClass(MyOrderActivity.this,
-									SendCommentActivity.class);
-						} else if (str.equals("去付款")) {
-							intent.setClass(MyOrderActivity.this,
-									FillOrderActivity.class);
-						}
-						startActivity(intent);
-					}
-				});
 			}
 			return convertView;
 		}

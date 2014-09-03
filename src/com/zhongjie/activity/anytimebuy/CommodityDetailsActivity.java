@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zhongjie.MainActivity;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.fragment.FragmentBigImg;
@@ -104,7 +105,7 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 		mBuyView.setOnClickListener(this);
 		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
 		mTopLeftImg.setVisibility(View.VISIBLE);
-		mTopCenterImg.setImageResource(R.drawable.ic_logo_ssg);
+		mTopCenterImg.setImageResource(R.drawable.ic_top_logo_ssg);
 		mTopCenterImg.setVisibility(View.VISIBLE);
 		goCommentView.setOnClickListener(this);
 		mIcJianView.setOnClickListener(this);
@@ -219,6 +220,18 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 			}
 			break;
 		case R.id.act_commodity_details_buy:
+			countStr = mCountEdittext.getText().toString();
+			if(!Utils.isEmpty(countStr)){
+				try{
+					int count = Integer.valueOf(countStr);
+					mDetails.selectedTaste = mSelectedTaste;
+					mCartManager.addInShopCart(mDetails, count, false);
+				}catch(Exception e){
+					showToast("输入数量不正确");
+					Logger.e(TAG, "", e);
+				}
+			}
+			goHomeActivity(MainActivity.TAB_3);
 			break;
 		case R.id.act_commodity_details_icJia:
 			String countStr2 = mCountEdittext.getText().toString();

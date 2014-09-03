@@ -51,11 +51,11 @@ public class ShopCartManager {
 		if(cm != null){
 			int index = mCartList.indexOf(cm);
 			if(-1 != index){
-				mCartList.get(index).count += 1;
+				mCartList.get(index).number += 1;
 			}else{
 				ShopCartModel scm = new ShopCartModel();
 				Utils.fatherToChild(cm, scm);
-				scm.count = 1;
+				scm.number = 1;
 				mCartList.add(scm);
 			}
 		}
@@ -88,13 +88,13 @@ public class ShopCartManager {
 			int index = mCartList.indexOf(cm);
 			if(-1 != index){
 				if(isRealCount)
-					mCartList.get(index).count = count;
+					mCartList.get(index).number = count;
 				else
-					mCartList.get(index).count += count;
+					mCartList.get(index).number += count;
 			}else{
 				ShopCartModel scm = new ShopCartModel();
 				Utils.fatherToChild(cm, scm);
-				scm.count = count;
+				scm.number = count;
 				mCartList.add(scm);
 			}
 		}
@@ -112,7 +112,7 @@ public class ShopCartManager {
 		if(null != cm){
 			int index = mCartList.indexOf(cm);
 			if(-1 != index){
-				count = mCartList.get(index).count;
+				count = mCartList.get(index).number;
 			}
 		}
 		return count;
@@ -130,7 +130,7 @@ public class ShopCartManager {
 		if(null != cm){
 			int index = mCartList.indexOf(cm);
 			if(-1 != index){
-				count = mCartList.get(index).count;
+				count = mCartList.get(index).number;
 			}
 		}
 		return count;
@@ -144,7 +144,7 @@ public class ShopCartManager {
 		int totalCount = 0;
 		if(null != mCartList){
 			for(ShopCartModel scm : mCartList){
-				totalCount += scm.count;
+				totalCount += scm.number;
 			}
 			return totalCount;
 		}

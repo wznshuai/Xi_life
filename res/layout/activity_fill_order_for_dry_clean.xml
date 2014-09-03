@@ -254,7 +254,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:divider="@drawable/dashes_line_blue"
-                                android:dividerHeight="2dp"/>
+                                android:dividerHeight="2dp"
+                                android:layerType="software"/>
                             <com.zhongjie.view.PromptView 
                                 android:id="@+id/promptView"
                                 android:layout_width="match_parent"

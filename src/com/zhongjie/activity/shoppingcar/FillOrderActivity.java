@@ -32,9 +32,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.activity.shoppingcar.FillOrderActivity.MyAdapter.ViewHolder;
+import com.zhongjie.global.Session;
 import com.zhongjie.model.ArayListJson;
 import com.zhongjie.model.ArayModel;
-import com.zhongjie.model.BaseJson;
+import com.zhongjie.model.OrderSubmitSuccessJson;
 import com.zhongjie.model.ShopCartModel;
 import com.zhongjie.model.SubmitCommodityModel;
 import com.zhongjie.model.UserModelManager;
@@ -114,7 +115,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 				.findViewById(R.id.include_fill_order_commodity_price);
 		TextView weight = (TextView) v
 				.findViewById(R.id.include_fill_order_commodity_weight);
-		count.setText("x" + scm.count);
+		count.setText("x" + scm.number);
 		ImageLoader.getInstance().displayImage(scm.image, img, options);
 		if (Utils.isEmpty(scm.selectedTaste)) {
 			taste.setVisibility(View.GONE);
@@ -256,7 +257,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 		}
 	}
 
-	class SubmitOrderTask extends AsyncTask<Void, Void, BaseJson> {
+	class SubmitOrderTask extends AsyncTask<Void, Void, OrderSubmitSuccessJson> {
 		CommonLoadingDialog cld;
 
 		@Override
@@ -275,15 +276,15 @@ public class FillOrderActivity extends BaseSecondActivity implements
 		}
 
 		@Override
-		protected BaseJson doInBackground(Void... params) {
-			BaseJson uj = null;
+		protected OrderSubmitSuccessJson doInBackground(Void... params) {
+			OrderSubmitSuccessJson uj = null;
 			try {
 				List<SubmitCommodityModel> scmList = null;
 				if (null != mCartManager.mCheckedList) {
 					for (ShopCartModel scm : mCartManager.mCheckedList) {
 						if (null == scmList)
 							scmList = new ArrayList<SubmitCommodityModel>();
-						scmList.add(new SubmitCommodityModel(scm.count,
+						scmList.add(new SubmitCommodityModel(scm.number,
 								scm.commodityId, scm.selectedTaste));
 					}
 				}
@@ -295,7 +296,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 								: null, mDispatchMode.equals(ZT) ? null : man,
 						phone, invoice, address, null);
 				if (!TextUtils.isEmpty(result)) {
-					uj = JSON.parseObject(result, BaseJson.class);
+					uj = JSON.parseObject(result, OrderSubmitSuccessJson.class);
 				}
 			} catch (Exception e) {
 				Logger.e(getClass().getSimpleName(), "SubmitOrderTask error", e);
@@ -304,7 +305,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 		}
 
 		@Override
-		protected void onPostExecute(BaseJson result) {
+		protected void onPostExecute(OrderSubmitSuccessJson result) {
 			super.onPostExecute(result);
 			if (!canGoon())
 				return;
@@ -316,6 +317,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 				if (result.code == 0) {
 					Intent intent = new Intent(FillOrderActivity.this,
 							SubmitOrderSuccess.class);
+					Session.getSession().put("orderInfo", result.data);
 					startActivity(intent);
 				} else {
 					showToast(result.errMsg);
@@ -423,7 +425,7 @@ public class FillOrderActivity extends BaseSecondActivity implements
 			for (ShopCartModel scm : mCartManager.mCheckedList) {
 				try {
 					float price = Float.valueOf(scm.price);
-					totalFee += price * scm.count;
+					totalFee += price * scm.number;
 				} catch (NumberFormatException e) {
 					Logger.e(TAG, "计算总钱数出错", e);
 					continue;

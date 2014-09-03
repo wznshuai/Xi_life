@@ -55,5 +55,10 @@
     <string name="prompt_empty">无数据！</string>
     <string name="prompt_retry">获取失败,请重试！</string>
     <string name="prompt_error">很抱歉，无法获取数据!</string>
+    <!-- 支付宝 -->
+    <string name="confirm_title">提示</string>
+    <string name="ensure">确定</string>
+    <string name="cancel">取消</string>
+    <string name="processing">加载中</string>
     
 </resources>

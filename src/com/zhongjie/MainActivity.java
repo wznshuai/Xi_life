@@ -45,8 +45,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		setContentView(R.layout.activity_main);
 		super.onCreate(savedInstanceState);
 		mTabHost.setup();
-		addTab(TAB_1, R.drawable.tab_1_selector, "随收购");
-		addTab(TAB_2, R.drawable.tab_2_selector, "管家服务");
+		addTab(TAB_1, R.drawable.tab_1_selector, "嘻厨房");
+		addTab(TAB_2, R.drawable.tab_2_selector, "嘻管家");
 		addTab(TAB_CENTER, 0, "");
 		addTab(TAB_3, R.drawable.tab_3_selector, "购物车");
 		addTab(TAB_4, R.drawable.tab_4_selector, "我的");
@@ -135,6 +135,15 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 	private void setCurrentFragment(String tabId){
 		FragmentTransaction ft = mFm.beginTransaction();
 		Fragment f = null;
+		
+		if(!TextUtils.isEmpty(last_show_TAB) && !tabId.equals(last_show_TAB)){
+			f = mFm.findFragmentByTag(last_show_TAB);
+			if(null != f){
+				ft.hide(f);
+				f.onPause();
+			}
+		}
+		
 		if(tabId.equals(TAB_1)){
 			f = FragmentAnyTimeBuy.newInstance();
 		}else if(tabId.equals(TAB_2)){
@@ -154,13 +163,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		}
 		
 		
-		if(!TextUtils.isEmpty(last_show_TAB) && !tabId.equals(last_show_TAB)){
-			f = mFm.findFragmentByTag(last_show_TAB);
-			if(null != f){
-				ft.hide(f);
-				f.onPause();
-			}
-		}
 		ft.commit();
 		last_show_TAB = tabId;
 	}

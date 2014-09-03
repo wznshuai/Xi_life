@@ -17,5 +17,9 @@
         <attr name="shadowHeight" format="dimension" />
         <attr name="cornerRadius" format="dimension" />
     </declare-styleable>
+    
+    <declare-styleable name="DottedLine">
+        <attr name="line_color" format="color"/>
+    </declare-styleable>
 
 </resources>

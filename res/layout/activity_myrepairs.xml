@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/main_bg" >
 
-        <ListView
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/act_myrepairs_listview"
             style="@style/MyListView"
             android:paddingTop="20dp"
@@ -28,7 +28,12 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:dividerHeight="10dp"
-            android:clipToPadding="false"/>
+            android:clipToPadding="false"
+            android:overScrollMode="never"/>
+        <com.zhongjie.view.PromptView 
+                    android:id="@+id/promptView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
     </RelativeLayout>
 
 </LinearLayout>

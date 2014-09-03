@@ -46,11 +46,17 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 	public void onResume() {
 		super.onResume();
 		if (getActivityMine().getCurrentTabTag().equals(MainActivity.TAB_1)) {
-			getActivityMine().setTopCenterLogo(R.drawable.ic_top_logo);
+			getActivityMine().setTopCenterLogo(R.drawable.ic_top_logo_ssg);
 			if(null == mEshopCatelogList || mEshopCatelogList.size() == 0){
 				new QueryEshopCatelog().execute();
 			}
 		}
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		getActivityMine().setTopCenterLogo(R.drawable.ic_top_logo);
 	}
 	
 	@Override

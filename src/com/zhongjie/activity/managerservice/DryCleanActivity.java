@@ -87,7 +87,7 @@ public class DryCleanActivity extends BaseListActivity{
 		super.initViews();
 		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
 		mTopLeftImg.setVisibility(View.VISIBLE);
-		mTopCenterImg.setImageResource(R.drawable.ic_logo_ssg);
+		mTopCenterImg.setImageResource(R.drawable.ic_top_logo_dryclean);
 		mTopCenterImg.setVisibility(View.VISIBLE);
 		mListView.setAdapter(new MyAdapter());
 		mListView.setOnItemClickListener(new OnItemClickListener() {

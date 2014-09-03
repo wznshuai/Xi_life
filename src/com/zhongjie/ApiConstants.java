@@ -35,7 +35,7 @@ public class ApiConstants {
 	//上传报修图片
 	public static final String URL_REPAIR_IMAGEUPLOAD = BASE_HOST + "repair/imageUpload";
 	//查看首页
-	public static final String URL_HOME_SHOW= BASE_HOST + "home/show";
+	public static final String URL_HOME_SHOW = BASE_HOST + "home/show";
 	//随手够提交订单
 	public static final String URL_ESHOP_SUBMITORDER = BASE_HOST + "eshop/submitOrder";
 	//干洗品类列表
@@ -44,4 +44,12 @@ public class ApiConstants {
 	public static final String URL_ORDER_SUBMIT = BASE_HOST + "order/submit";
 	//查看缴费页面
 	public static final String URL_FEE_SHOW = BASE_HOST + "fee/show";
+	//查询待缴费明细
+	public static final String URL_FEE_QUERY = BASE_HOST + "fee/query";
+	//查询用户干洗订单
+	public static final String URL_CLEAN_QUERY_ORDER = BASE_HOST + "clean/queryOrderByUser";
+	//查看我的保修
+	public static final String URL_REPAIR_QUERY = BASE_HOST + "repair/queryByUser";
+	//用户积分查询
+	public static final String URL_USER_COST = BASE_HOST + "user/cost";
 }

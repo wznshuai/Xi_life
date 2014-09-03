@@ -72,6 +72,7 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 	public void onResume() {
 		super.onResume();
 		if(getActivityMine().getCurrentTabTag().equals(MainActivity.TAB_2)){
+			getActivityMine().setTopCenterLogo(R.drawable.ic_top_logo_managerservice);
 			mPager.startAutoScroll();
 		}
 	}
@@ -79,6 +80,7 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 	@Override
 	public void onPause() {
 		super.onPause();
+		getActivityMine().setTopCenterLogo(R.drawable.ic_top_logo);
 		mPager.stopAutoScroll();
 	}
 	

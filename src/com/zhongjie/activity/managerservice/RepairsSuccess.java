@@ -37,7 +37,7 @@ public class RepairsSuccess extends BaseSecondActivity{
 
 	@Override
 	protected void initViews() {
-		mTopCenterImg.setImageResource(R.drawable.ic_logo_repair_top);
+		mTopCenterImg.setImageResource(R.drawable.ic_top_logo_repair);
 		mTopCenterImg.setVisibility(View.VISIBLE);
 		if(Utils.isEmpty(mRepairModel.image)){
 			mImg.setVisibility(View.GONE);

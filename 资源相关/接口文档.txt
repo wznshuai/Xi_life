@@ -312,11 +312,12 @@
 	       address<String>:收货地址(用户选择配送时输入)
 	       remark<String>:订单备注
 	     输出参数：
+	       payInfo<String>:支付宝调用信息
 	       code<String>:订单编码
 	       count<String>:购买商品总数
 	       money<String>:订单金额
 	     示例：
-	       成功：{"errMsg":"","data":{"count":"3","money":"56.00","code":"C201408254715762"},"code":"0"}
+	       成功：{"errMsg":"","data":{"count":"3","money":"56.00","code":"C201408254715762","payInfo":"..."},"code":"0"}
 	       异常：{"data":{},"errMsg":"查看订单异常","code":"-1"}
 	       鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
 
@@ -372,8 +373,9 @@
 	           price<String>:商品价格
 	           number<String>:购买数量
 	         orderStatus<String>:订单状态(00:待支付; 01:已支付; 90:已完成; 99:已取消)
+	         payInfo<String>:支付宝调用信息(订单状态为00时返回此键值对)
 	     示例：
-	       有订单：{"errMsg":"","data":{"orderItem":[{"orderDetail":[{"price":"2.50","name":"大包子","image":"大包子.jpg","number":"2","commodityId":"c1"},{"price":"2.00","name":"小包子","image":"小包子.jpg","number":"1","commodityId":"c2"}],"orderMoney":"7.00","orderStatus":"00","orderId":"1"}],"orderItemCount":1},"code":"0"}
+	       有订单：{"errMsg":"","data":{"orderItem":[{"orderDetail":[{"price":"2.50","name":"大包子","image":"大包子.jpg","number":"2","commodityId":"c1"},{"price":"2.00","name":"小包子","image":"小包子.jpg","number":"1","commodityId":"c2"}],"orderMoney":"7.00","orderStatus":"00","orderId":"1","payInfo":"..."}],"orderItemCount":1},"code":"0"}
 	       无订单：{"errMsg":"","data":{"orderItem":[],"orderItemCount":1},"code":"0"}
 	       异常：{"data":{},"errMsg":"查询随手购订单异常","code":"-1"}
 	       鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
@@ -393,7 +395,7 @@
 	     year<String>:年份
 	     quarter<List>:季度列表(1, 2, 3, 4)
 	   示例：
-	     成功：{"data":{"unit":"501","year":"2014","quarter":"[1,2,3,4]","room":null},"errMsg":"","code":"0"}
+	     成功：{"data":{"unit":"501","year":"2014","quarter":[1,2,3,4],"room":null},"errMsg":"","code":"0"}
 	     异常：{"data":{},"errMsg":"查看缴费页面异常","code":"-1"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
 
@@ -417,10 +419,11 @@
 	       money<String>:费用明细金额
 	     totalMoney<String>:总金额
 	     code<String>:缴费订单号
+	     payInfo<String>:支付宝调用信息
 	   示例：
-	     成功：{"data":{"unit":"501","item":[{"feeId":"1","item":"物业费","money":"5.00"},{"feeId":"2","item":"停车费","money":"2.00"}],"code":"F201407241078","years":"2014","totalMoney":"7.00","quarter":"1","room":null},"errMsg":"","code":"0"}
-	       or:{"data":{"unit":"501","item":[{"feeId":"3","item":"物业费","money":"5.00"}],"code":"F201407246550","years":"2014","totalMoney":"5.00","quarter":"2","room":null},"errMsg":"","code":"0"}
-	       or:{"data":{"unit":"501","item":[],"code":"F201407247043","years":"2014","totalMoney":".00","quarter":"3","room":null},"errMsg":"","code":"0"}
+	     成功：{"data":{"unit":"501","item":[{"feeId":"1","item":"物业费","money":"5.00"},{"feeId":"2","item":"停车费","money":"2.00"}],"code":"F201407241078","years":"2014","totalMoney":"7.00","quarter":"1","room":null,"payInfo":"..."},"errMsg":"","code":"0"}
+	       or:{"data":{"unit":"501","item":[{"feeId":"3","item":"物业费","money":"5.00"}],"code":"F201407246550","years":"2014","totalMoney":"5.00","quarter":"2","room":null,"payInfo":"..."},"errMsg":"","code":"0"}
+	       or:{"data":{"unit":"501","item":[],"code":"F201407247043","years":"2014","totalMoney":".00","quarter":"3","room":null,"payInfo":"..."},"errMsg":"","code":"0"}
 	     异常：{"data":{},"errMsg":"查询待缴费明细异常","code":"-1"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
 
@@ -558,11 +561,13 @@
 	     address<String>:收货地址(用户选择配送时输入)
 	     remark<String>:订单备注
 	   输出参数：
+	     payInfo<String>:支付宝调用信息
 	     code<String>:订单编码
+	     count<String>:购买商品总数
 	     orderTime<String>:下单时间(yyyy-MM-dd HH:mm:ss)
 	     money<String>:订单金额
 	   示例：
-	     成功：{"errMsg":"","data":{"money":"110.00","orderTime":"2014-07-26 10:59:14","code":"S201407269969"},"code":"0"}
+	     成功：{"errMsg":"","data":{"money":"110.00","orderTime":"2014-07-26 10:59:14","code":"S201407269969","count":"2","payInfo":"..."},"code":"0"}
 	     异常：{"data":{},"errMsg":"提交订单异常","code":"-1"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}
 
@@ -605,8 +610,9 @@
 	         price<String>:商品价格
 	         number<String>:购买数量
 	       orderStatus<String>:订单状态(00:待支付; 01:已支付; 90:已完成; 99:已取消)
+	       payInfo<String>:支付宝调用信息(订单状态为00时返回此键值对)
 	   示例：
-	     有订单：{"errMsg":"","data":{"orderItem":[{"orderDetail":[{"price":"6.00","name":"男西服","image":"男西服.jpg","number":"1","commodityId":"s1"},{"price":"4.00","name":"女西服","image":"女西服.jpg","number":"1","commodityId":"s2"}],"orderMoney":"10.00","orderStatus":"00","orderId":"1"}],"orderItemCount":1},"code":"0"}
+	     有订单：{"errMsg":"","data":{"orderItem":[{"orderDetail":[{"price":"6.00","name":"男西服","image":"男西服.jpg","number":"1","commodityId":"s1"},{"price":"4.00","name":"女西服","image":"女西服.jpg","number":"1","commodityId":"s2"}],"orderMoney":"10.00","orderStatus":"00","orderId":"1","payInfo":"..."}],"orderItemCount":1},"code":"0"}
 	     无订单：{"errMsg":"","data":{"orderItem":[],"orderItemCount":1},"code":"0"}
 	     异常：{"data":{},"errMsg":"查询干洗订单异常","code":"-1"}
 	     鉴权异常：{"data":{},"errMsg":"用户鉴权异常，请检查用户唯一码","code":"-2"}

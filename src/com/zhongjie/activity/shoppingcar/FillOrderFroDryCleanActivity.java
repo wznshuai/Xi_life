@@ -37,10 +37,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.activity.shoppingcar.FillOrderFroDryCleanActivity.MyAdapter.ViewHolder;
+import com.zhongjie.global.Session;
 import com.zhongjie.model.ArayListJson;
 import com.zhongjie.model.ArayModel;
-import com.zhongjie.model.BaseJson;
 import com.zhongjie.model.DryCleanModel;
+import com.zhongjie.model.OrderSubmitSuccessJson;
 import com.zhongjie.model.SubmitCommodityModel;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.CommonRequest;
@@ -338,7 +339,7 @@ public class FillOrderFroDryCleanActivity extends BaseSecondActivity implements
 		}
 	}
 
-	class SubmitOrderTask extends AsyncTask<Void, Void, BaseJson> {
+	class SubmitOrderTask extends AsyncTask<Void, Void, OrderSubmitSuccessJson> {
 		CommonLoadingDialog cld;
 
 		@Override
@@ -357,8 +358,8 @@ public class FillOrderFroDryCleanActivity extends BaseSecondActivity implements
 		}
 
 		@Override
-		protected BaseJson doInBackground(Void... params) {
-			BaseJson uj = null;
+		protected OrderSubmitSuccessJson doInBackground(Void... params) {
+			OrderSubmitSuccessJson uj = null;
 			try {
 				List<SubmitCommodityModel> scmList = null;
 				if (null != mCartManager.mCartList) {
@@ -386,7 +387,7 @@ public class FillOrderFroDryCleanActivity extends BaseSecondActivity implements
 								: null, mDispatchMode.equals(ZT) ? null : man,
 						phone, invoice, address, null);
 				if (!TextUtils.isEmpty(result)) {
-					uj = JSON.parseObject(result, BaseJson.class);
+					uj = JSON.parseObject(result, OrderSubmitSuccessJson.class);
 				}
 			} catch (Exception e) {
 				Logger.e(getClass().getSimpleName(), "SubmitOrderTask error", e);
@@ -395,7 +396,7 @@ public class FillOrderFroDryCleanActivity extends BaseSecondActivity implements
 		}
 
 		@Override
-		protected void onPostExecute(BaseJson result) {
+		protected void onPostExecute(OrderSubmitSuccessJson result) {
 			super.onPostExecute(result);
 			if (!canGoon())
 				return;
@@ -407,6 +408,7 @@ public class FillOrderFroDryCleanActivity extends BaseSecondActivity implements
 				if (result.code == 0) {
 					Intent intent = new Intent(FillOrderFroDryCleanActivity.this,
 							SubmitOrderSuccess.class);
+					Session.getSession().put("orderInfo", result.data);
 					startActivity(intent);
 				} else {
 					showToast(result.errMsg);

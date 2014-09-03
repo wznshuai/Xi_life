@@ -1,38 +1,17 @@
 package com.zhongjie.activity.managerservice;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
-import antistatic.spinnerwheel.AbstractWheel;
-import antistatic.spinnerwheel.OnWheelChangedListener;
 import antistatic.spinnerwheel.WheelVerticalView;
 import antistatic.spinnerwheel.adapters.ArrayWheelAdapter;
 import antistatic.spinnerwheel.adapters.NumericWheelAdapter;
@@ -41,18 +20,11 @@ import com.alibaba.fastjson.JSON;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.activity.user.LoginActivity;
-import com.zhongjie.global.Session;
-import com.zhongjie.model.BaseJson;
 import com.zhongjie.model.PaymentShowJson;
 import com.zhongjie.model.PaymentShowModel;
-import com.zhongjie.model.RepairShowModel;
-import com.zhongjie.model.RepairsShowJson;
-import com.zhongjie.model.UploadImageJson;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.CommonRequest;
-import com.zhongjie.util.Constants;
 import com.zhongjie.util.Logger;
-import com.zhongjie.view.CommonDialog2;
 import com.zhongjie.view.CommonLoadingDialog;
 
 public class PaymentActivity extends BaseSecondActivity {
@@ -62,7 +34,7 @@ public class PaymentActivity extends BaseSecondActivity {
 	private View mSubmit;
 	private CommonRequest mRequest;
 	private TextView mAddress;
-	private PaymentShowModel mRepairModel;
+	private PaymentShowModel mPaymentShowModel;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,16 +65,10 @@ public class PaymentActivity extends BaseSecondActivity {
 				new String[] { "未知" }));
 	}
 
-	private int paresStrDate(String strDate) {
-		if (strDate.charAt(0) == 0 && strDate.length() > 1) {
-			return Integer.valueOf(strDate.substring(1, strDate.length()));
-		}
-		return Integer.valueOf(strDate);
-	}
 
 	@Override
 	protected void initViews() {
-		mTopCenterImg.setImageResource(R.drawable.ic_logo_repair_top);
+		mTopCenterImg.setImageResource(R.drawable.ic_top_logo_payment);
 		mTopCenterImg.setVisibility(View.VISIBLE);
 
 		initCalendar();
@@ -112,7 +78,10 @@ public class PaymentActivity extends BaseSecondActivity {
 			@Override
 			public void onClick(View v) {
 				if (UserModelManager.getInstance().isLogin()) {
-//					new SubmitRepair().execute();
+					Intent intent = new Intent(PaymentActivity.this, PaymentDetailsActivity.class);
+					intent.putExtra("year", mPaymentShowModel.year);
+					intent.putExtra("quarter", mPaymentShowModel.quarter[mMonthWheel.getCurrentItem()]);
+					startActivity(intent);
 				} else {
 					startActivity(new Intent(PaymentActivity.this,
 							LoginActivity.class));
@@ -123,13 +92,13 @@ public class PaymentActivity extends BaseSecondActivity {
 
 	private void initInfos(PaymentShowModel rsm) {
 		if (null != rsm) {
-			mRepairModel = rsm;
+			mPaymentShowModel = rsm;
 			mAddress.setText("房号 :  " + rsm.unit + "栋" + rsm.room + "室");
 			if (null != rsm.quarter) {
 				int size = rsm.quarter.length;
 				String[] a = new String[size];
 				for (int i = 0; i < rsm.quarter.length; i++) {
-					a[i] = intToStr(rsm.quarter[i]) + "季度";
+					a[i] = intToStr(rsm.quarter[i]);
 				}
 
 				mMonthWheel.setViewAdapter(new ArrayWheelAdapter<String>(this,
@@ -148,6 +117,20 @@ public class PaymentActivity extends BaseSecondActivity {
 			return "三";
 		}else if(quarter.equals("4")){
 			return "四";
+		}
+		return "无效的";
+	}
+	
+	@SuppressWarnings("unused")
+	private String strToInt(String quarter){
+		if(quarter.equals("一")){
+			return "1";
+		}else if(quarter.equals("二")){
+			return "2";
+		}else if(quarter.equals("三")){
+			return "3";
+		}else if(quarter.equals("四")){
+			return "4";
 		}
 		return "无效的";
 	}
