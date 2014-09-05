@@ -137,44 +137,55 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
-        <ImageView
-            android:id="@+id/header_homepage_full1_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="3dp"
-            android:layout_marginTop="20dp"
-            android:scaleType="center"
-            android:src="@drawable/temp_breakfast" />
-
         <LinearLayout
-            android:id="@+id/header_homepage_full1_area"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:orientation="vertical" >
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center" >
 
-            <TextView
+            <ImageView
+                android:id="@+id/header_homepage_full1_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="早餐速送"
-                android:textColor="#000000"
-                android:textSize="15sp" />
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="20dp"
+                android:scaleType="center"
+                android:src="@drawable/temp_breakfast" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/header_homepage_full1_area"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="温暖早餐升级服务"
-                android:textColor="#666666"
-                android:textSize="12sp" />
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/header_homepage_full1_mainTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="早餐速送"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/header_homepage_full1_lessTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="温暖早餐升级服务"
+                    android:textColor="#666666"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <ImageView
             android:layout_width="@dimen/line_height"
             android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:background="#aabbcc" />
@@ -182,53 +193,64 @@
         <ImageView
             android:layout_width="@dimen/line_height"
             android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:background="#ffffff" />
 
-        <ImageView
-            android:id="@+id/header_homepage_full2_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="3dp"
-            android:layout_marginTop="20dp"
-            android:scaleType="center"
-            android:src="@drawable/temp_fruit" />
-
         <LinearLayout
-            android:id="@+id/header_homepage_full2_area"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:orientation="vertical" >
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center" >
 
-            <TextView
+            <ImageView
+                android:id="@+id/header_homepage_full2_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="当季水果"
-                android:textColor="#000000"
-                android:textSize="15sp" />
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="20dp"
+                android:scaleType="center"
+                android:src="@drawable/temp_fruit" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/header_homepage_full2_area"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="精选时令鲜果"
-                android:textColor="#666666"
-                android:textSize="12sp" />
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/header_homepage_full2_mainTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="当季水果"
+                    android:textColor="#000000"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/header_homepage_full2_lessTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="精选时令鲜果"
+                    android:textColor="#666666"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@color/white"
         android:orientation="horizontal"
-        android:padding="10dp"
-        android:background="@color/white" >
+        android:padding="10dp" >
 
         <TextView
             android:layout_width="0dp"

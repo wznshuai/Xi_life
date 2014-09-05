@@ -29,6 +29,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.activity.anytimebuy.SendCommentActivity;
+import com.zhongjie.global.Session;
 import com.zhongjie.model.OrderListJson;
 import com.zhongjie.model.OrderModel;
 import com.zhongjie.model.OrderStatus;
@@ -309,12 +310,7 @@ public class MyOrderActivity extends BaseSecondActivity {
 						TextView tv = (TextView) v;
 						final OrderModel order = getItem((Integer)v.getTag());
 						String str = tv.getText().toString();
-						Intent intent = new Intent();
-						if (str.equals("去评价")) {
-							intent.setClass(MyOrderActivity.this,
-									SendCommentActivity.class);
-							startActivity(intent);
-						} else if (str.equals("去付款")) {
+						if (str.equals("去付款")) {
 							new Thread(){
 								@Override
 								public void run() {
@@ -359,7 +355,7 @@ public class MyOrderActivity extends BaseSecondActivity {
 						ImageLoader.getInstance().displayImage(scm.image, commodityImg);
 						commodityPrice.setText(scm.price);
 						commodityCount.setText("数量 : " + scm.number);
-						
+						goComment.setTag(i);
 						goComment.setOnClickListener(new OnClickListener() {
 
 							@Override
@@ -367,6 +363,7 @@ public class MyOrderActivity extends BaseSecondActivity {
 								Intent intent = new Intent();
 								intent.setClass(MyOrderActivity.this,
 										SendCommentActivity.class);
+								Session.getSession().put("commodity", order.orderDetail.get((Integer)v.getTag()));
 								startActivity(intent);
 							}
 						});
@@ -384,7 +381,7 @@ public class MyOrderActivity extends BaseSecondActivity {
 				vh.doNeed.setTag(position);
 
 				if (status.equals(STATUS_WAIT_PAY)) {
-					vh.trashIC.setVisibility(View.VISIBLE);
+//					vh.trashIC.setVisibility(View.VISIBLE);
 					vh.doNeed.setVisibility(View.VISIBLE);
 				} else if (status.equals(STATUS_WAIT_COMMENT)) {
 					vh.trashIC.setVisibility(View.GONE);

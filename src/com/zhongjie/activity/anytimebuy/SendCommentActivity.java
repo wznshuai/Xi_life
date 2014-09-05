@@ -6,13 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -21,14 +25,26 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
+import com.zhongjie.global.Session;
+import com.zhongjie.model.BaseJson;
+import com.zhongjie.model.ShopCartModel;
+import com.zhongjie.model.UploadImageJson;
+import com.zhongjie.model.UserModelManager;
+import com.zhongjie.util.CommonRequest;
 import com.zhongjie.util.Constants;
 import com.zhongjie.view.CommonDialog2;
+import com.zhongjie.view.CommonLoadingDialog;
 import com.zhongjie.view.MyRatingbar;
 import com.zhongjie.view.SlideRightOutView;
 
@@ -45,6 +61,17 @@ public class SendCommentActivity extends BaseSecondActivity implements
 	private MyRatingbar mRatingbar;
 
 	private List<SendCommentGridModel> mGridList;
+	
+	private ShopCartModel mCommodityModel;
+	private LinearLayout mCommodityArea;
+	private ImageView mCommodityImg;
+	private TextView mCommodityName, mCommodityPrice;
+	private CommonRequest mRequest;
+	private StringBuffer mUploadUrl;
+	private String sessId;
+	private EditText mEdit;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +85,9 @@ public class SendCommentActivity extends BaseSecondActivity implements
 		SendCommentGridModel scgm = new SendCommentGridModel();
 		scgm.isPhoto = false;
 		mGridList.add(scgm);
+		mCommodityModel = (ShopCartModel)Session.getSession().remove("commodity");
+		mRequest = new CommonRequest(getApplicationContext());
+		sessId = UserModelManager.getInstance().getmUser().sessId;
 	}
 
 	@Override
@@ -65,16 +95,34 @@ public class SendCommentActivity extends BaseSecondActivity implements
 		mRatingbar = (MyRatingbar) findViewById(R.id.act_send_comment_ratingbar);
 		mRatingbar.setSrov((SlideRightOutView) mSlide);
 		mGridView = (GridView) findViewById(R.id.act_send_comment_geidview);
+		mCommodityArea = (LinearLayout)findViewById(R.id.act_send_comment_commodity);
+		mCommodityImg = (ImageView)findViewById(R.id.act_send_comment_commodity_img);
+		mCommodityName = (TextView)findViewById(R.id.act_send_comment_commodity_name);
+		mCommodityPrice = (TextView)findViewById(R.id.act_send_comment_commodity_price);
+		mEdit = (EditText)findViewById(R.id.act_send_comment_edit);
 	}
 
 	@Override
 	protected void initViews() {
+		initCommodity();
 		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
 		mTopLeftImg.setVisibility(View.VISIBLE);
 		mTopCenterTxt.setText("商品评价");
 		mTopCenterTxt.setVisibility(View.VISIBLE);
 		mTopRightTxt.setText("提交");
 		mTopRightTxt.setVisibility(View.VISIBLE);
+		
+		mTopRightTxt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(TextUtils.isEmpty(mEdit.getText().toString())){
+					showToast("请填写评价内容");
+				}else{
+					new SendCommentTask().execute();
+				}
+			}
+		});
 
 		mGridView.setAdapter(new MyGridAdapter());
 		mGridView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -101,6 +149,16 @@ public class SendCommentActivity extends BaseSecondActivity implements
 			}
 			
 		});
+	}
+	
+	
+	
+	private void initCommodity(){
+		if(null != mCommodityModel){
+			ImageLoader.getInstance().displayImage(mCommodityModel.image, mCommodityImg, options);
+			mCommodityName.setText(mCommodityModel.name);
+			mCommodityPrice.setText("￥" + mCommodityModel.price);
+		}
 	}
 
 	class MyGridAdapter extends BaseAdapter {
@@ -287,8 +345,8 @@ public class SendCommentActivity extends BaseSecondActivity implements
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 100);
-		intent.putExtra("outputY", 100);
+		intent.putExtra("outputX", 200);
+		intent.putExtra("outputY", 200);
 		intent.putExtra("scale", true);
 		Uri imageUri = Uri.fromFile(getTempHeadFile(true));
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
@@ -308,6 +366,128 @@ public class SendCommentActivity extends BaseSecondActivity implements
 		}
 		((BaseAdapter)mGridView.getAdapter()).notifyDataSetChanged();
 	}
+	
+	class SendCommentTask extends AsyncTask<Void, Void, BaseJson> {
+		CommonLoadingDialog cld = null;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			cld = CommonLoadingDialog.create(SendCommentActivity.this);
+			cld.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					cancel(true);
+				}
+			});
+			cld.show();
+		}
+
+		
+		@Override
+		protected BaseJson doInBackground(Void... params) {
+			String result = mRequest.commodityEvaluate(sessId, 
+					mCommodityModel.commodityId, 
+					mRatingbar.getRating() + "", mEdit.getText().toString(), 
+					null == mUploadUrl ? null : mUploadUrl.toString());
+			BaseJson uij = null;
+			if(!TextUtils.isEmpty(result)){
+				uij = JSON.parseObject(result, BaseJson.class);
+			}
+			return uij;
+		}
+
+		@Override
+		protected void onPostExecute(BaseJson result) {
+
+			if (!canGoon())
+				return;
+
+			if (null != cld) {
+				cld.cancel();
+				cld = null;
+			}
+			
+			if(null != result){
+				if(result.code == 0){
+					showToast("谢谢您的评价!");
+					finish();
+				}else{
+					showToast(result.errMsg);
+				}
+			}else{
+				showToast("上传图片失败");
+			}
+		}
+	}
+	
+	class UploadImgTask extends AsyncTask<File, Void, UploadImageJson> {
+		CommonLoadingDialog cld = null;
+		String largeLogo;
+		String middleLogo;
+		String smallLogo;
+		String backgroundLogo;
+		int flag;
+		File file;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			cld = CommonLoadingDialog.create(SendCommentActivity.this);
+			cld.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					cancel(true);
+				}
+			});
+			cld.setTitle("上传");
+			cld.setMessage("图片上传中");
+			cld.show();
+		}
+
+		@Override
+		protected UploadImageJson doInBackground(File... params) {
+			file = params[0];
+			String result = mRequest.repairImageUpload(file);
+			UploadImageJson uij = null;
+			if(!TextUtils.isEmpty(result)){
+				uij = JSON.parseObject(result, UploadImageJson.class);
+			}
+			return uij;
+		}
+
+		@Override
+		protected void onPostExecute(UploadImageJson result) {
+
+			if (!canGoon())
+				return;
+
+			if (null != cld) {
+				cld.cancel();
+				cld = null;
+			}
+			
+			if(null != result){
+				if(result.code == 0){
+					if(null != result.data){
+						if(null == mUploadUrl){
+							mUploadUrl = new StringBuffer();
+							mUploadUrl.append(result.data.uploadPath);
+						}else{
+							mUploadUrl.append("!" + result.data.uploadPath);
+						}
+						addInView(BitmapFactory.decodeFile(file.getPath()));
+					}
+				}else{
+					showToast(result.errMsg);
+				}
+			}else{
+				showToast("上传图片失败");
+			}
+		}
+	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -322,9 +502,9 @@ public class SendCommentActivity extends BaseSecondActivity implements
 				startPhotoZoom(data.getData());
 			}
 		} else if (requestCode == PHOTORESOULT) {
-			if (resultCode == Activity.RESULT_OK)
-				addInView(BitmapFactory.decodeFile(getTempHeadFile(true)
-						.getPath()));
+			if (resultCode == Activity.RESULT_OK){
+				new UploadImgTask().execute(getTempHeadFile(true));
+			}
 		}
 	}
 }

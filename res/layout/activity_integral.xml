@@ -32,7 +32,7 @@
                 android:orientation="horizontal" >
 
                 <com.zhongjie.view.RoundedImageView
-                    android:id="@+id/act_userinfo_head"
+                    android:id="@+id/act_integral_head"
                     android:layout_width="@dimen/usercenter_head_width"
                     android:layout_height="@dimen/usercenter_head_height"
                     android:src="@drawable/ic_default_head"
@@ -47,9 +47,9 @@
                     android:orientation="vertical" >
 
                     <TextView
+                        android:id="@+id/act_integral_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="南京达人"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
@@ -60,17 +60,18 @@
                         android:orientation="horizontal" >
 
                         <TextView
+                            android:id="@+id/act_integral_address"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ellipsize="end"
                             android:gravity="right"
                             android:singleLine="true"
-                            android:text="2栋5012室"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/act_integral_integral_1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
@@ -94,23 +95,24 @@
                 android:background="#eeeeee">
                 <TextView 
                     android:layout_marginTop="10dp"
-                    android:id="@+id/act_integral_integral"
+                    android:id="@+id/act_integral_integral2"
                     android:layout_marginLeft="@dimen/integral_common_leftMargin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#666666"
                     android:text="积分   878"/>
                 <ImageView 
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:background="#cccccc"
-                    android:layout_below="@+id/act_integral_integral"/>
+                    android:layout_below="@+id/act_integral_integral2"/>
                 <ImageView 
                     android:layout_width="wrap_content"
                     android:layout_height="2dp"
                     android:background="#ff0099"
-                    android:layout_alignLeft="@+id/act_integral_integral"
-                    android:layout_alignRight="@+id/act_integral_integral"
-                    android:layout_below="@+id/act_integral_integral"/>
+                    android:layout_alignLeft="@+id/act_integral_integral2"
+                    android:layout_alignRight="@+id/act_integral_integral2"
+                    android:layout_below="@+id/act_integral_integral2"/>
             </RelativeLayout>
             <RelativeLayout 
                 android:layout_width="match_parent"
@@ -120,13 +122,20 @@
                     android:layout_height="match_parent"
                     android:background="#cccccc"
                     android:layout_marginLeft="@dimen/integral_line_leftMargin"/>
-                <ListView 
+                <com.handmark.pulltorefresh.library.PullToRefreshListView 
                     android:id="@+id/act_integral_listview"
                     style="@style/MyListView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:dividerHeight="5dp"/>
+                    android:dividerHeight="5dp"
+                    android:overScrollMode="never"/>
+                <com.zhongjie.view.PromptView 
+                    android:id="@+id/promptView"
+                    android:layout_alignTop="@+id/act_integral_listview"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

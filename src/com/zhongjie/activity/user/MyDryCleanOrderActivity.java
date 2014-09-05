@@ -384,7 +384,7 @@ public class MyDryCleanOrderActivity extends BaseSecondActivity {
 				vh.doNeed.setTag(position);
 
 				if (status.equals(STATUS_WAIT_PAY)) {
-					vh.trashIC.setVisibility(View.VISIBLE);
+//					vh.trashIC.setVisibility(View.VISIBLE);
 					vh.doNeed.setVisibility(View.VISIBLE);
 				} else if (status.equals(STATUS_WAIT_COMMENT)) {
 					vh.trashIC.setVisibility(View.GONE);

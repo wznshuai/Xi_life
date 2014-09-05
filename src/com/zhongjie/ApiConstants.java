@@ -52,4 +52,10 @@ public class ApiConstants {
 	public static final String URL_REPAIR_QUERY = BASE_HOST + "repair/queryByUser";
 	//用户积分查询
 	public static final String URL_USER_COST = BASE_HOST + "user/cost";
+	//上传点评图片
+	public static final String URL_ESHOP_IMAGE_UPLOAD = BASE_HOST + "eshop/imageUpload";
+	//查询商品评价
+	public static final String URL_ESHOP_QUERY_EVALUATE = BASE_HOST + "eshop/queryEvaluate";
+	//点评商品
+	public static final String URL_ESHOP_EVALUATE = BASE_HOST + "eshop/evaluate";
 }

@@ -196,7 +196,7 @@ public class MyRepairsActivity extends BaseSecondActivity{
 			RepairHitoryModel repair = getItem(position);
 			
 			vh.repairsType.setText(Html.fromHtml("报修分类  : <font color='red'>" + repair.classify + "</font>"));
-			vh.address.setText("xx栋xx室");
+			vh.address.setText(repair.unit + "栋" + repair.room + "室");
 			vh.orderTime.setText("预约时间 : " + repair.repairDate);
 			vh.time.setText("报修时间 : " + repair.createTime);
 			

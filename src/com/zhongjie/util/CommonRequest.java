@@ -330,4 +330,49 @@ public class CommonRequest {
 		data.put("step", step + "");
 		return mHttpUtil.executePost(ApiConstants.URL_REPAIR_QUERY, data);
 	}
+	/**
+	 * 用户积分查询
+	 * @param sessId
+	 * @param start
+	 * @param step
+	 * @return
+	 */
+	public String queryUserIntegral(String sessId, int start, int step){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("sessId", sessId);
+		data.put("start", start + "");
+		data.put("step", step + "");
+		return mHttpUtil.executePost(ApiConstants.URL_USER_COST, data);
+	}
+	/**
+	 * 点评商品
+	 * @param sessId
+	 * @param commodityId
+	 * @param point
+	 * @param content
+	 * @param imageList
+	 * @return
+	 */
+	public String commodityEvaluate(String sessId, String commodityId, 
+			String point, String content, String imageList){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("sessId", sessId);
+		data.put("commodityId", commodityId);
+		data.put("point", point);
+		data.put("content", content);
+		data.put("imageList", imageList);
+		return mHttpUtil.executePost(ApiConstants.URL_ESHOP_EVALUATE, data);
+	}
+	/**
+	 * 查询商品评价
+	 * @param commodityId
+	 * @return
+	 */
+	public String queryCommodityEvaluate(String commodityId){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("commodityId", commodityId);
+		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_QUERY_EVALUATE, data);
+	}
+	
+	
 }

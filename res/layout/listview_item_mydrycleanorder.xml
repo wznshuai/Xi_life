@@ -23,7 +23,8 @@
             android:id="@+id/list_item_myorder_trashIC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_trash_can" />
+            android:src="@drawable/ic_trash_can"
+            android:visibility="gone" />
     </LinearLayout>
 
     <ImageView

@@ -11,6 +11,7 @@ import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.global.Session;
 import com.zhongjie.model.OrderSubmitSuccessModel;
+import com.zhongjie.util.pay.Result;
 
 public class SubmitOrderSuccess extends BaseSecondActivity{
 	
@@ -59,7 +60,9 @@ public class SubmitOrderSuccess extends BaseSecondActivity{
 					new Thread(){
 						public void run() {
 							PayTask alipay = new PayTask(SubmitOrderSuccess.this);
-							alipay.pay(mOrderModel.payInfo);
+							String result = alipay.pay(mOrderModel.payInfo);
+							Result r = new Result(result);
+							System.out.println("r.isSuccess : " + r.isOK());
 						};
 					}.start();
 				}

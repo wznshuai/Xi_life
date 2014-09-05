@@ -204,7 +204,11 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.act_commodity_details_goComment:
-			startActivity(new Intent(CommodityDetailsActivity.this, CommodityCommentActivity.class));
+			if(mDetails.evaluate > 0){
+				Intent intent = new Intent(CommodityDetailsActivity.this, CommodityCommentActivity.class);
+				intent.putExtra("commodityId", mDetails.commodityId);
+				startActivity(intent);
+			}
 			break;
 		case R.id.act_commodity_details_addInCart:
 			String countStr = mCountEdittext.getText().toString();

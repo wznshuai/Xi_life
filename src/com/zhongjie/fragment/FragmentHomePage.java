@@ -60,6 +60,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 	private View mFull1, mFull2;
 	private ImageView mFullImg1, mFullImg2;
 	private MyCommodityAdapter mCommodityAdapter;
+	private TextView mMainTitle1, mMainTitle2, mLessTitle1, mLessTitle2; 
 	
 	public static FragmentHomePage newInstance(){
 		if(null == mInstance)
@@ -101,6 +102,10 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 		mFullImg2 = (ImageView)mHeaderView.findViewById(R.id.header_homepage_full2_img);
 		mGoDryClean = mHeaderView.findViewById(R.id.fra_homepage_dryclean);
 		mGoPayment = mHeaderView.findViewById(R.id.fra_homepage_goPayment);
+		mMainTitle1 = (TextView)mHeaderView.findViewById(R.id.header_homepage_full1_mainTitle);
+		mMainTitle2 = (TextView)mHeaderView.findViewById(R.id.header_homepage_full2_mainTitle);
+		mLessTitle1 = (TextView)mHeaderView.findViewById(R.id.header_homepage_full1_lessTitle);
+		mLessTitle2 = (TextView)mHeaderView.findViewById(R.id.header_homepage_full2_lessTitle);
 	}
 	
 	@Override
@@ -177,7 +182,15 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 		if(null != mFullList){
 			for(int i = 0;i < mFullList.size();i++){
 				FullModel fm = mFullList.get(i);
-				ImageLoader.getInstance().displayImage(fm.image, mFullImg1, options);
+				if(i == 0){
+					ImageLoader.getInstance().displayImage(fm.image, mFullImg1, options);
+					mMainTitle1.setText(fm.name);
+					mLessTitle1.setText(fm.info);
+				}else{
+					ImageLoader.getInstance().displayImage(fm.image, mFullImg2, options);
+					mMainTitle2.setText(fm.name);
+					mLessTitle2.setText(fm.info);
+				}
 				if(i == 1)
 					break;
 			}

@@ -33,11 +33,13 @@
                 android:orientation="vertical" >
 
                 <LinearLayout
+                    android:id="@+id/act_send_comment_commodity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal" >
 
                     <ImageView
+                        android:id="@+id/act_send_comment_commodity_img"
                         android:layout_width="@dimen/commodity_item_img"
                         android:layout_height="@dimen/commodity_item_img"
                         android:scaleType="centerCrop"
@@ -53,26 +55,21 @@
                         android:paddingTop="2dp" >
 
                         <TextView
+                            android:id="@+id/act_send_comment_commodity_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="饭团·豆沙馅"
                             android:textColor="#333333"
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/act_send_comment_commodity_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
-                            android:text="￥1.56"
                             android:textColor="#ff0099"
                             android:textSize="19sp" />
                     </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_arrow_right_blue" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -104,6 +101,7 @@
                     </LinearLayout>
 
                     <EditText
+                        android:id="@+id/act_send_comment_edit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"

@@ -12,7 +12,7 @@
         android:orientation="horizontal" >
 
         <com.zhongjie.view.RoundedImageView
-            android:id="@+id/act_userinfo_head"
+            android:id="@+id/list_item_commodity_comment_img"
             android:layout_width="@dimen/order_photo"
             android:layout_height="@dimen/order_photo"
             android:src="@drawable/ic_default_head"
@@ -42,6 +42,7 @@
                     android:textSize="16sp" />
                 
                 <TextView 
+                    android:id="@+id/list_item_commodity_comment_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2014.3.12"
@@ -57,6 +58,7 @@
                 android:isIndicator="true" />
 
             <TextView
+                android:id="@+id/list_item_commodity_comment_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
