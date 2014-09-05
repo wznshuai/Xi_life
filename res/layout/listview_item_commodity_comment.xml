@@ -16,6 +16,7 @@
             android:layout_width="@dimen/order_photo"
             android:layout_height="@dimen/order_photo"
             android:src="@drawable/ic_default_head"
+            android:scaleType="centerCrop"
             app:corner_radius="50dp"
             app:pressdown_shade="true"
             app:round_background="true" />

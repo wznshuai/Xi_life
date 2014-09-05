@@ -13,7 +13,7 @@ public class Result {
 
 	private String mResult;
 	
-	String resultStatus = null;
+	public String resultStatus = null;
 	String memo = null;
 	String result = null;
 	boolean isSignOk = false;
@@ -73,6 +73,7 @@ public class Result {
 		errorCode = getContent(src, "resultStatus=", ";memo");
 		return errorCode;
 	}
+	
 
 	public  void parseResult() {
 		

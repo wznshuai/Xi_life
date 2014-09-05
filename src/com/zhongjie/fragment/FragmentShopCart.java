@@ -109,6 +109,9 @@ public class FragmentShopCart extends BaseFragment {
 			if (null != mCartManager.mCheckedList && mCartManager.mCheckedList.size() > 0) {
 				mBottomView.setVisibility(View.VISIBLE);
 				mTopRightImg.setVisibility(View.VISIBLE);
+			}else{
+				mBottomView.setVisibility(View.GONE);
+				mTopRightImg.setVisibility(View.GONE);
 			}
 		} else {
 			mEmptyView.setVisibility(View.VISIBLE);

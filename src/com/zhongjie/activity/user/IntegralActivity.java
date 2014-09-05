@@ -5,15 +5,19 @@ import java.util.List;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.R;
@@ -28,7 +32,7 @@ import com.zhongjie.view.PromptView;
 public class IntegralActivity extends BaseSecondActivity{
 	
 	private PullToRefreshListView mListView;
-	public int start = 0, step = 5, maxCount;
+	public int start = 0, step = 20, maxCount;
 	private PromptView mPromptView;
 	private CommonRequest mRequest;
 	private String sessId;
@@ -78,6 +82,23 @@ public class IntegralActivity extends BaseSecondActivity{
 			name.setText(TextUtils.isEmpty(um.nickName) ? getString(R.string.nickname_null)
 					: um.nickName);
 		}
+		mListView.setOnRefreshListener(new OnRefreshListener2<ListView>() {
+
+			@Override
+			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {}
+
+			@Override
+			public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+				String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
+						DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+				// Update the LastUpdatedLabel
+				refreshView.getLoadingLayoutProxy().setLastUpdatedLabel("上次加载时间: " + label);
+				start++;
+				new QueryUserIntegralTask().execute();
+			}
+			
+		});
 	}
 	
 	class QueryUserIntegralTask extends AsyncTask<String, Void, IntegralListJson> {

@@ -35,6 +35,7 @@ import com.zhongjie.model.OrderStatus;
 import com.zhongjie.model.ShopCartModel;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.CommonRequest;
+import com.zhongjie.util.ShopCartManager;
 import com.zhongjie.util.pay.Result;
 import com.zhongjie.view.PromptView;
 
@@ -45,7 +46,7 @@ public class MyDryCleanOrderActivity extends BaseSecondActivity {
 	private static String STATUS_HAD_COMMPLETED = "已完成";
 	private static String STATUS_HAD_CANCELED = "已取消";
 	
-	public int start = 0, step = 5, maxCount;
+	public int start = 0, step = 20, maxCount;
 
 	private PromptView mPromptView;
 	private CommonRequest mRequest;
@@ -320,9 +321,15 @@ public class MyDryCleanOrderActivity extends BaseSecondActivity {
 								public void run() {
 									PayTask alipay = new PayTask(MyDryCleanOrderActivity.this);
 									String resultStr = alipay.pay(order.payInfo);
-									System.out.println("resultStr : " + resultStr);
-									Result result = new Result(resultStr);
-									System.out.println("result.isOK() : " + result.isOK());
+									Result r = new Result(resultStr);
+									if(r.getErrorCode().equals("9000")){
+										runOnUiThread(new Runnable() {
+											@Override
+											public void run() {
+												showToast("交易成功~");
+											}
+										});
+									}
 								}
 							}.start();
 						}

@@ -14,7 +14,7 @@ public class ShopCartManager {
 	
 	private static ShopCartManager mInstance;
 	
-	private List<ShopCartModel> mCartList;
+	public List<ShopCartModel> mCartList;
 	public List<ShopCartModel> mCheckedList;
 
 	private ShopCartManager(){}
