@@ -217,6 +217,7 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 					int count = Integer.valueOf(countStr);
 					mDetails.selectedTaste = mSelectedTaste;
 					mCartManager.addInShopCart(mDetails, count, false);
+					showToast("加入购物车成功~~");
 				}catch(Exception e){
 					showToast("输入数量不正确");
 					Logger.e(TAG, "", e);

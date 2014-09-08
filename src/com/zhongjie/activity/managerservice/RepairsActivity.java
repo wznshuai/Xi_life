@@ -299,7 +299,7 @@ public class RepairsActivity extends BaseSecondActivity{
 				String day = ((NumericWheelAdapter)mDayWheel.getViewAdapter())
 						.getItemText(mDayWheel.getCurrentItem()).toString();
 				mRepairModel.needClassify = ((ArrayWheelAdapter<String>)mRepairsTypeWheel.getViewAdapter())
-						.getItemText(mYearWheel.getCurrentItem()).toString();
+						.getItemText(mRepairsTypeWheel.getCurrentItem()).toString();
 				mRepairModel.needRepairDate = year + "-" + month + "-" + day;
 				String result = mRequest.repairSubmit(
 						UserModelManager.getInstance().getmUser().sessId,

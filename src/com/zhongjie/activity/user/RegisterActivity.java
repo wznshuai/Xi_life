@@ -29,7 +29,7 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 	
 	private TextView mSendSms;
 	private CommonRequest mRequest;
-	private EditText mPhoneEdit, mPasswordEdit, mPasswordEdit2;
+	private EditText mPhoneEdit, mPasswordEdit, mPasswordEdit2, mVerifycodeEdit;
 	private static final int SMS_WAIT_TIME = 30;
 	private static final int SMS_TIME = 0, SMS_AGAIN_OK = 1;//handler 发送字段
 	private static final String SEND_AGAIN = "重新发送";
@@ -73,6 +73,7 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 		mSubmit = findViewById(R.id.act_register_submit);
 		mSendSms = (TextView)findViewById(R.id.act_register_sendSMS);
 		mPhoneEdit = (EditText)findViewById(R.id.act_register_phonenum);
+		mVerifycodeEdit = (EditText)findViewById(R.id.act_register_verifycode);
 	}
 
 	@Override
@@ -203,8 +204,8 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 			UserJson bm = null;
 			String mobile = mPhoneEdit.getText().toString();
 			String password = mPasswordEdit.getText().toString();
-			// TODO 验证码暂时写定为000000
-			String result = mRequest.register(mobile, password, "000000");
+			String verifyCode = mVerifycodeEdit.getText().toString();
+			String result = mRequest.register(mobile, password, verifyCode);
 			if(!TextUtils.isEmpty(result)){
 				bm = JSON.parseObject(result, UserJson.class);
 			}

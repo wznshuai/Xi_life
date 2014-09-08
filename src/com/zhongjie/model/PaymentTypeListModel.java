@@ -10,4 +10,5 @@ public class PaymentTypeListModel {
     public List<PaymentTypeModel> item;//<List>:缴费明细
     public String totalMoney;//<String>:总金额
     public String code;//<String>:缴费订单号
+    public String payInfo;//支付宝调用信息
 }

@@ -11,7 +11,6 @@ import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.global.Session;
 import com.zhongjie.model.OrderSubmitSuccessModel;
-import com.zhongjie.util.ShopCartManager;
 import com.zhongjie.util.pay.Result;
 
 public class SubmitOrderSuccess extends BaseSecondActivity{
@@ -67,9 +66,6 @@ public class SubmitOrderSuccess extends BaseSecondActivity{
 								runOnUiThread(new Runnable() {
 									@Override
 									public void run() {
-										ShopCartManager.getInstance().mCartList
-										.removeAll(ShopCartManager.getInstance().mCheckedList);
-										ShopCartManager.getInstance().mCheckedList.clear();
 										showToast("交易成功~");
 										goHomeActivity();
 									}

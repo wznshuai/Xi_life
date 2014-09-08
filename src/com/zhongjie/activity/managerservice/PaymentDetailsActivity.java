@@ -6,10 +6,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.alipay.sdk.app.PayTask;
+import com.zhongjie.MainActivity;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
 import com.zhongjie.model.PaymentTypeListJson;
@@ -18,6 +21,7 @@ import com.zhongjie.model.PaymentTypeModel;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.CommonRequest;
 import com.zhongjie.util.Logger;
+import com.zhongjie.util.pay.Result;
 import com.zhongjie.view.CommonLoadingDialog;
 
 public class PaymentDetailsActivity extends BaseSecondActivity{
@@ -26,6 +30,7 @@ public class PaymentDetailsActivity extends BaseSecondActivity{
 	private String year, quarter;
 	private TextView mAddressTxt, mDateTxt, mTotalFeeTxt;
 	private LinearLayout mTypeArea;
+	private View mSubmitView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,7 @@ public class PaymentDetailsActivity extends BaseSecondActivity{
 		mDateTxt = (TextView)findViewById(R.id.act_payment_details_date);
 		mTotalFeeTxt = (TextView)findViewById(R.id.act_payment_details_totalFee);
 		mTypeArea = (LinearLayout)findViewById(R.id.act_payment_details_paytype);
+		mSubmitView = findViewById(R.id.act_payment_details_submit);
 	}
 
 	@Override
@@ -56,7 +62,7 @@ public class PaymentDetailsActivity extends BaseSecondActivity{
 		mDateTxt.append(year+"年"+intToStr(quarter)+"季度");
 	}
 	
-	private void initInfos(PaymentTypeListModel typeModel){
+	private void initInfos(final PaymentTypeListModel typeModel){
 		if(null == typeModel)
 			return;
 		mAddressTxt.append(typeModel.unit+"栋"+typeModel.room+"室");
@@ -71,11 +77,41 @@ public class PaymentDetailsActivity extends BaseSecondActivity{
 				name.setText(ptm.item);
 				money.append(ptm.money + "元");
 				mTypeArea.addView(ll);
-				if(i == typeModel.item.size() - 1){
+				if(i != typeModel.item.size() - 1){
 					mTypeArea.addView(getLayoutInflater()
 						.inflate(R.layout.include_dotted_line, mTypeArea, false));
 				}
 			}
+			mSubmitView.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					new Thread(){
+						@Override
+						public void run() {
+							PayTask alipay = new PayTask(PaymentDetailsActivity.this);
+							String resultStr = alipay.pay(typeModel.payInfo);
+							Result r = new Result(resultStr);
+							if(r.getErrorCode().equals("9000")){
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										runOnUiThread(new Runnable() {
+											@Override
+											public void run() {
+												showToast("交易成功~");
+												goHomeActivity(MainActivity.TAB_2);
+											}
+										});
+									}
+								});
+							}
+						}
+					}.start();
+				}
+			});
+		}else{
+			mSubmitView.setEnabled(false);
 		}
 		mTotalFeeTxt.setText("￥" + typeModel.totalMoney);
 	}

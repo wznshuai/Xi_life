@@ -96,7 +96,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/act_payment_submit"
+                    android:id="@+id/act_payment_details_submit"
                     style="@style/Common_Button.Blue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
