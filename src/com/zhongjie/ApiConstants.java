@@ -58,4 +58,6 @@ public class ApiConstants {
 	public static final String URL_ESHOP_QUERY_EVALUATE = BASE_HOST + "eshop/queryEvaluate";
 	//点评商品
 	public static final String URL_ESHOP_EVALUATE = BASE_HOST + "eshop/evaluate";
+	//修改密码
+	public static final String URL_USER_CHANGE_PWD = BASE_HOST + "user/changePassword";
 }

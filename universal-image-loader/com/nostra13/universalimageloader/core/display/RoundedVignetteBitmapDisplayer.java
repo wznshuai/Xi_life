@@ -15,17 +15,9 @@
  *******************************************************************************/
 package com.nostra13.universalimageloader.core.display;
 
-import android.graphics.Bitmap;
-import android.graphics.ComposeShader;
-import android.graphics.Matrix;
-import android.graphics.PorterDuff;
-import android.graphics.RadialGradient;
-import android.graphics.Rect;
-import android.graphics.Shader;
-
+import android.graphics.*;
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
-import com.nostra13.universalimageloader.core.imageaware.ImageShowInBGAware;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 
 /**
@@ -54,11 +46,8 @@ public class RoundedVignetteBitmapDisplayer extends RoundedBitmapDisplayer {
 		if (!(imageAware instanceof ImageViewAware)) {
 			throw new IllegalArgumentException("ImageAware should wrap ImageView. ImageViewAware is expected.");
 		}
-		
-		if(imageAware instanceof ImageShowInBGAware)
-			((ImageShowInBGAware)imageAware).setImageDrawableInBackground(new RoundedVignetteDrawable(bitmap, cornerRadius, margin));
-		else
-			imageAware.setImageDrawable(new RoundedVignetteDrawable(bitmap, cornerRadius, margin));
+
+		imageAware.setImageDrawable(new RoundedVignetteDrawable(bitmap, cornerRadius, margin));
 	}
 
 	protected static class RoundedVignetteDrawable extends RoundedDrawable {

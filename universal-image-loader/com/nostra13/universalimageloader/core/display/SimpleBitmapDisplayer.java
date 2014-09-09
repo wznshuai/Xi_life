@@ -16,10 +16,8 @@
 package com.nostra13.universalimageloader.core.display;
 
 import android.graphics.Bitmap;
-
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
-import com.nostra13.universalimageloader.core.imageaware.ImageShowInBGAware;
 
 /**
  * Just displays {@link Bitmap} in {@link com.nostra13.universalimageloader.core.imageaware.ImageAware}
@@ -30,9 +28,6 @@ import com.nostra13.universalimageloader.core.imageaware.ImageShowInBGAware;
 public final class SimpleBitmapDisplayer implements BitmapDisplayer {
 	@Override
 	public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
-		if(imageAware instanceof ImageShowInBGAware)
-			((ImageShowInBGAware)imageAware).setImageBitmapInBackground(bitmap);
-		else
-			imageAware.setImageBitmap(bitmap);
+		imageAware.setImageBitmap(bitmap);
 	}
 }

@@ -16,6 +16,8 @@
 package com.nostra13.universalimageloader.core;
 
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,19 +25,18 @@ import com.nostra13.universalimageloader.cache.disc.DiscCacheAware;
 import com.nostra13.universalimageloader.cache.memory.MemoryCacheAware;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.FlushedInputStream;
-import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.assist.ImageLoadingProgressListener;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
-import com.nostra13.universalimageloader.core.assist.MemoryCacheUtil;
-import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.assist.SyncImageLoadingListener;
+import com.nostra13.universalimageloader.utils.ImageSizeUtils;
+import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SyncImageLoadingListener;
 import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.nostra13.universalimageloader.core.imageaware.ImageNonViewAware;
-import com.nostra13.universalimageloader.core.imageaware.ImageShowInBGAware;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
-import com.nostra13.universalimageloader.utils.ImageSizeUtils;
 import com.nostra13.universalimageloader.utils.L;
 
 /**
@@ -195,7 +196,7 @@ public class ImageLoader {
 	 *                         from configuration} will be used.
 	 * @param listener         {@linkplain ImageLoadingListener Listener} for image loading process. Listener fires
 	 *                         events on UI thread.
-	 * @param progressListener {@linkplain com.nostra13.universalimageloader.core.assist.ImageLoadingProgressListener
+	 * @param progressListener {@linkplain com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener
 	 *                         Listener} for image loading progress. Listener fires events on UI thread.
 	 * @throws IllegalStateException    if {@link #init(ImageLoaderConfiguration)} method wasn't called before
 	 * @throws IllegalArgumentException if passed <b>imageAware</b> is null
@@ -217,25 +218,20 @@ public class ImageLoader {
 			engine.cancelDisplayTaskFor(imageAware);
 			listener.onLoadingStarted(uri, imageAware.getWrappedView());
 			if (options.shouldShowImageForEmptyUri()) {
-				if(imageAware instanceof ImageShowInBGAware)
-					((ImageShowInBGAware) imageAware).setImageDrawableInBackground(options.getImageForEmptyUri(configuration.resources));
-				else
-					imageAware.setImageDrawable(options.getImageForEmptyUri(configuration.resources));
+				imageAware.setImageDrawable(options.getImageForEmptyUri(configuration.resources));
 			} else {
-				if(imageAware instanceof ImageShowInBGAware)
-					((ImageShowInBGAware) imageAware).setImageDrawableInBackground(null);
-				else
-					imageAware.setImageDrawable(null);
+				imageAware.setImageDrawable(null);
 			}
 			listener.onLoadingComplete(uri, imageAware.getWrappedView(), null);
 			return;
 		}
 
 		ImageSize targetSize = ImageSizeUtils.defineTargetSizeForView(imageAware, configuration.getMaxImageSize());
-		String memoryCacheKey = MemoryCacheUtil.generateKey(uri, targetSize);
+		String memoryCacheKey = MemoryCacheUtils.generateKey(uri, targetSize);
 		engine.prepareDisplayTaskFor(imageAware, memoryCacheKey);
 
 		listener.onLoadingStarted(uri, imageAware.getWrappedView());
+
 		Bitmap bmp = configuration.memoryCache.get(memoryCacheKey);
 		if (bmp != null && !bmp.isRecycled()) {
 			if (configuration.writeLogs) L.d(LOG_LOAD_IMAGE_FROM_MEMORY_CACHE, memoryCacheKey);
@@ -244,7 +240,7 @@ public class ImageLoader {
 				ImageLoadingInfo imageLoadingInfo = new ImageLoadingInfo(uri, imageAware, targetSize, memoryCacheKey,
 						options, listener, progressListener, engine.getLockForUri(uri));
 				ProcessAndDisplayImageTask displayTask = new ProcessAndDisplayImageTask(engine, bmp, imageLoadingInfo,
-						options.getHandler());
+						defineHandler(options));
 				if (options.isSyncLoading()) {
 					displayTask.run();
 				} else {
@@ -264,7 +260,7 @@ public class ImageLoader {
 			ImageLoadingInfo imageLoadingInfo = new ImageLoadingInfo(uri, imageAware, targetSize, memoryCacheKey,
 					options, listener, progressListener, engine.getLockForUri(uri));
 			LoadAndDisplayImageTask displayTask = new LoadAndDisplayImageTask(engine, imageLoadingInfo,
-					options.getHandler());
+					defineHandler(options));
 			if (options.isSyncLoading()) {
 				displayTask.run();
 			} else {
@@ -354,7 +350,7 @@ public class ImageLoader {
 	 *                         from configuration} will be used.
 	 * @param listener         {@linkplain ImageLoadingListener Listener} for image loading process. Listener fires
 	 *                         events on UI thread.
-	 * @param progressListener {@linkplain com.nostra13.universalimageloader.core.assist.ImageLoadingProgressListener
+	 * @param progressListener {@linkplain com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener
 	 *                         Listener} for image loading progress. Listener fires events on UI thread.
 	 * @throws IllegalStateException    if {@link #init(ImageLoaderConfiguration)} method wasn't called before
 	 * @throws IllegalArgumentException if passed <b>imageView</b> is null
@@ -461,7 +457,7 @@ public class ImageLoader {
 	 *                         from configuration} will be used.<br />
 	 * @param listener         {@linkplain ImageLoadingListener Listener} for image loading process. Listener fires
 	 *                         events on UI thread.
-	 * @param progressListener {@linkplain com.nostra13.universalimageloader.core.assist.ImageLoadingProgressListener
+	 * @param progressListener {@linkplain com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener
 	 *                         Listener} for image loading progress. Listener fires events on UI thread.
 	 * @throws IllegalStateException if {@link #init(ImageLoaderConfiguration)} method wasn't called before
 	 */
@@ -699,5 +695,15 @@ public class ImageLoader {
 		stop();
 		engine = null;
 		configuration = null;
+	}
+
+	private static Handler defineHandler(DisplayImageOptions options) {
+		Handler handler = options.getHandler();
+		if (options.isSyncLoading()) {
+			handler = null;
+		} else if (handler == null && Looper.myLooper() == Looper.getMainLooper()) {
+			handler = new Handler();
+		}
+		return handler;
 	}
 }

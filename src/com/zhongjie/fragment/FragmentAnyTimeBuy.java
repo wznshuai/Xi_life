@@ -9,10 +9,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
@@ -35,6 +37,8 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 	private CommonRequest mRequest;
 	private PromptView mPromptView;
 	private List<EshopCatalogModel> mEshopCatelogList;
+	private int mItemHeight = 0;
+	private Object lock = new Object();
 	
 	public static FragmentAnyTimeBuy newInstance(){
 		if(null == mInstance)
@@ -81,6 +85,18 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 		super.findViews();
 		mListView = (ListView)findViewById(R.id.fra_anytimebuy_listview);
 		mPromptView = (PromptView)findViewById(R.id.promptView);
+		mListView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+			
+			@Override
+			public void onGlobalLayout() {
+				int width = mListView.getWidth();
+				mItemHeight = width*5/12;
+				mListView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+				synchronized (lock) {
+					lock.notifyAll();
+				}
+			}
+		});
 	}
 	
 	@Override
@@ -123,14 +139,26 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
+			ViewHolder holder;
 			if(null == convertView){
 				convertView = LayoutInflater.from(getActivity()).inflate(R.layout.listview_item_anytimebuy, null);
+				holder = new ViewHolder();
+				holder.img = (ImageView)convertView.findViewById(R.id.list_item_anytimebuy_img);
+				holder.img.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, mItemHeight));
+				convertView.setTag(holder);
+			}else{
+				holder = (ViewHolder)convertView.getTag();
 			}
+			
 			EshopCatalogModel eShop = getItem(position);
-			ImageView img = (ImageView)convertView.findViewById(R.id.list_item_anytimebuy_img);
-			ImageLoader.getInstance().displayImage(eShop.catalogImage, img, options);
+			ImageLoader.getInstance().displayImage(eShop.catalogImage, holder.img, options);
 			return convertView;
 		}
+		
+	}
+	
+	class ViewHolder{
+		ImageView img;
 	}
 	
 	class QueryEshopCatelog extends AsyncTask<String, Void, EshopCatalogListJson>{
@@ -165,7 +193,16 @@ public class FragmentAnyTimeBuy extends BaseFragment{
 				if(0 == result.code){
 					if(null != result.data && result.data.size() > 0){
 						mEshopCatelogList = result.data;
-						mListView.setAdapter(new MyAnytimeBuyAdapter());
+						synchronized (lock) {
+							if(0 == mItemHeight){
+								try {
+									lock.wait();
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+							}
+							mListView.setAdapter(new MyAnytimeBuyAdapter());
+						}
 					}else{
 						mPromptView.showEmpty();
 					}

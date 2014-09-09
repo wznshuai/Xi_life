@@ -45,7 +45,7 @@ public class Validator {
 	public static boolean validatePassword(TextView view, String notnullStr) {
 		if(!validateNull(view, "不能为空"))
 			return false;
-		Pattern p = Pattern.compile("[^\\s]{6,14}");
+		Pattern p = Pattern.compile("[^\\s]{6,15}");
 		Matcher m = p.matcher(view.getText().toString().trim());
 		if (m.matches()) {
 			return true;

@@ -2,7 +2,6 @@ package com.zhongjie.activity.user;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -28,21 +27,19 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
-import com.zhongjie.activity.anytimebuy.SendCommentActivity;
 import com.zhongjie.model.OrderListJson;
 import com.zhongjie.model.OrderModel;
 import com.zhongjie.model.OrderStatus;
 import com.zhongjie.model.ShopCartModel;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.CommonRequest;
-import com.zhongjie.util.ShopCartManager;
 import com.zhongjie.util.pay.Result;
 import com.zhongjie.view.PromptView;
 
 public class MyDryCleanOrderActivity extends BaseSecondActivity {
 
 	private static String STATUS_WAIT_PAY = "待支付";
-	private static String STATUS_WAIT_COMMENT = "待评价";
+	private static String STATUS_WAIT_COMMENT = "已支付";
 	private static String STATUS_HAD_COMMPLETED = "已完成";
 	private static String STATUS_HAD_CANCELED = "已取消";
 	
@@ -89,30 +86,6 @@ public class MyDryCleanOrderActivity extends BaseSecondActivity {
 		mTopLeftImg.setImageResource(R.drawable.ic_top_back);
 		mTopLeftImg.setVisibility(View.VISIBLE);
 		mTopCenterTxt.setVisibility(View.VISIBLE);
-//		mListView.setOnScrollListener(new OnScrollListener() {
-//
-//			@Override
-//			public void onScrollStateChanged(AbsListView view, int scrollState) {
-//				if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
-//					if (view.getLastVisiblePosition()
-//							- mListView.getRefreshableView().getHeaderViewsCount() == view
-//							.getAdapter().getCount() - 1) {
-//						int maxPage = maxCount % step == 0 ? maxCount / step
-//								: maxCount / step + 1;
-//						if (start + 1 < maxPage) {
-//							start++;
-//							new QueryUserOrderTask().execute(mCurStatus);
-//						}
-//					}
-//				}
-//			}
-//
-//			@Override
-//			public void onScroll(AbsListView view, int firstVisibleItem,
-//					int visibleItemCount, int totalItemCount) {
-//
-//			}
-//		});
 		
 		mRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
@@ -160,7 +133,7 @@ public class MyDryCleanOrderActivity extends BaseSecondActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		setContentView(R.layout.activity_order);
+		setContentView(R.layout.activity_dryclean_order);
 		super.onCreate(savedInstanceState);
 		new QueryUserOrderTask().execute(mCurStatus);
 	}
@@ -310,12 +283,7 @@ public class MyDryCleanOrderActivity extends BaseSecondActivity {
 						TextView tv = (TextView) v;
 						final OrderModel order = getItem((Integer)v.getTag());
 						String str = tv.getText().toString();
-						Intent intent = new Intent();
-						if (str.equals("去评价")) {
-							intent.setClass(MyDryCleanOrderActivity.this,
-									SendCommentActivity.class);
-							startActivity(intent);
-						} else if (str.equals("去付款")) {
+						if (str.equals("去付款")) {
 							new Thread(){
 								@Override
 								public void run() {
@@ -354,36 +322,18 @@ public class MyDryCleanOrderActivity extends BaseSecondActivity {
 						ShopCartModel scm = order.orderDetail.get(i);
 						View commodityItem = getLayoutInflater().inflate(
 								R.layout.common_order_view, vh.commodityArea, false); 
-						View goComment = commodityItem
-								.findViewById(R.id.common_order_view_goComment);
 						TextView commodityName = (TextView)commodityItem
 								.findViewById(R.id.common_order_view_commodityName);
 						ImageView commodityImg = (ImageView)commodityItem.findViewById(R.id.common_order_img);
 						TextView commodityPrice = (TextView)commodityItem.findViewById(R.id.common_order_price);
 						TextView commodityCount = (TextView)commodityItem.findViewById(R.id.common_order_count);
+						View goComment = commodityItem.findViewById(R.id.common_order_view_goComment);
 						
 						commodityName.setText(scm.name);
 						ImageLoader.getInstance().displayImage(scm.image, commodityImg);
 						commodityPrice.setText(scm.price);
 						commodityCount.setText("数量 : " + scm.number);
-						
-						goComment.setOnClickListener(new OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-								Intent intent = new Intent();
-								intent.setClass(MyDryCleanOrderActivity.this,
-										SendCommentActivity.class);
-								startActivity(intent);
-							}
-						});
-						if (status.equals(STATUS_WAIT_COMMENT)) {
-							goComment.setVisibility(View.VISIBLE);
-							;
-						} else {
-							goComment.setVisibility(View.GONE);
-							;
-						}
+						goComment.setVisibility(View.GONE);
 						vh.commodityArea.addView(commodityItem);
 					}
 				}

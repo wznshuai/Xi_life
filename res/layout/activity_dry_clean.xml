@@ -68,7 +68,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/orange_bg_selector"
-                android:padding="3dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="结算"
                 android:textColor="@android:color/white" />
         </LinearLayout>

@@ -152,10 +152,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
                         android:text="照片上传 :"
-                        android:textColor="@android:color/black"
-                        android:layout_marginRight="5dp" />
-                    
+                        android:textColor="@android:color/black" />
+
                     <ImageView
                         android:id="@+id/act_repairs_takeAPicture"
                         android:layout_width="wrap_content"
@@ -171,6 +171,24 @@
                     android:background="#aabbcc" />
 
                 <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_height"
+                    android:layout_marginBottom="10dp"
+                    android:background="#ffffff" />
+
+                <EditText
+                    android:id="@+id/act_repairs_remark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_bg"
+                    android:gravity="top|left"
+                    android:hint="请留言注明您希望的上门服务时间和您的联系方式，以便于我们更好的为您服务"
+                    android:lines="2"
+                    android:padding="5dp"
+                    android:textColorHighlight="#cccccc"
+                    android:textSize="13sp" />
+                
+                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/line_height"
                     android:layout_marginBottom="10dp"

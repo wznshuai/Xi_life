@@ -36,7 +36,6 @@ import com.zhongjie.model.OrderStatus;
 import com.zhongjie.model.ShopCartModel;
 import com.zhongjie.model.UserModelManager;
 import com.zhongjie.util.CommonRequest;
-import com.zhongjie.util.ShopCartManager;
 import com.zhongjie.util.pay.Result;
 import com.zhongjie.view.PromptView;
 

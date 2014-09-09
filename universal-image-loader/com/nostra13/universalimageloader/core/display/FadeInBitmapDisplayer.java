@@ -22,7 +22,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
-import com.nostra13.universalimageloader.core.imageaware.ImageShowInBGAware;
 
 /**
  * Displays image with "fade in" animation
@@ -61,10 +60,7 @@ public class FadeInBitmapDisplayer implements BitmapDisplayer {
 
 	@Override
 	public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
-		if(imageAware instanceof ImageShowInBGAware)
-			((ImageShowInBGAware)imageAware).setImageBitmapInBackground(bitmap);
-		else
-			imageAware.setImageBitmap(bitmap);
+		imageAware.setImageBitmap(bitmap);
 
 		if ((animateFromNetwork && loadedFrom == LoadedFrom.NETWORK) ||
 				(animateFromDisc && loadedFrom == LoadedFrom.DISC_CACHE) ||

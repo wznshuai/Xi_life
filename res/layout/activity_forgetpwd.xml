@@ -37,13 +37,23 @@
                 android:imeOptions="actionNext"
                 android:inputType="phone" />
 
+            <EditText
+                android:id="@+id/act_forgetpwd_pwd"
+                style="@style/Common_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/pwd_hint"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp" >
 
                 <EditText
-                    android:id="@+id/act_register_verifycode"
+                    android:id="@+id/act_forgetpwd_verifycode"
                     style="@style/Common_EditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -53,6 +63,7 @@
                     android:inputType="number" />
 
                 <TextView
+                    android:id="@+id/act_forgetpwd_sendSMS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -66,6 +77,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/act_forgetpwd_submit"
                 style="@style/Common_Button.Blue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

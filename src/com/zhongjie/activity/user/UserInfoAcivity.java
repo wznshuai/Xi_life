@@ -261,6 +261,8 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 			}
 			break;
 		case R.id.act_userinfo_submit:
+			mTopRightTxt.setText("修改");
+			changeEditStatus(false);
 			new ModifyUserInfoTask().execute();
 			break;
 		default:

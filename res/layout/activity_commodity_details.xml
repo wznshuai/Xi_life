@@ -36,12 +36,12 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="260dp" >
+                        android:layout_height="wrap_content" >
 
                         <com.zhongjie.view.MyViewPager
                             android:id="@+id/act_commodity_details_viewpager"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:fadingEdge="none" />
 
                         <com.zhongjie.view.viewpagerindicator.CirclePageIndicator

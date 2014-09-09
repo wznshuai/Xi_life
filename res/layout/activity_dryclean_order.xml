@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@string/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/common_topbar" />
+
+    <RelativeLayout
+        android:id="@string/real_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/main_bg" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <RadioGroup
+                android:id="@+id/act_order_radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
+
+                <RadioButton
+                    android:id="@+id/radioBtn1"
+                    style="@style/RadioButton.Order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_waitpay_selector"
+                    android:text="待支付" />
+
+                <ImageView
+                    android:layout_width="0.5dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@color/text_black_hint" />
+
+                <RadioButton
+                    android:id="@+id/radioBtn2"
+                    style="@style/RadioButton.Order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_waitcomment_selector"
+                    android:text="已支付" />
+
+                <ImageView
+                    android:layout_width="0.5dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@color/text_black_hint" />
+
+                <RadioButton
+                    android:id="@+id/radioBtn3"
+                    style="@style/RadioButton.Order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_paycomplete_selector"
+                    android:text="已完成" />
+
+                <ImageView
+                    android:layout_width="0.5dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@color/text_black_hint" />
+
+                <RadioButton
+                    android:id="@+id/radioBtn5"
+                    style="@style/RadioButton.Order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_paycancel_selector"
+                    android:text="已取消" />
+            </RadioGroup>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" >
+                <com.handmark.pulltorefresh.library.PullToRefreshListView
+                    android:id="@+id/act_order_listview"
+                    style="@style/MyListView"
+                    android:overScrollMode="never"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:dividerHeight="10dp"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp" />
+                <com.zhongjie.view.PromptView 
+                    android:id="@+id/promptView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

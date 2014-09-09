@@ -30,6 +30,19 @@ public class CommonRequest {
 		return mHttpUtil.executePost(ApiConstants.URL_USER_REGISTER, data);
 	}
 	/**
+	 * 修改密码
+	 * @param mobile
+	 * @param password
+	 * @param code
+	 */
+	public String changePwd(String mobile, String password, String code){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("mobile", mobile);
+		data.put("password", password);
+		data.put("code", code);
+		return mHttpUtil.executePost(ApiConstants.URL_USER_CHANGE_PWD, data);
+	}
+	/**
 	 * 获取短信验证码
 	 * @param mobile
 	 * @return
@@ -219,12 +232,13 @@ public class CommonRequest {
 	 * @param image
 	 * @return
 	 */
-	public String repairSubmit(String sessId, String repairDate, String classify, String image){
+	public String repairSubmit(String sessId, String repairDate, String classify, String image, String remark){
 		HashMap<String, String> data = new HashMap<String, String>();
 		data.put("sessId", sessId);
 		data.put("repairDate", repairDate);
 		data.put("classify", classify);
 		data.put("image", image);
+		data.put("remark", remark);
 		return mHttpUtil.executePost(ApiConstants.URL_REPAIR_SUBMIT, data);
 	}
 	

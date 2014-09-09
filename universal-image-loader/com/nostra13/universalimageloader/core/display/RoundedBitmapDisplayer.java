@@ -19,7 +19,6 @@ import android.graphics.*;
 import android.graphics.drawable.Drawable;
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
-import com.nostra13.universalimageloader.core.imageaware.ImageShowInBGAware;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 
 /**
@@ -56,10 +55,8 @@ public class RoundedBitmapDisplayer implements BitmapDisplayer {
 		if (!(imageAware instanceof ImageViewAware)) {
 			throw new IllegalArgumentException("ImageAware should wrap ImageView. ImageViewAware is expected.");
 		}
-		if(imageAware instanceof ImageShowInBGAware)
-			((ImageShowInBGAware)imageAware).setImageDrawableInBackground(new RoundedDrawable(bitmap, cornerRadius, margin));
-		else
-			imageAware.setImageDrawable(new RoundedDrawable(bitmap, cornerRadius, margin));
+
+		imageAware.setImageDrawable(new RoundedDrawable(bitmap, cornerRadius, margin));
 	}
 
 	protected static class RoundedDrawable extends Drawable {

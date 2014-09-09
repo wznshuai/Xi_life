@@ -93,7 +93,11 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:background="@drawable/ic_envelope_bg"
-                        android:padding="5dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:gravity="center"
                         android:visibility="gone">
                         <TextView 
                             android:layout_width="match_parent"
@@ -115,7 +119,7 @@
                                 android:id="@+id/tempId5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="收货地址 : "
+                                android:text="收货地址: "
                                 android:textColor="#666666"/>
                             <EditText 
                                 android:id="@+id/act_fill_order_address"

@@ -1,6 +1,9 @@
 package com.zhongjie.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.widget.RelativeLayout.LayoutParams;
 
 import com.zhongjie.BaseFragment;
 import com.zhongjie.MainActivity;
@@ -28,6 +33,8 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 	private MyViewPager mPager;
 	private CirclePageIndicator mIndicator;
 	private View mGoRepairs, mGoDryClean, mGoPayment;
+	private int mPagerHeight;
+	private Object lock = new Object();
 	
 	public static FragmentManagerService newInstance(){
 		if(null == mInstance)
@@ -60,13 +67,52 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 	@Override
 	protected void initViews() {
 		super.initViews();
+		mPager.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+			
+			@Override
+			public void onGlobalLayout() {
+				mPagerHeight = mPager.getWidth()*35/48;
+				mPager.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+				synchronized (lock) {
+					lock.notifyAll();
+				}
+			}
+		});
 		mPager.setSrov((SlideRightOutView)findViewById(R.string.slide_view));
-		mPager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
-		mIndicator.setViewPager(mPager);
+		new AsyncTask<Void, Void, Void>() {
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				synchronized (lock) {
+					if(mPagerHeight == 0){
+						try {
+							lock.wait();
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+				}
+				return null;
+			}
+			
+			
+			@Override
+			protected void onPostExecute(Void result) {
+				super.onPostExecute(result);
+				mPager.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, mPagerHeight));
+				mPager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
+				mIndicator.setViewPager(mPager);
+			}
+			
+		}.execute();
+		
 		mGoRepairs.setOnClickListener(this);
 		mGoDryClean.setOnClickListener(this);
 		mGoPayment.setOnClickListener(this);
 	}
+	
 	
 	@Override
 	public void onResume() {
@@ -97,7 +143,7 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 
 		@Override
 		public int getCount() {
-			return 5;
+			return 2;
 		}
 	}
 

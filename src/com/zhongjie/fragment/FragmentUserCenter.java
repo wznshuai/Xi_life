@@ -227,6 +227,14 @@ public class FragmentUserCenter extends BaseFragment {
 				startActivity(intent);
 			}
 		});
+		
+		mHeadImg.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mEditView.performClick();
+			}
+		});
 	}
 
 	private void logout() {

@@ -26,6 +26,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout.LayoutParams;
@@ -67,6 +68,7 @@ public class RepairsActivity extends BaseSecondActivity{
 	private TextView mAddress;
 	private View mTakeAPicture;
 	private RepairShowModel mRepairModel;
+	private EditText mRemarkEdit;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,7 @@ public class RepairsActivity extends BaseSecondActivity{
 		mRequest = new CommonRequest(getApplicationContext());
 		mCurCalendar = Calendar.getInstance(Locale.CHINA);
 		mMaxCalendar = (Calendar)mCurCalendar.clone();
-		mMaxCalendar.add(Calendar.DAY_OF_YEAR, 15);
+		mMaxCalendar.add(Calendar.DAY_OF_YEAR, 30);
 	}
 
 	@Override
@@ -92,6 +94,7 @@ public class RepairsActivity extends BaseSecondActivity{
 		mSubmit = findViewById(R.id.act_repairs_submit);
 		mAddress = (TextView)findViewById(R.id.act_repairs_address);
 		mTakeAPicture = findViewById(R.id.act_repairs_takeAPicture);
+		mRemarkEdit = (EditText)findViewById(R.id.act_repairs_remark);
 	}
 	
 	private void initCalendar(){
@@ -303,7 +306,7 @@ public class RepairsActivity extends BaseSecondActivity{
 				mRepairModel.needRepairDate = year + "-" + month + "-" + day;
 				String result = mRequest.repairSubmit(
 						UserModelManager.getInstance().getmUser().sessId,
-						mRepairModel.needRepairDate, mRepairModel.needClassify, mRepairModel.image);
+						mRepairModel.needRepairDate, mRepairModel.needClassify, mRepairModel.image, mRemarkEdit.getText() + "");
 				if(!TextUtils.isEmpty(result)){
 					uj = JSON.parseObject(result, BaseJson.class);
 				}

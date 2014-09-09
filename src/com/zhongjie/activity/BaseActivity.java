@@ -87,9 +87,18 @@ public abstract class BaseActivity extends FragmentActivity {
 	protected void showToast(String msg) {
 		Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 	}
+	
+	protected void showToast(String msg, int dur) {
+		Toast.makeText(getApplicationContext(), msg, dur).show();
+	}
 
 	protected void showToast(int resId) {
 		Toast.makeText(getApplicationContext(), resId, Toast.LENGTH_SHORT)
+				.show();
+	}
+	
+	protected void showToast(int resId, int dur) {
+		Toast.makeText(getApplicationContext(), resId, dur)
 				.show();
 	}
 

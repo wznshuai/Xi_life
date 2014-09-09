@@ -52,7 +52,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 	private MyViewPager mPager;
 	private CirclePageIndicator mIndicator;
 	private ListView mListView;
-	private View mRepairs, mGoUserCenter, mHeaderView, mGoDryClean, mGoPayment;
+	private View mRepairs, mGoUserCenter, mHeaderView, mGoDryClean, mGoPayment, mGoAllCommodity;
 	private CommonRequest mRequest;
 	private List<ADModel> mAdList;
 	private List<FullModel> mFullList;
@@ -106,6 +106,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 		mMainTitle2 = (TextView)mHeaderView.findViewById(R.id.header_homepage_full2_mainTitle);
 		mLessTitle1 = (TextView)mHeaderView.findViewById(R.id.header_homepage_full1_lessTitle);
 		mLessTitle2 = (TextView)mHeaderView.findViewById(R.id.header_homepage_full2_lessTitle);
+		mGoAllCommodity = mHeaderView.findViewById(R.id.header_homepage_go_all_commodity);
 	}
 	
 	@Override
@@ -153,6 +154,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 			}
 			
 		});
+		mGoAllCommodity.setOnClickListener(this);
 		mFull1.setOnClickListener(this);
 		mFull2.setOnClickListener(this);
 		mFullImg1.setOnClickListener(this);
@@ -344,6 +346,9 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 			}else{
 				startActivity(new Intent(getActivity(), LoginActivity.class));
 			}
+			break;
+		case R.id.header_homepage_go_all_commodity:
+			getActivityMine().setCurrentTabByTag(MainActivity.TAB_1);
 			break;
 		default:
 			break;

@@ -40,6 +40,9 @@ public interface DiscCacheAware {
 
 	/** Clears cache directory */
 	void clear();
-	
+	/**
+	 * 返回缓存文件夹
+	 * @return
+	 */
 	File getCacheDir();
 }

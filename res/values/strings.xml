@@ -11,7 +11,7 @@
     
     <string name="phone_hint">手机号码</string>
     <string name="register_phone_hit">请输入您的手机号码</string>
-    <string name="pwd_hint">密码</string>
+    <string name="pwd_hint">密码(6&#8211;15位字符，可由英文、数字或字符组成)</string>
     <string name="register_pwd_hint">请设置您的密码</string>
     <string name="pwd_new_hint">请输入新密码</string>
     <string name="pwd_new_again_hint">请再次输入密码</string>
@@ -33,7 +33,7 @@
     <string name="user_phonenum_notnull">手机号不能为空</string>
     <string name="user_phonenum_verify">手机号格式不正确</string>
 	<string name="user_pwd_notnull">密码不能为空</string>
-	<string name="user_pwd_verify">密码长度在6~14位之间的非空字符</string>
+	<string name="user_pwd_verify">6&#8211;15位字符，可由英文、数字或字符组成</string>
 	
 	<string name="common_loading">加载中</string>
 	

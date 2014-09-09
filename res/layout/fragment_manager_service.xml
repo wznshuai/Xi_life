@@ -7,13 +7,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_height="wrap_content">
 
         <com.zhongjie.view.MyViewPager
             android:id="@+id/fra_manager_service_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fadingEdge="none" />
 
         <com.zhongjie.view.viewpagerindicator.CirclePageIndicator
@@ -31,7 +30,8 @@
     </RelativeLayout>
 	<LinearLayout 
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
+	    android:layout_height="0dp"
+	    android:layout_weight="1"
 	    android:orientation="horizontal"
 	    android:layout_marginBottom="15dp"
 	    android:layout_marginLeft="20dp"

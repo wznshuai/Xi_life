@@ -29,11 +29,13 @@ import android.os.Environment;
 import android.os.Process;
 import android.util.Log;
 
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.zhongjie.global.Session;
 import com.zhongjie.util.Constants;
 import com.zhongjie.util.SSLSocketFactoryEx;
@@ -166,13 +168,16 @@ public class MyApplication extends Application{
 		// or you can create default configuration by
 		//  ImageLoaderConfiguration.createDefault(this);
 		// method.
+		
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
 				.threadPriority(Thread.NORM_PRIORITY - 2)
 				.denyCacheImageMultipleSizesInMemory()
 				.discCacheFileNameGenerator(new Md5FileNameGenerator())
+				.discCache(new UnlimitedDiscCache(StorageUtils.getOwnCacheDirectory(context, Constants.APP_IMAGE)))
 				.discCacheSize(200*1024*1024)
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
-				.memoryCache(new WeakMemoryCache())
+				.memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+				.memoryCacheSize(2*1024*1024)
 				.threadPoolSize(3)
 //				.writeDebugLogs() // Remove for release app
 				.build();

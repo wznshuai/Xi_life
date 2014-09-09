@@ -17,8 +17,10 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -61,6 +63,8 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 	private TextView mCommodityIntroduce;
 	private LinearLayout mCommodityIntroduceArea;
 	private String mSelectedTaste;
+	private Object lock = new Object();
+	private int mPagerHeight;
 	
 	
 	@Override
@@ -131,6 +135,17 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 			@Override
 			public void afterTextChanged(Editable s) {
 				
+			}
+		});
+		mPager.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+			
+			@Override
+			public void onGlobalLayout() {
+				mPagerHeight = mPager.getWidth();
+				mPager.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+				synchronized (lock) {
+					lock.notifyAll();
+				}
 			}
 		});
 	}
@@ -208,6 +223,8 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 				Intent intent = new Intent(CommodityDetailsActivity.this, CommodityCommentActivity.class);
 				intent.putExtra("commodityId", mDetails.commodityId);
 				startActivity(intent);
+			}else{
+				showToast("暂无人评价");
 			}
 			break;
 		case R.id.act_commodity_details_addInCart:
@@ -217,7 +234,7 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 					int count = Integer.valueOf(countStr);
 					mDetails.selectedTaste = mSelectedTaste;
 					mCartManager.addInShopCart(mDetails, count, false);
-					showToast("加入购物车成功~~");
+					showToast("商品已放入购物车，可进入购物车内查看并结算");
 				}catch(Exception e){
 					showToast("输入数量不正确");
 					Logger.e(TAG, "", e);
@@ -317,6 +334,11 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 				if(!TextUtils.isEmpty(result)){
 					uj = JSON.parseObject(result, CommodityJson.class);
 				}
+				synchronized (lock) {
+					if(mPagerHeight == 0){
+						lock.wait();
+					}
+				}
 			} catch (Exception e) {
 				Logger.e(TAG, "QueryCommodityDetails error", e);
 			}
@@ -332,6 +354,7 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 				cld.cancel();
 				cld = null;
 			}
+			mPager.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, mPagerHeight));
 			if(null != result){
 				if(result.code == 0){
 					if(null != result.data){

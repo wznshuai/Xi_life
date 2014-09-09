@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 	
 	private TabHost mTabHost;
 	private FragmentManager mFm;
-	private String last_show_TAB = TAB_1; 
+	private String last_show_TAB = ""; 
 	
 
 	@Override
@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		addTab(TAB_4, R.drawable.tab_4_selector, "我的");
 //		mTabHost.getTabWidget().getChildAt(2).setEnabled(false);
 		mTabHost.setOnTabChangedListener(this);
-		setCurrentFragment(TAB_1);
+		mTabHost.setCurrentTabByTag(TAB_CENTER);
 	}
 	
 	public void setTopCenterLogo(int id){
