@@ -60,4 +60,6 @@ public class ApiConstants {
 	public static final String URL_ESHOP_EVALUATE = BASE_HOST + "eshop/evaluate";
 	//修改密码
 	public static final String URL_USER_CHANGE_PWD = BASE_HOST + "user/changePassword";
+	//系统更新
+	public static final String URL_SYSTEM_UPDATE = BASE_HOST + "system/update";
 }

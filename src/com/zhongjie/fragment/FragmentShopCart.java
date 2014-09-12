@@ -97,9 +97,14 @@ public class FragmentShopCart extends BaseFragment {
 				@Override
 				public void onClick(View v) {
 					if (UserModelManager.getInstance().isLogin()) {
-						Intent intent = new Intent(getActivity(),
-								FillOrderActivity.class);
-						startActivity(intent);
+						if (null != mCartManager.mCheckedList
+								&& mCartManager.mCheckedList.size() > 0) {
+							Intent intent = new Intent(getActivity(),
+									FillOrderActivity.class);
+							startActivity(intent);
+						}else{
+							showToast("请勾选您所需的商品!");
+						}
 					} else {
 						startActivity(new Intent(getActivity(),
 								LoginActivity.class));
@@ -107,10 +112,8 @@ public class FragmentShopCart extends BaseFragment {
 				}
 			});
 			if (null != mCartManager.mCheckedList && mCartManager.mCheckedList.size() > 0) {
-				mBottomView.setVisibility(View.VISIBLE);
 				mTopRightImg.setVisibility(View.VISIBLE);
 			}else{
-				mBottomView.setVisibility(View.GONE);
 				mTopRightImg.setVisibility(View.GONE);
 			}
 		} else {
@@ -119,7 +122,6 @@ public class FragmentShopCart extends BaseFragment {
 				mAdapter.notifyDataSetChanged();
 			}
 			mRealContent.setVisibility(View.GONE);
-			mBottomView.setVisibility(View.GONE);
 			mTopRightImg.setVisibility(View.GONE);
 			findViewById(R.id.fra_shoppingcar_goAnytimeBuy).setOnClickListener(
 					new OnClickListener() {
@@ -179,7 +181,6 @@ public class FragmentShopCart extends BaseFragment {
 								mCartData.remove(scm);
 							}
 							mAdapter.notifyDataSetChanged();
-							mBottomView.setVisibility(View.GONE);
 							mTopRightImg.setVisibility(View.GONE);
 
 							if (null == mCartData || mCartData.size() == 0) {
@@ -302,7 +303,6 @@ public class FragmentShopCart extends BaseFragment {
 									.addInCheckedList(getItem((Integer) check
 											.getTag()));
 							mTopRightImg.setVisibility(View.VISIBLE);
-							mBottomView.setVisibility(View.VISIBLE);
 						} else {
 							mCartManager
 									.removeFromCheckedList(getItem((Integer) check
@@ -310,7 +310,6 @@ public class FragmentShopCart extends BaseFragment {
 							if (null == mCartManager.mCheckedList
 									|| mCartManager.mCheckedList.size() < 1) {
 								mTopRightImg.setVisibility(View.GONE);
-								mBottomView.setVisibility(View.GONE);
 							}
 						}
 						computeTotalMoney();

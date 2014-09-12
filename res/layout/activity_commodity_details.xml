@@ -249,7 +249,8 @@
                         android:id="@+id/act_commodity_details_introduce"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#666666" />
+                        android:textColor="#666666"
+                        android:layout_marginBottom="5dp" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

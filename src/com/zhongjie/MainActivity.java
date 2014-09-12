@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.zhongjie.activity.BaseActivity;
 import com.zhongjie.activity.user.LoginActivity;
+import com.zhongjie.activity.user.UserInfoAcivity;
 import com.zhongjie.fragment.FragmentAnyTimeBuy;
 import com.zhongjie.fragment.FragmentHomePage;
 import com.zhongjie.fragment.FragmentManagerService;
@@ -70,6 +71,11 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 		super.onNewIntent(intent);
 		if(null != intent.getStringExtra(Constants.MAINACTIVITY_TAB_KEY)){
 			setCurrentTabByTag(intent.getStringExtra(Constants.MAINACTIVITY_TAB_KEY));
+		}else if(null != intent.getStringExtra(Constants.GO_USERINFO_EDIT)){
+			Intent intent2 = new Intent(this, UserInfoAcivity.class);
+			intent2.putExtra("isEdit", true);
+			startActivity(intent2);
+			setCurrentTabByTag(TAB_4);
 		}
 	}
 

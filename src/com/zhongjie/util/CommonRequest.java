@@ -387,6 +387,14 @@ public class CommonRequest {
 		data.put("commodityId", commodityId);
 		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_QUERY_EVALUATE, data);
 	}
-	
-	
+	/**
+	 * 系统更新
+	 * @param currVersion
+	 * @return
+	 */
+	public String queryAppUpdate(String currVersion){
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("currVersion", currVersion);
+		return mHttpUtil.executeGet(ApiConstants.URL_SYSTEM_UPDATE, data);
+	}
 }

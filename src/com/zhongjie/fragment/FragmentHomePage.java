@@ -224,11 +224,11 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 				convertView = LayoutInflater.from(getActivity()).inflate(
 						R.layout.listview_item_homepage, parent, false);
 				vh = new ViewHolder();
-				vh.commodityDescription = (TextView)convertView.findViewById(R.id.list_item_commodity_description);
-				vh.commodityName = (TextView)convertView.findViewById(R.id.list_item_commodity_name);
-				vh.commodityPrice = (TextView)convertView.findViewById(R.id.list_item_commodity_money);
-				vh.commodityWeight = (TextView)convertView.findViewById(R.id.list_item_commodity_weight);
-				vh.img = (ImageView)convertView.findViewById(R.id.list_item_commodity_img);
+				vh.commodityDescription = (TextView)convertView.findViewById(R.id.list_item_homepage_description);
+				vh.commodityName = (TextView)convertView.findViewById(R.id.list_item_homepage_name);
+				vh.commodityPrice = (TextView)convertView.findViewById(R.id.list_item_homepage_money);
+				vh.commodityWeight = (TextView)convertView.findViewById(R.id.list_item_homepage_weight);
+				vh.img = (ImageView)convertView.findViewById(R.id.list_item_homepage_img);
 				convertView.setTag(vh);
 			}else{
 				vh = (ViewHolder)convertView.getTag();
@@ -237,7 +237,7 @@ public class FragmentHomePage extends BaseFragment implements OnClickListener{
 			if(null != cm){
 				vh.commodityDescription.setText(cm.detail);
 				vh.commodityName.setText(cm.name);
-				vh.commodityPrice.setTag(cm.price);
+				vh.commodityPrice.setText("￥" + cm.price);
 				vh.commodityWeight.setText(cm.weight);
 				ImageLoader.getInstance().displayImage(cm.image, vh.img, options);
 			}

@@ -678,3 +678,20 @@
 	       code<String>:订单编码
 	       orderTime<String>:下单时间(yyyy-MM-dd HH:mm:ss)
 	       money<String>:订单金额
+
+
+八、系统更新
+  1、系统更新
+     请求地址：
+       /system/update
+	   请求方式：
+	     GET
+	   输入参数：
+	     currVersion<String>:当前版本号
+	   输出参数：
+	     versionCode<String>:服务器最新版本号
+	     updateFlag<String>:更新标识(0:当前已是最新版本,不需要更新; 1:有新版本,不强制更新; 2:有新版本,强制更新)
+	     updateUrl<String>:更新URL(updateFlag为1或2时显示)
+     示例：
+       成功：{"errMsg":"","data":{"updateUrl":"","versionCode":"1.0.1","updateFlag":"0"},"code":"0"}
+       异常：{"data":{},"errMsg":"系统更新异常","code":"-1"}

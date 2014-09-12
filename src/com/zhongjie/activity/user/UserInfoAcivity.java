@@ -59,7 +59,9 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 	private UserModelManager mUserManager;
 	private UserModel mUm;
 	private int CURRENT_STATUS = STATUS_CANNOT_MODIFY;
-
+	private boolean isEdit = false;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_userinfo);
@@ -71,6 +73,7 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 	protected void initData() {
 		mRequest = new CommonRequest(getApplicationContext());
 		mUserManager = UserModelManager.getInstance();
+		isEdit = getIntent().getBooleanExtra("isEdit", false);
 	}
 
 	@Override
@@ -140,6 +143,8 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 			mAddress1.setText(null == um.unit ? "0" : um.unit);
 			mAddress2.setText(null == um.room ? "0" : um.room);
 			mPhone.setText(um.phone);
+			if(isEdit)
+				changeEditStatus(isEdit);
 		}
 	}
 	

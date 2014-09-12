@@ -129,9 +129,14 @@ public class DryCleanActivity extends BaseListActivity{
 			@Override
 			public void onClick(View v) {
 				if (UserModelManager.getInstance().isLogin()) {
-					Intent intent = new Intent(DryCleanActivity.this,
-							FillOrderFroDryCleanActivity.class);
-					startActivity(intent);
+					if (null != mCartManager.mCartList
+							&& mCartManager.mCartList.size() > 0) {
+						Intent intent = new Intent(DryCleanActivity.this,
+								FillOrderFroDryCleanActivity.class);
+						startActivity(intent);
+					}else{
+						showToast("请勾选您所需的商品!");
+					}
 				} else {
 					startActivity(new Intent(DryCleanActivity.this,
 							LoginActivity.class));
@@ -208,14 +213,9 @@ public class DryCleanActivity extends BaseListActivity{
 							mCartManager
 									.addInShopCart(getItem((Integer) check
 											.getTag()));
-							mBottomView.setVisibility(View.VISIBLE);
 						} else {
 							mCartManager.mCartList.remove(getItem((Integer) check
 											.getTag()));
-							if (null == mCartManager.mCartList
-									|| mCartManager.mCartList.size() < 1) {
-								mBottomView.setVisibility(View.GONE);
-							}
 						}
 						computeTotalMoney();
 					}

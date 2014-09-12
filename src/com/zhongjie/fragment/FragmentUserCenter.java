@@ -42,7 +42,6 @@ public class FragmentUserCenter extends BaseFragment {
 	private ImageView mHeadImg;
 	private View mEditView, goIntegralView, goSettingView, goMyRepairsView,
 			goMyOrderView, mLogoutView, mGoDryCleanOrder;
-	private static final int REQUEST_CODE = 0x001;
 
 	private TextView mTopRightView, mAddress, mIntergal, mNickname;
 	private CommonRequest mRequest;
@@ -123,7 +122,7 @@ public class FragmentUserCenter extends BaseFragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), UserInfoAcivity.class);
-				startActivityForResult(intent, REQUEST_CODE);
+				startActivity(intent);
 			}
 		});
 

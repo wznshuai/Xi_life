@@ -47,15 +47,20 @@ public class MyApplication extends Application{
 	private final String TAG = "MyApplication";
 	public static FinalDb finalDb;
 	public final static String DB_NAME = "Xi_life.db"; 
-
+	private static Context instance;
 
 	 @Override
 	 public void onCreate() {
 		 super.onCreate();
+		 instance = getApplicationContext();
 		 createHttpClient();
 		 initImageLoader(this);
 		 createDirs();
 	 }
+	 
+	 public static final Context getMyApplicationContext() {
+			return instance;
+		}
 	 
 	 @SuppressWarnings("unused")
 	private void init(){
