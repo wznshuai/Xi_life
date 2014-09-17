@@ -59,7 +59,7 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 	private UserModelManager mUserManager;
 	private UserModel mUm;
 	private int CURRENT_STATUS = STATUS_CANNOT_MODIFY;
-	private boolean isEdit = false;
+	private boolean isNeedEdit = false;
 	
 	
 	@Override
@@ -73,7 +73,7 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 	protected void initData() {
 		mRequest = new CommonRequest(getApplicationContext());
 		mUserManager = UserModelManager.getInstance();
-		isEdit = getIntent().getBooleanExtra("isEdit", false);
+		isNeedEdit = getIntent().getBooleanExtra("isEdit", false);
 	}
 
 	@Override
@@ -118,12 +118,14 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 			mAddress2.setVisibility(View.GONE);
 			mAddress2Edit.setVisibility(View.VISIBLE);
 			mConfirmView.setVisibility(View.VISIBLE);
+			mTopRightTxt.setText("取消");
 			if(null != mUm){
 				mNicknameEdit.setHint((TextUtils.isEmpty(mUm.nickName) ? getString(R.string.nickname_null) : mUm.nickName));
 				mAddress1Edit.setHint(null == mUm.unit ? "0" : mUm.unit);
 				mAddress2Edit.setHint(null == mUm.room ? "0" : mUm.room);
 			}
 		}else{
+			mTopRightTxt.setText("修改");
 			CURRENT_STATUS = STATUS_CANNOT_MODIFY;
 			mHeadEdit.setVisibility(View.GONE);
 			mNickname.setVisibility(View.VISIBLE);
@@ -143,8 +145,7 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 			mAddress1.setText(null == um.unit ? "0" : um.unit);
 			mAddress2.setText(null == um.room ? "0" : um.room);
 			mPhone.setText(um.phone);
-			if(isEdit)
-				changeEditStatus(isEdit);
+			changeEditStatus(isNeedEdit);
 		}
 	}
 	
@@ -253,10 +254,8 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 		switch (v.getId()) {
 		case R.id.topbar_rightTxt:
 			if(CURRENT_STATUS == STATUS_CANNOT_MODIFY){
-				mTopRightTxt.setText("取消");
 				changeEditStatus(true);
 			}else{
-				mTopRightTxt.setText("修改");
 				changeEditStatus(false);
 			}
 			break;
@@ -266,7 +265,6 @@ public class UserInfoAcivity extends BaseSecondActivity implements OnClickListen
 			}
 			break;
 		case R.id.act_userinfo_submit:
-			mTopRightTxt.setText("修改");
 			changeEditStatus(false);
 			new ModifyUserInfoTask().execute();
 			break;

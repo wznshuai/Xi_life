@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zhongjie"
     android:versionCode="1"
-    android:versionName="1.0.1" >
+    android:versionName="1.0.0" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -146,6 +146,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/Transparent"
             android:windowSoftInputMode="stateAlwaysHidden" />
+         
+         <service 
+             android:name="com.zhongjie.service.UpdateService"/>
         
         <!-- 支付宝 -->
         <activity

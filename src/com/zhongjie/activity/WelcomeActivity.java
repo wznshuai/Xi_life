@@ -2,6 +2,7 @@ package com.zhongjie.activity;
 
 import java.lang.ref.WeakReference;
 
+import CheckVersionModel.CheckVersionJson;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -18,7 +19,6 @@ import com.alibaba.fastjson.JSON;
 import com.zhongjie.ApnConstants;
 import com.zhongjie.MainActivity;
 import com.zhongjie.R;
-import com.zhongjie.model.CheckVersionResult;
 import com.zhongjie.model.MsgCarry;
 import com.zhongjie.model.UserModel;
 import com.zhongjie.model.UserModelManager;
@@ -72,10 +72,10 @@ public class WelcomeActivity extends Activity{
 	}
 	
 	/********* 版本检查更新 ***********/
-	public class UpgradeTask extends AsyncTask<Void, Void, CheckVersionResult> {
+	public class UpgradeTask extends AsyncTask<Void, Void, CheckVersionJson> {
 
 		@Override
-		protected CheckVersionResult doInBackground(Void... params) {
+		protected CheckVersionJson doInBackground(Void... params) {
 			//自动登录
 			ShopCartManager.getInstance().readDataFromSavd(getApplicationContext());
 			String sessId = SharedPreferencesUtil.getInstance(getApplicationContext()).getString(Constants.USER_SESSID);
@@ -86,11 +86,11 @@ public class WelcomeActivity extends Activity{
 			}
 		
 			
-			CheckVersionResult uj = null;
+			CheckVersionJson uj = null;
 			try {
 				String result = mRequest.queryAppUpdate(getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
 				if(!TextUtils.isEmpty(result)){
-					uj = JSON.parseObject(result, CheckVersionResult.class);
+					uj = JSON.parseObject(result, CheckVersionJson.class);
 				}
 			} catch (Exception e) {
 				Logger.e(getClass().getSimpleName(), "UpgradeTask error", e);
@@ -101,13 +101,13 @@ public class WelcomeActivity extends Activity{
 		}
 
 		@Override
-		protected void onPostExecute(CheckVersionResult cvr) {
+		protected void onPostExecute(CheckVersionJson cvr) {
 
-			if (null != cvr && cvr.updateFlag != 0) {
-				if (cvr.updateFlag == 2) {
-					forceVersionUpdate(cvr.versionCode, cvr.updateUrl);
-				} else if(cvr.updateFlag == 1){
-					askVersionUpdate(cvr.versionCode, cvr.updateUrl);
+			if (null != cvr && null != cvr.data && cvr.data.updateFlag != 0) {
+				if (cvr.data.updateFlag == 2) {
+					forceVersionUpdate(cvr.data.versionCode, cvr.data.updateUrl);
+				} else if(cvr.data.updateFlag == 1){
+					askVersionUpdate(cvr.data.versionCode, cvr.data.updateUrl);
 				}
 
 			} else {

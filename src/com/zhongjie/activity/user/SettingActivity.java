@@ -3,6 +3,7 @@ package com.zhongjie.activity.user;
 import java.io.File;
 import java.text.DecimalFormat;
 
+import CheckVersionModel.CheckVersionJson;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -23,23 +24,16 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.ApnConstants;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
-import com.zhongjie.activity.WelcomeActivity;
-import com.zhongjie.model.CheckVersionResult;
 import com.zhongjie.model.MsgCarry;
-import com.zhongjie.model.UserModel;
-import com.zhongjie.model.UserModelManager;
 import com.zhongjie.service.UpdateService;
 import com.zhongjie.util.CommonRequest;
-import com.zhongjie.util.Constants;
 import com.zhongjie.util.Logger;
-import com.zhongjie.util.SharedPreferencesUtil;
-import com.zhongjie.util.ShopCartManager;
 import com.zhongjie.util.UpgradeFileUtil;
 import com.zhongjie.view.CommonLoadingDialog;
 
 public class SettingActivity extends BaseSecondActivity {
 
-	private View mCleanCache, mGoAboutUs, mGoServiceAgreement;
+	private View mCleanCache, mGoAboutUs, mGoServiceAgreement, mCheckUpdate;
 	private TextView mTotalCache;
 	public ProgressDialog m_pDialog;
 	private CommonRequest mRequest;
@@ -61,6 +55,7 @@ public class SettingActivity extends BaseSecondActivity {
 		mTotalCache = (TextView) findViewById(R.id.act_setting_total_cache);
 		mGoAboutUs = findViewById(R.id.act_setting_aboutUs);
 		mGoServiceAgreement = findViewById(R.id.act_setting_service_agreement);
+		mCheckUpdate = findViewById(R.id.act_setting_checkUpdate);
 	}
 
 	private String getTotalCache() {
@@ -132,32 +127,30 @@ public class SettingActivity extends BaseSecondActivity {
 				startActivity(intent);
 			}
 		});
+		mCheckUpdate.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				new UpgradeTask().execute();
+			}
+		});
 	}
 	
 	/********* 版本检查更新 ***********/
-	public class UpgradeTask extends AsyncTask<Void, Void, CheckVersionResult> {
+	public class UpgradeTask extends AsyncTask<Void, Void, CheckVersionJson> {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 		}
 
 		@Override
-		protected CheckVersionResult doInBackground(Void... params) {
-			//自动登录
-			ShopCartManager.getInstance().readDataFromSavd(getApplicationContext());
-			String sessId = SharedPreferencesUtil.getInstance(getApplicationContext()).getString(Constants.USER_SESSID);
-			if(null != sessId && !TextUtils.isEmpty(sessId)){
-				UserModel um = new UserModel();
-				um.sessId = sessId;
-				UserModelManager.getInstance().setmUser(um);
-			}
-		
+		protected CheckVersionJson doInBackground(Void... params) {
 			
-			CheckVersionResult uj = null;
+			CheckVersionJson uj = null;
 			try {
 				String result = mRequest.queryAppUpdate(getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
 				if(!TextUtils.isEmpty(result)){
-					uj = JSON.parseObject(result, CheckVersionResult.class);
+					uj = JSON.parseObject(result, CheckVersionJson.class);
 				}
 			} catch (Exception e) {
 				Logger.e(getClass().getSimpleName(), "UpgradeTask error", e);
@@ -168,21 +161,21 @@ public class SettingActivity extends BaseSecondActivity {
 		}
 
 		@Override
-		protected void onPostExecute(CheckVersionResult cvr) {
+		protected void onPostExecute(CheckVersionJson cvr) {
 
 			if (null == this || isFinishing())
 				return;
 
 			Message msg = new Message();
-			if (null != cvr && cvr.updateFlag != 0) {
+			if (null != cvr && null != cvr.data && cvr.data.updateFlag != 0) {
 
-				if (cvr.updateFlag == 2) {
+				if (cvr.data.updateFlag == 2) {
 					msg.what = ApnConstants.UPGRADE_FORCE;
-				} else if(cvr.updateFlag == 1){
+				} else if(cvr.data.updateFlag == 1){
 					msg.what = ApnConstants.UPGRADE_ASK;
 				}
 
-				msg.obj = new MsgCarry(cvr.versionCode, cvr.updateUrl, 0);
+				msg.obj = new MsgCarry(cvr.data.versionCode, cvr.data.updateUrl, 0);
 
 			} else {
 				msg.what = ApnConstants.UPGRADE_NORMAL;

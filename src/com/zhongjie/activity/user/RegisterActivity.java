@@ -3,6 +3,7 @@ package com.zhongjie.activity.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,8 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -35,6 +38,7 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 	private static final String SEND_AGAIN = "重新发送";
 	private boolean isStopThread = false;
 	private View mSubmit;
+	private CheckBox mCheckbox;
 	
 	private Handler mTimerHandler = new Handler(){
 		@Override
@@ -68,6 +72,7 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 
 	@Override
 	protected void findViews() {
+		mCheckbox = (CheckBox)findViewById(R.id.act_register_read_me);
 		mPasswordEdit2 = (EditText)findViewById(R.id.act_register_pwd2);
 		mPasswordEdit = (EditText)findViewById(R.id.act_register_pwd);
 		mSubmit = findViewById(R.id.act_register_submit);
@@ -139,6 +144,11 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 		if(!pwd2.equals(pwd)){
 			mPasswordEdit2.setError("两次输入密码不一致");
 			list.add(mPasswordEdit2);
+			flag = false;
+		}
+		
+		if(!mCheckbox.isChecked()){
+			mCheckbox.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake));
 			flag = false;
 		}
 		
@@ -223,7 +233,11 @@ public class RegisterActivity extends BaseSecondActivity implements OnClickListe
 				else{
 					UserModelManager.getInstance().setmUser(result.data);
 					SharedPreferencesUtil.getInstance(getApplicationContext()).saveString(Constants.USER_SESSID, result.data.sessId);
-					goHomeActivity(MainActivity.TAB_4);
+
+					Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+					intent.putExtra(Constants.GO_USERINFO_EDIT, Constants.GO_USERINFO_EDIT);
+					startActivity(intent);
+					finish();
 				}
 			}
 		}
