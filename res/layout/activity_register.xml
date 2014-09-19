@@ -95,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/read_me"
                     android:textSize="12sp"
+                    android:checked="true"
                     style="@style/Common_CheckBox.Pink"/>
                 
                 <Button 
