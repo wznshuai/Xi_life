@@ -29,7 +29,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.zhongjie.MainActivity;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
@@ -195,9 +198,14 @@ public class CommodityDetailsActivity extends BaseSecondActivity implements OnCl
 			
 			mCommodityIntroduce.setText(cdm.detail);
 			if(null != cdm.detailImage && cdm.detailImage.length > 0){
+				DisplayImageOptions op = new DisplayImageOptions.Builder().cacheInMemory(true)
+				.cacheOnDisc(true).displayer(new FadeInBitmapDisplayer(300))
+				.showImageForEmptyUri(R.drawable.ic_default_head)
+				.showImageOnFail(R.drawable.ic_default_head)
+				.imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
 				for(String url : cdm.detailImage){
 					ImageView iv = (ImageView)getLayoutInflater().inflate(R.layout.imageview_commodity_details, mCommodityIntroduceArea, false);
-					ImageLoader.getInstance().displayImage(url, iv);
+					ImageLoader.getInstance().displayImage(url, iv, op);
 					mCommodityIntroduceArea.addView(iv);
 				}
 			}

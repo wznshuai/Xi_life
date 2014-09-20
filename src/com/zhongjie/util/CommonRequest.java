@@ -120,7 +120,7 @@ public class CommonRequest {
 	public String queryCommodityList(String catalogId, int start, int step){
 		HashMap<String, String> data = new HashMap<String, String>();
 		data.put("catalogId", catalogId);
-		data.put("start", start + "");
+		data.put("start", start*step + "");
 		data.put("step", step + "");
 		return mHttpUtil.executeGet(ApiConstants.URL_ESHOP_COMMODITYLIST, data);
 	}
@@ -146,7 +146,7 @@ public class CommonRequest {
 		HashMap<String, String> data = new HashMap<String, String>();
 		data.put("sessId", sessId);
 		data.put("status", status);
-		data.put("start", start + "");
+		data.put("start", start*step + "");
 		data.put("step", step + "");
 		return mHttpUtil.executePost(ApiConstants.URL_ESHOP_USER_ORDER, data);
 	}
@@ -163,7 +163,7 @@ public class CommonRequest {
 		HashMap<String, String> data = new HashMap<String, String>();
 		data.put("sessId", sessId);
 		data.put("status", status);
-		data.put("start", start + "");
+		data.put("start", start*step + "");
 		data.put("step", step + "");
 		return mHttpUtil.executePost(ApiConstants.URL_CLEAN_QUERY_ORDER, data);
 	}
@@ -299,7 +299,7 @@ public class CommonRequest {
 	 */
 	public String queryCleanList(int start, int step){
 		HashMap<String, String> data = new HashMap<String, String>();
-		data.put("start", start + "");
+		data.put("start", start*step + "");
 		data.put("step", step + "");
 		return mHttpUtil.executeGet(ApiConstants.URL_CLEAN_QUERYLIST, data);
 	}
@@ -340,7 +340,7 @@ public class CommonRequest {
 	public String queryRepairHistory(String sessId, int start, int step){
 		HashMap<String, String> data = new HashMap<String, String>();
 		data.put("sessId", sessId);
-		data.put("start", start + "");
+		data.put("start", start*step + "");
 		data.put("step", step + "");
 		return mHttpUtil.executePost(ApiConstants.URL_REPAIR_QUERY, data);
 	}
@@ -354,7 +354,7 @@ public class CommonRequest {
 	public String queryUserIntegral(String sessId, int start, int step){
 		HashMap<String, String> data = new HashMap<String, String>();
 		data.put("sessId", sessId);
-		data.put("start", start + "");
+		data.put("start", start*step + "");
 		data.put("step", step + "");
 		return mHttpUtil.executePost(ApiConstants.URL_USER_COST, data);
 	}
