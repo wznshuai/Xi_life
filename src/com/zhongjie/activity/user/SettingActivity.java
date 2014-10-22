@@ -3,7 +3,6 @@ package com.zhongjie.activity.user;
 import java.io.File;
 import java.text.DecimalFormat;
 
-import CheckVersionModel.CheckVersionJson;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -24,6 +23,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhongjie.ApnConstants;
 import com.zhongjie.R;
 import com.zhongjie.activity.BaseSecondActivity;
+import com.zhongjie.model.CheckVersionJson;
 import com.zhongjie.model.MsgCarry;
 import com.zhongjie.service.UpdateService;
 import com.zhongjie.util.CommonRequest;

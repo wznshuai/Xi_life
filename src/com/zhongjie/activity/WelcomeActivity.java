@@ -2,7 +2,6 @@ package com.zhongjie.activity;
 
 import java.lang.ref.WeakReference;
 
-import CheckVersionModel.CheckVersionJson;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -19,6 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.zhongjie.ApnConstants;
 import com.zhongjie.MainActivity;
 import com.zhongjie.R;
+import com.zhongjie.model.CheckVersionJson;
 import com.zhongjie.model.MsgCarry;
 import com.zhongjie.model.UserModel;
 import com.zhongjie.model.UserModelManager;

@@ -35,6 +35,7 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 	private View mGoRepairs, mGoDryClean, mGoPayment;
 	private int mPagerHeight;
 	private Object lock = new Object();
+	private int[] mAdArray;
 	
 	public static FragmentManagerService newInstance(){
 		if(null == mInstance)
@@ -52,6 +53,14 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+	}
+	
+	@Override
+	protected void initData() {
+		super.initData();
+		mAdArray = new int[2];
+		mAdArray[0] = R.drawable.ic_ad1;
+		mAdArray[1] = R.drawable.ic_ad2;
 	}
 	
 	@Override
@@ -138,12 +147,12 @@ public class FragmentManagerService extends BaseFragment implements OnClickListe
 
 		@Override
 		public Fragment getItem(int arg0) {
-			return new FragmentBigImg(R.drawable.temp_ic_ad);
+			return new FragmentBigImg(mAdArray[arg0]);
 		}
 
 		@Override
 		public int getCount() {
-			return 2;
+			return mAdArray.length;
 		}
 	}
 
